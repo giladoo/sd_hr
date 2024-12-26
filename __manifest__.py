@@ -7,20 +7,14 @@
     'author': 'Arash Homayounfar',
     'company': 'Giladoo',
     'maintainer': 'Giladoo',
-    'website': "https://www.giladoo.com",
+    'website': "https://www.giladoo.com/sdhr",
     'installable': True,
     'auto_install': False,
     'application': False,
     'depends': ['hr'],
     'data': [
-        # 'security/ir.model.access.csv',
         'views/views.xml',
     ],
-    'assets': {
-        'web.assets_backend':[
-            'sd_hr/static/src/components/**/*'
-        ],
 
-    },
     'license': 'LGPL-3',
 }

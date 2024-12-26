@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!--   Menu item for relation_type model.-->
     <menuitem
             id="hr_configuration"
-            name="Extra"
+            name="Extended"
             parent="hr.menu_human_resources_configuration"
             sequence="7"
             groups="base.group_no_one"/>

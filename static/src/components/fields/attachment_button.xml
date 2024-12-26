@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="sd_hr.AddAttachmentButton">
+        <div>
+            <div class="btn btn-primary" t-on-click="onClick">
+                <i class="fa fa-plus-square"/>
+                    Attach files
+            </div>
+        </div>
+        <div class="">
+<!--            <FileUploader multiUpload="true" fileUploadClass="'o-mail-Chatter-fileUploader'" onUploaded.bind="onUploaded"-->
+<!--               onClick="(ev) => this.onClickAttachFile(ev)">-->
+<!--                            <t t-set-slot="toggler">-->
+<!--                                <button class="btn btn-link" type="button"-->
+<!--                                        t-att-disabled="!state.thread.hasWriteAccess">-->
+<!--                                    <i class="fa fa-plus-square"/>-->
+<!--                                    Attach files-->
+<!--                                </button>-->
+<!--                            </t>-->
+<!--            </FileUploader>-->
+<!--            <FileUploader multiUpload="true" fileUploadClass="'o-mail-Chatter-fileUploader'" >-->
+<!--                <t t-set-slot="toggler">-->
+<!--                                <button class="btn btn-link" type="button"-->
+<!--                                        t-att-disabled="0">-->
+<!--                                    <i class="fa fa-plus-square"/>-->
+<!--                                    Attach files-->
+<!--                                </button>-->
+<!--                            </t>-->
+<!--            </FileUploader>-->
+
+        </div>
+        <!--        <div class="o_attachment_image">-->
+        <!--            <img t-if="props.record.data[props.name]" t-attf-src="/web/image/{{ props.record.data[props.name][0] }}?unique=1" t-att-title="!!env.debug and props.record.data[props.name][1]" alt="Image" />-->
+        <!--        </div>-->
+    </t>
+
+</templates>

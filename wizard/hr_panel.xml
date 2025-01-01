@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="panel_wizard" model="ir.ui.view">
+        <field name="name">HR Panel</field>
+        <field name="model">sd_hr.panel</field>
+        <field name="arch" type="xml">
+            <form create="0">
+
+                <div class="oe_button_box" name="button_box" >
+
+                    <button class="oe_stat_button" name="employee_action_view"
+                                type="object" icon="fa-user">
+<!--                            <field string="Employee docs" name="employee_document_count" widget="statinfo"/>-->
+                    </button>
+
+                        <button class="oe_stat_button" name="%(hr.open_view_employee_list_my)d" context="{'active_id': employee_id.id}"
+                                    type="action" icon="fa-users">
+    <!--                            <field string="Employee docs" name="employee_document_count" widget="statinfo"/>-->
+                        </button>
+
+                </div>
+
+
+
+                <div class="row mx-0 p2">
+                    <div class="col-2 p-2">
+                        <field name="employee_id"/>
+                        <div class="text-center">
+                            <field name="image_1920" widget="image" options="{'size': [90, 90]}"/>
+
+                        </div>
+                        <group styel="border-width: 0px !important">
+
+                            <field name="employee_name"/>
+                            <field name="job_title"/>
+                            <field name="department" options="{'no_open': True}" />
+                            <field name="identification_id"/>
+                            <field name="gender"/>
+                            <field name="birthday"/>
+                                        <field name="documents_count" />
+
+                        </group>
+                    </div>
+                    <div class="col-10 p-2">
+                        <notebook>
+                            <page string="General Information">
+                                <group>
+                                    <group>
+
+                                    </group>
+                                </group>
+                                    <field name="helper_field" />
+
+                            </page>
+                            <page string="Relatives">
+                                <field name="relatives" context="{'default_employee_id': employee_id}"
+                                   options="{'unlink': False, }">
+                                <tree>
+                                    <field name="employee_id" column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="relative_type"/>
+                                </tree>
+                            </field>
+                            </page>
+                            <page string="Documents">
+                                <field name="documents" widget="one2many" mode="tree" options="{'unlink': False}"
+                                   context="{'default_employee_id': employee_id}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="relative_id"/>
+                                    <field name="document_type"/>
+                                    <field name="state" widget="badge"
+                                           decoration-info="state == 'draft'"
+                                           decoration-warning="state == 'expiring'"
+                                           decoration-danger="state == 'expired'"/>
+                                </tree>
+
+                            </field>
+                            </page>
+                        </notebook>
+                    </div>
+
+
+
+                </div>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="panel_action" model="ir.actions.act_window">
+        <field name="name">HR Panel</field>
+        <field name="res_model">sd_hr.panel</field>
+        <field name="view_mode">form</field>
+
+    </record>
+
+    <menuitem id="panel_menu"
+              name="HR Panel"
+              parent="hr.menu_hr_employee_payroll"
+              sequence="2"
+              action="panel_action"/>
+
+
+</odoo>

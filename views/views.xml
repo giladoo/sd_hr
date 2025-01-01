@@ -5,7 +5,6 @@
             id="hr_configuration"
             name="Extended"
             parent="hr.menu_human_resources_configuration"
-            sequence="7"
-            groups="base.group_no_one"/>
+            sequence="7"   />
 
 </odoo>

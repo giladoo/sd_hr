@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--   Adding relative details as smart button in employee.-->
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit.employee.relatives.expiry</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <div class="oe_button_box" position="inside">
+                <button class="oe_stat_button" name="%(sd_hr.panel_action)d" groups="hr.group_hr_manager"
+                        type="action" icon="fa-window-restore" context="{'default_employee_id': id}">
+                    Panel
+<!--                    <field string="Relatives" name="relative_count" widget="statinfo"/>-->
+                </button>
+            </div>
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="project_name"/>
+            </xpath>
+            <xpath expr="//field[@name='identification_id']" position="after">
+                <field name="father_name"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+    <record id='project_name_view_tree' model='ir.ui.view'>
+        <field name="name">hr.employee.project_name.view.tree</field>
+        <field name="model">hr.employee.project_name</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_name_action" model="ir.actions.act_window">
+        <field name="name">Employee Project Name</field>
+        <field name="res_model">hr.employee.project_name</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="project_name_menu"
+              name="Project Name"
+              parent="hr.menu_config_employee"
+              sequence="3"
+              action="project_name_action"/>
+
+
+
+
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template  id="hr_panel">
+        <t>
+            <div class="border border-danger">
+                HR PANEL
+            </div>
+
+        </t>
+    </template>
+</odoo>

@@ -11,10 +11,20 @@
     'installable': True,
     'auto_install': False,
     'application': False,
-    'depends': ['hr'],
+    'depends': ['hr', 'sd_hr_relatives'],
     'data': [
+        'security/ir.model.access.csv',
+
+        'views/hr_employee_views.xml',
         'views/views.xml',
+        'wizard/hr_panel_template.xml',
+        'wizard/hr_panel.xml',
     ],
+    'assets':{
+        'web.assets_backend':[
+          'sd_hr/static/src/components/**/*',
+        ],
+    },
 
     'license': 'LGPL-3',
 }

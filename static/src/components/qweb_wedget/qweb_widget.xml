@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="sd_hr.my_qweb_template">
+        <div class="border border-danger">
+                my_qweb_template
+            </div>
+    </t>
+
+</templates>

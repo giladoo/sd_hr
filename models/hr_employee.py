@@ -6,7 +6,7 @@ class SdHrHrEmployee(models.Model):
 
     project_name = fields.Many2one('hr.employee.project_name')
     father_name = fields.Char(translate=True)
-
+    personal_title = fields.Many2one('res.partner.title')
 
 
 

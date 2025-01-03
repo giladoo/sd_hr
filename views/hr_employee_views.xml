@@ -19,6 +19,10 @@
             <xpath expr="//field[@name='identification_id']" position="after">
                 <field name="father_name"/>
             </xpath>
+            <xpath expr="//field[@name='gender']" position="after">
+                <field name="personal_title" options="{'no_create_edit': True, 'no_open': True}"/>
+            </xpath>
+
         </field>
     </record>
 

@@ -16,6 +16,7 @@
         'security/ir.model.access.csv',
 
         'views/hr_employee_views.xml',
+        'views/variables_views.xml',
         'views/views.xml',
         'wizard/hr_panel_template.xml',
         'wizard/hr_panel.xml',

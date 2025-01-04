@@ -1,0 +1,304 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sd_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-04 13:48+0000\n"
+"PO-Revision-Date: 2025-01-04 17:27+0330\n"
+"Last-Translator: Arash Homayounfar <homayounfar@msn.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"Language: fa_IR\n"
+"X-Generator: Poedit 2.2\n"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "2 digits"
+msgstr "2 رقم"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "6 digits"
+msgstr "6 رقم"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__birth_cert_no
+msgid "Birth Cert No"
+msgstr "شماره شناسنامه"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__birth_cert_s_1
+msgid "Birth Cert S 1"
+msgstr "سریال شناسنامه"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__birth_cert_s_2
+msgid "Birth Cert S 2"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__birth_cert_s_3
+msgid "Birth Cert S 3"
+msgstr ""
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Birth Cert SN"
+msgstr "سریال شناسنامه"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Citizenship"
+msgstr "شهروندی"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "City"
+msgstr "شهر"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Country"
+msgstr "کشور"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__create_uid
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__create_date
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__display_name
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/wizard/hr_panel.py:0
+#: code:addons/sd_hr/wizard/hr_panel.py:0
+#, python-format
+msgid "Documents"
+msgstr "مستندات"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Education"
+msgstr "تحصیلات"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Email"
+msgstr "ایمیل"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Emergency"
+msgstr "اضطراری"
+
+#. module: sd_hr
+#: model:ir.model,name:sd_hr.model_hr_employee
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__employee_id
+msgid "Employee"
+msgstr "کارمند"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__employee_name
+msgid "Employee Name"
+msgstr "نام کارمند"
+
+#. module: sd_hr
+#: model:ir.ui.menu,name:sd_hr.hr_configuration
+msgid "Extended"
+msgstr "گسترش یافته"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Family Status"
+msgstr "خانواده"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__father_name
+msgid "Father Name"
+msgstr "نام پدر"
+
+#. module: sd_hr
+#: model:ir.model.fields.selection,name:sd_hr.selection__sd_hr_variables__value_source__function
+msgid "Function"
+msgstr "تابع"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "General Info"
+msgstr "اطلاعات عمومی"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "HR Settings"
+msgstr "تنظیمات منابع انسانی"
+
+#. module: sd_hr
+#: model:ir.model.fields.selection,name:sd_hr.selection__sd_hr_variables__value_type__html
+msgid "HTML"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__id
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__id
+msgid "ID"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model,name:sd_hr.model_sd_hr_variables
+msgid "Keep odoo variables"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__write_uid
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__write_date
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Letter, eg. B"
+msgstr "الفبا (ب)"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Location"
+msgstr "مکان"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__model_id
+#: model_terms:ir.ui.view,arch_db:sd_hr.report_variable_search
+msgid "Model"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__model_res_id
+msgid "Model Res"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields.selection,name:sd_hr.selection__sd_hr_variables__value_type__number
+msgid "Number"
+msgstr "شماره"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__personal_title
+msgid "Personal Title"
+msgstr "لقب"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Phone"
+msgstr ""
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Private Address"
+msgstr "آدرس شخصی"
+
+#. module: sd_hr
+#: model:ir.actions.act_window,name:sd_hr.report_variables
+#: model:ir.ui.menu,name:sd_hr.report_variable_menu
+msgid "Report Variables"
+msgstr ""
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.report_variable_search
+msgid "Source"
+msgstr ""
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "State"
+msgstr "وضعیت"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Street 2..."
+msgstr "خیابان 2 ..."
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Street..."
+msgstr "خیابان"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.report_variable_search
+msgid "Template"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields.selection,name:sd_hr.selection__sd_hr_variables__value_source__text
+#: model:ir.model.fields.selection,name:sd_hr.selection__sd_hr_variables__value_type__text
+msgid "Text"
+msgstr ""
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.report_variable_search
+msgid "Type"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__value_function
+msgid "Value Function"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__value_source
+msgid "Value Source"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__value_text
+msgid "Value Text"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__value_type
+msgid "Value Type"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__variable
+msgid "Variable"
+msgstr ""
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "ZIP"
+msgstr "کد پستی"
+
+#. module: sd_hr
+#. odoo-javascript
+#: code:addons/custom/addons/sd_hr/static/src/components/qweb_wedget/qweb_widget.xml:0
+#: code:addons/sd_hr/static/src/components/qweb_wedget/qweb_widget.xml:0
+#, python-format
+msgid "my_qweb_template"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model,name:sd_hr.model_sd_hr_panel
+msgid "sd_hr.panel"
+msgstr ""

@@ -57,7 +57,7 @@
                         </group>
                         <group>
                             <separator string="HR Settings"/>
-                            <field name="employee_no"/>
+                            <field name="barcode"/>
                             <field name="ssnid"/>
                             <field name="employee_type"/>
                             <field name="user_id"/>

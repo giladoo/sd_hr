@@ -10,20 +10,24 @@ class SdHrPanel(models.TransientModel):
 
     employee_id = fields.Many2one('hr.employee', default=lambda self: self.env.context.get('default_employee_id', False))
     employee_name = fields.Char(related='employee_id.name')
-    job_title = fields.Char(related='employee_id.job_title')
-    department = fields.Many2one(related='employee_id.department_id')
-    identification_id = fields.Char(related='employee_id.identification_id')
-    birthday = fields.Date(related='employee_id.birthday')
-    gender = fields.Selection(related='employee_id.gender')
-    image_1920 = fields.Image(related='employee_id.image_1920')
-    # relatives_1 = fields.One2many('sd_hr_relatives.members', 'employee_id' )
-    employee_user_id = fields.Html()
-    relatives = fields.Many2many('sd_hr_relatives.members', domain="[('employee_id', '=', employee_id)]" )
+    # job_title = fields.Char(related='employee_id.job_title')
+    # department = fields.Many2one(related='employee_id.department_id')
+    # identification_id = fields.Char(related='employee_id.identification_id')
+    # birthday = fields.Date(related='employee_id.birthday')
+    # gender = fields.Selection(related='employee_id.gender')
+    # image_1920 = fields.Image(related='employee_id.image_1920')
+    # # relatives_1 = fields.One2many('sd_hr_relatives.members', 'employee_id' )
+    # employee_user_id = fields.Html()
+    # relatives = fields.Many2many('sd_hr_relatives.members', domain="[('employee_id', '=', employee_id)]" )
+    #
+    # documents = fields.Many2many('sd_hr_documents.attachments', domain="[('employee_id', '=', employee_id)]" )
+    # documents_count = fields.Integer(compute='_documents_count', store=False)
+    #
+    # helper_field = fields.Boolean(default=True, compute='_compute_helper_field')
 
-    documents = fields.Many2many('sd_hr_documents.attachments', domain="[('employee_id', '=', employee_id)]" )
-    documents_count = fields.Integer(compute='_documents_count', store=False)
 
-    helper_field = fields.Boolean(default=True, compute='_compute_helper_field')
+
+
     # @api.onchange('documents')
     @api.onchange('employee_id')
     def _documents_count(self):

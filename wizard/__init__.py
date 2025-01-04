@@ -1,1 +1,1 @@
-# from . import hr_panel
+from . import hr_panel

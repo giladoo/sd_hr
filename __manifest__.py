@@ -11,15 +11,15 @@
     'installable': True,
     'auto_install': False,
     'application': False,
-    'depends': ['hr', 'sd_hr_relatives'],
+    'depends': ['hr', 'sd_hr_relatives', 'sd_projects'],
     'data': [
         'security/ir.model.access.csv',
 
+        'wizard/hr_panel_template.xml',
+        'wizard/hr_panel.xml',
         'views/hr_employee_views.xml',
         'views/variables_views.xml',
         'views/views.xml',
-        'wizard/hr_panel_template.xml',
-        'wizard/hr_panel.xml',
     ],
     'assets':{
         'web.assets_backend':[

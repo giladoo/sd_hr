@@ -1,5 +1,4 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_sd_hr_panel_manager,sd_hr.panel,model_sd_hr_panel,hr.group_hr_manager,1,1,1,1
-access_hr_employee_project_name_manager,hr.employee.project_name,model_hr_employee_project_name,hr.group_hr_manager,1,1,1,1
 access_sd_hr_variables_manager,sd_hr.variables,model_sd_hr_variables,base.group_system,1,1,1,1
 

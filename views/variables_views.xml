@@ -21,9 +21,9 @@
                     <separator/>
 
                     <group>
-                        <field name="variable"/>
+                        <field name="variable" class="o_force_ltr"/>
                         <field name="value_text" invisible="value_source == 'function'"/>
-                        <field name="value_function" invisible="value_source == 'text'"/>
+                        <field name="value_function" invisible="value_source == 'text'" class="o_force_ltr"/>
 
                     </group>
 

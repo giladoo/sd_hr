@@ -6,13 +6,7 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-<!--            <div class="oe_button_box" position="inside">-->
-<!--                <button class="oe_stat_button" name="%(sd_hr.panel_action)d" groups="hr.group_hr_manager"-->
-<!--                        type="action" icon="fa-window-restore" context="{'default_employee_id': id}">-->
-<!--                    Panel-->
-<!--                    &lt;!&ndash;                    <field string="Relatives" name="relative_count" widget="statinfo"/>&ndash;&gt;-->
-<!--                </button>-->
-<!--            </div>-->
+
 
             <xpath expr="//field[@name='identification_id']" position="after">
                 <field name="father_name"/>

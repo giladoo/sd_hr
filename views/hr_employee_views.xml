@@ -68,7 +68,7 @@
 
                             <separator string="Family Status"/>
                             <field name="marital"/>
-                            <field name="children" invisible="marital != 'married'"/>
+                            <field name="children"/>
                         </group>
 
                     </group>

@@ -20,6 +20,7 @@
         'views/hr_employee_views.xml',
         'views/variables_views.xml',
         'views/views.xml',
+        'data/barcode_sequence.xml',
     ],
     'assets':{
         'web.assets_backend':[

@@ -11,3 +11,7 @@ class SdHrHrEmployee(models.Model):
     birth_cert_s_2 = fields.Char()
     birth_cert_s_3 = fields.Char()
 
+    def generate_barcode(self):
+        self.barcode = self.env['ir.sequence'].next_by_code('sd_hr.employee.barcode') or ''
+        # print(f"\n self: {self.name} {self.barcode}\n")
+

@@ -51,7 +51,13 @@
                         </group>
                         <group>
                             <separator string="HR Settings"/>
-                            <field name="barcode"/>
+                            <lable for="barcode"/>
+                            <div class="o_row">
+                                <field name="barcode"/>
+                                <button string="Generate" class="btn btn-link" type="object"
+                                        name="generate_barcode" invisible="0"/>
+
+                            </div>
                             <field name="ssnid"/>
                             <field name="employee_type"/>
                             <field name="user_id"/>

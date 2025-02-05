@@ -55,17 +55,17 @@
                             <page string="Relatives">
                                 <field name="relatives" context="{'default_employee_id': employee_id}"
                                    options="{'unlink': False, }">
-                                <tree>
+                                <list>
                                     <field name="employee_id" column_invisible="1"/>
                                     <field name="name"/>
 <!--                                    <field name="relative_type"/>-->
-                                </tree>
+                                </list>
                             </field>
                             </page>
                             <page string="Documents">
-                                <field name="documents" widget="one2many" mode="tree" options="{'unlink': False}"
+                                <field name="documents" widget="one2many" mode="list" options="{'unlink': False}"
                                    context="{'default_employee_id': employee_id}">
-                                <tree>
+                                <list>
                                     <field name="name"/>
 <!--                                    <field name="relative_id"/>-->
 <!--                                    <field name="document_type"/>-->
@@ -73,7 +73,7 @@
                                            decoration-info="state == 'draft'"
                                            decoration-warning="state == 'expiring'"
                                            decoration-danger="state == 'expired'"/>
-                                </tree>
+                                </list>
 
                             </field>
                             </page>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'SD HR',
-    'version': '17.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Human Resources',
     'summary': """ It works as base module for HR extended modules """,
     'author': 'Arash Homayounfar',

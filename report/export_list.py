@@ -58,7 +58,7 @@ class PartnerXlsx(models.AbstractModel):
         sheet.right_to_left()
         # sheet.set_column(0, 30, 15)
 
-        header_format = workbook.add_format({'font_name': "B Nazanin", 'bold': True, 'align': 'center',})
+        header_format = workbook.add_format({'font_name': "B Nazanin", 'bold': True, 'align': 'center','color': "#ffffff", 'fg_color': "#888888"})
         header_format.set_font('B Nazanin')
         header_format.set_font_family(0)
         header_format.set_font_charset(178)

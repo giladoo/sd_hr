@@ -22,6 +22,7 @@ HEADERS = [_('Employee No'),
            _('Private Address'),
            _('Work Mobile'),
            _('Place of Birth'),
+           _('Bank Name'),
            _('Bank Account no'),
            _('Bank Account Shaba'),
            ]
@@ -39,6 +40,7 @@ EMPLOYEE_FIELDS = ['barcode',
                    'private_street',
                    'mobile_phone',
                    'place_of_birth',
+                   'bank_name',
                    'bank_account_no',
                    'bank_account_shaba',
 
@@ -62,7 +64,7 @@ class PartnerXlsx(models.AbstractModel):
         row_format.set_font_charset(178)
 
         for col, header in enumerate(HEADERS):
-            sheet.write(0, col, header, header_format)
+            sheet.write(0, col, _(header), header_format)
         all_records = []
         for row, employee in enumerate(employees):
             records = {}

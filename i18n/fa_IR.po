@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 17.0e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-18 09:57+0000\n"
-"PO-Revision-Date: 2025-02-18 13:31+0330\n"
+"PO-Revision-Date: 2025-02-18 13:39+0330\n"
 "Last-Translator: Arash Homayounfar <homayounfar@msn.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr "نام بانک"
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__birth_cert_no
 #, python-format
 msgid "Birth Cert No"
-msgstr ""
+msgstr "شماره شناسنامه"
 
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__birth_cert_s_1

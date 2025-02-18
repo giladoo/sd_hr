@@ -87,7 +87,7 @@ class PartnerXlsx(models.AbstractModel):
 
         ic(all_records)
         for i, rec in enumerate(EMPLOYEE_FIELDS):
-            rec_len = max(list([len(str(r[rec])) for r in all_records]) + [len(str(rec))])
+            rec_len = max(list([len(str(r[rec]).strip()) for r in all_records]) + [len(str(rec))])
             sheet.set_column(i, i, rec_len + 2, row_format)
 
         # sheet.autofit()

@@ -69,8 +69,12 @@ class PartnerXlsx(models.AbstractModel):
             for col, rec in enumerate(EMPLOYEE_FIELDS):
                 rec_data = employee[rec] if employee._fields.get(rec) else False
                 value = ''
+
                 if not rec_data:
-                    value = ''
+                    if rec in ['children']:
+                        value = 0
+                    else:
+                        value = ''
                 elif rec_data and isinstance(rec_data, (date, datetime)):
                     # ic(rec_data)
                     value = jdatejs(rec_data)

@@ -7,10 +7,10 @@ from icecream import ic
 class SdHrHrEmployee(models.Model):
     _inherit = ['hr.employee']
 
-    back_name = fields.Char()
-    back_account_no = fields.Char()
-    back_account_shaba = fields.Char()
-    back_card_no = fields.Char()
+    bank_name = fields.Char()
+    bank_account_no = fields.Char()
+    bank_account_shaba = fields.Char()
+    bank_card_no = fields.Char()
 
     father_name = fields.Char(translate=True)
     personal_title = fields.Many2one('res.partner.title')

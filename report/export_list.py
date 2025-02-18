@@ -10,30 +10,32 @@ from odoo import http
 from icecream import ic
 HEADERS = [_('Employee No'),
            _('Name'),
+           _('Father Name'),
            _('Identification Id'),
            _('Gender'),
            _('Start Date'),
            _('Birth Day'),
            _('Birth Cert No'),
+           _('SSN ID'),
            _('Marital'),
            _('Children'),
-           _('Father Name'),
-           _('Work Mobile'),
            _('Private Address'),
+           _('Work Mobile'),
            _('Place of Birth'),
            _('Bank Account no'),
            _('Bank Account Shaba'),
            ]
 EMPLOYEE_FIELDS = ['barcode',
                    'name',
+                   'father_name',
                    'identification_id',
                    'gender',
                    'start_date',
                    'birthday',
                    'birth_cert_no',
+                   'ssnid',
                    'marital',
                    'children',
-                   'father_name',
                    'private_street',
                    'mobile_phone',
                    'place_of_birth',
@@ -51,15 +53,19 @@ class PartnerXlsx(models.AbstractModel):
 
     def generate_xlsx_report(self, workbook, data, employees):
         sheet = workbook.add_worksheet(_('Employee List'))
-        sheet.set_column(0, 30, 15)
-        header_format = workbook.add_format({'bold': True})
-        header_format.set_font_name('B Nazanin')
-        row_format = workbook.add_format({'bold': False})
-        row_format.set_font_name('B Nazanin')
+        sheet.right_to_left()
+        # sheet.set_column(0, 30, 15)
+        header_format = workbook.add_format({'font_name': "B Nazanin", 'bold': True, 'align': 'center',})
+        row_format = workbook.add_format({'font_name': "B Nazanin", 'align': 'center',})
+        row_format.set_font('B Nazanin')
+        row_format.set_font_family(0)
+        row_format.set_font_charset(178)
+
         for col, header in enumerate(HEADERS):
             sheet.write(0, col, header, header_format)
-
+        all_records = []
         for row, employee in enumerate(employees):
+            records = {}
             for col, rec in enumerate(EMPLOYEE_FIELDS):
                 rec_data = employee[rec] if employee._fields.get(rec) else False
                 value = ''
@@ -73,9 +79,16 @@ class PartnerXlsx(models.AbstractModel):
 
                 else:
                     value = rec_data
+                records[rec] = value
 
-                sheet.write(row + 1, col, value, row_format)
 
+                sheet.write(row + 1, col, value)
+            all_records.append(records)
+
+        ic(all_records)
+        for i, rec in enumerate(EMPLOYEE_FIELDS):
+            rec_len = max(list([len(str(r[rec])) for r in all_records]) + [len(str(rec))])
+            sheet.set_column(i, i, rec_len + 2, row_format)
 
         # sheet.autofit()
 

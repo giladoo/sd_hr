@@ -6,16 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-04 13:48+0000\n"
-"PO-Revision-Date: 2025-01-04 17:27+0330\n"
+"POT-Creation-Date: 2025-02-18 09:57+0000\n"
+"PO-Revision-Date: 2025-02-18 13:31+0330\n"
 "Last-Translator: Arash Homayounfar <homayounfar@msn.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"Plural-Forms: \n"
 "Language: fa_IR\n"
 "X-Generator: Poedit 2.2\n"
+
+#. module: sd_hr
+#: model:ir.actions.report,print_report_name:sd_hr.export_list_report
+msgid "'Employee-%s' % object.name "
+msgstr ""
 
 #. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
@@ -28,14 +33,60 @@ msgid "6 digits"
 msgstr "6 رقم"
 
 #. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__age
+msgid "Age"
+msgstr "سن"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Bank Account"
+msgstr "حساب بانکی"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__bank_account_no
+msgid "Bank Account No"
+msgstr "شماره حساب"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__bank_account_shaba
+#, python-format
+msgid "Bank Account Shaba"
+msgstr "شماره  شبا"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Bank Account no"
+msgstr "شماره حساب"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__bank_card_no
+msgid "Bank Card No"
+msgstr "شماره کارت بانکی"
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__bank_name
+msgid "Bank Name"
+msgstr "نام بانک"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__birth_cert_no
+#, python-format
 msgid "Birth Cert No"
-msgstr "شماره شناسنامه"
+msgstr ""
 
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__birth_cert_s_1
 msgid "Birth Cert S 1"
-msgstr "سریال شناسنامه"
+msgstr ""
 
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__birth_cert_s_2
@@ -53,6 +104,22 @@ msgid "Birth Cert SN"
 msgstr "سریال شناسنامه"
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Birth Day"
+msgstr "تاریخ تولد"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Children"
+msgstr "فرزندان"
+
+#. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
 msgid "Citizenship"
 msgstr "شهروندی"
@@ -68,18 +135,21 @@ msgid "Country"
 msgstr "کشور"
 
 #. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_export__create_uid
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__create_uid
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_export__create_date
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__create_date
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_export__display_name
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__display_name
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__display_name
 msgid "Display Name"
@@ -115,9 +185,30 @@ msgid "Employee"
 msgstr "کارمند"
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Employee List"
+msgstr "لیست کارمندان"
+
+#. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__employee_name
 msgid "Employee Name"
 msgstr "نام کارمند"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Employee No"
+msgstr "شماره پرسنلی"
+
+#. module: sd_hr
+#: model:ir.actions.report,name:sd_hr.export_list_report
+msgid "Export List"
+msgstr "دریافت لیست"
 
 #. module: sd_hr
 #: model:ir.ui.menu,name:sd_hr.hr_configuration
@@ -130,7 +221,11 @@ msgid "Family Status"
 msgstr "خانواده"
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__father_name
+#, python-format
 msgid "Father Name"
 msgstr "نام پدر"
 
@@ -140,9 +235,22 @@ msgid "Function"
 msgstr "تابع"
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Gender"
+msgstr "جنسیت"
+
+#. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
 msgid "General Info"
 msgstr "اطلاعات عمومی"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Generate"
+msgstr "ایجاد"
 
 #. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
@@ -155,10 +263,19 @@ msgid "HTML"
 msgstr ""
 
 #. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_export__id
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__id
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__id
 msgid "ID"
 msgstr ""
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Identification Id"
+msgstr "کد ملی"
 
 #. module: sd_hr
 #: model:ir.model,name:sd_hr.model_sd_hr_variables
@@ -166,12 +283,14 @@ msgid "Keep odoo variables"
 msgstr ""
 
 #. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_export__write_uid
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__write_uid
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_sd_hr_export__write_date
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__write_date
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__write_date
 msgid "Last Updated on"
@@ -188,6 +307,14 @@ msgid "Location"
 msgstr "مکان"
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Marital"
+msgstr "وضعیت تاهل"
+
+#. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__model_id
 #: model_terms:ir.ui.view,arch_db:sd_hr.report_variable_search
 msgid "Model"
@@ -199,6 +326,14 @@ msgid "Model Res"
 msgstr ""
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Name"
+msgstr "نام"
+
+#. module: sd_hr
 #: model:ir.model.fields.selection,name:sd_hr.selection__sd_hr_variables__value_type__number
 msgid "Number"
 msgstr "شماره"
@@ -206,15 +341,27 @@ msgstr "شماره"
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__personal_title
 msgid "Personal Title"
-msgstr "لقب"
-
-#. module: sd_hr
-#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
-msgid "Phone"
 msgstr ""
 
 #. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Phone"
+msgstr "تلفن"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Place of Birth"
+msgstr "محل تولد"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+#, python-format
 msgid "Private Address"
 msgstr "آدرس شخصی"
 
@@ -225,9 +372,25 @@ msgid "Report Variables"
 msgstr ""
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "SSN ID"
+msgstr "شماره بیمه"
+
+#. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.report_variable_search
 msgid "Source"
 msgstr ""
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Start Date"
+msgstr "تاریخ شروع"
 
 #. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
@@ -286,6 +449,14 @@ msgid "Variable"
 msgstr ""
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+#, python-format
+msgid "Work Mobile"
+msgstr "شماره موبایل"
+
+#. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
 msgid "ZIP"
 msgstr "کد پستی"
@@ -296,6 +467,16 @@ msgstr "کد پستی"
 #: code:addons/sd_hr/static/src/components/qweb_wedget/qweb_widget.xml:0
 #, python-format
 msgid "my_qweb_template"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model,name:sd_hr.model_report_sd_hr_export_list
+msgid "report.sd_hr.export_list"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model,name:sd_hr.model_sd_hr_export
+msgid "sd_hr.export"
 msgstr ""
 
 #. module: sd_hr

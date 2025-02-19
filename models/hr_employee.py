@@ -7,7 +7,7 @@ from icecream import ic
 class SdHrHrEmployee(models.Model):
     _inherit = ['hr.employee']
 
-    certificate = fields.Selection([
+    certificate = fields.Selection(selection_add=[
         ('under_diploma', _('Under Diploma')),
         ('diploma', _('Diploma')),
         ('associate', _('Associate')),

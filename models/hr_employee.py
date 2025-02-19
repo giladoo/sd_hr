@@ -4,6 +4,12 @@ from odoo import models, fields, api, _
 class SdHrHrEmployee(models.Model):
     _inherit = 'hr.employee'
 
+    certificate = fields.Selection([
+        ('under_diploma', _('Under Diploma')),
+        ('diploma', _('Diploma')),
+        ('associate', _('Associate')),
+    ])
+
     father_name = fields.Char(translate=True)
     personal_title = fields.Many2one('res.partner.title')
     birth_cert_no = fields.Char()

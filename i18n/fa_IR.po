@@ -4,18 +4,23 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0e\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-04 13:48+0000\n"
-"PO-Revision-Date: 2025-01-04 17:27+0330\n"
+"POT-Creation-Date: 2025-02-19 14:57+0000\n"
+"PO-Revision-Date: 2025-02-19 18:29+0330\n"
 "Last-Translator: Arash Homayounfar <homayounfar@msn.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"Language: fa_IR\n"
+"Plural-Forms: \n"
+"Language: fa\n"
 "X-Generator: Poedit 2.2\n"
+
+#. module: sd_hr
+#: model:ir.actions.report,print_report_name:sd_hr.export_list_report
+msgid "'Employee-%s' % object.name "
+msgstr ""
 
 #. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
@@ -28,6 +33,17 @@ msgid "6 digits"
 msgstr "6 رقم"
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/models/hr_employee.py:0
+#: code:addons/sd_hr/models/hr_employee.py:0
+#: model:ir.model.fields.selection,name:sd_hr.selection__hr_employee__certificate__associate
+msgid "Associate"
+msgstr "فوق دیپلم"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__birth_cert_no
 msgid "Birth Cert No"
 msgstr "شماره شناسنامه"
@@ -51,6 +67,25 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
 msgid "Birth Cert SN"
 msgstr "سریال شناسنامه"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Birth Day"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__certificate
+msgid "Certificate Level"
+msgstr "سطح گواهینامه"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Children"
+msgstr ""
 
 #. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
@@ -80,6 +115,14 @@ msgid "Created on"
 msgstr ""
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/models/hr_employee.py:0
+#: code:addons/sd_hr/models/hr_employee.py:0
+#: model:ir.model.fields.selection,name:sd_hr.selection__hr_employee__certificate__diploma
+msgid "Diploma"
+msgstr "دیپلم"
+
+#. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__display_name
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__display_name
 msgid "Display Name"
@@ -87,9 +130,8 @@ msgstr ""
 
 #. module: sd_hr
 #. odoo-python
-#: code:addons/custom/addons/sd_hr/wizard/hr_panel.py:0
+#: code:addons/custom/addons-kpe/sd_hr/wizard/hr_panel.py:0
 #: code:addons/sd_hr/wizard/hr_panel.py:0
-#, python-format
 msgid "Documents"
 msgstr "مستندات"
 
@@ -115,9 +157,28 @@ msgid "Employee"
 msgstr "کارمند"
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Employee List"
+msgstr ""
+
+#. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__employee_name
 msgid "Employee Name"
 msgstr "نام کارمند"
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Employee No"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.actions.report,name:sd_hr.export_list_report
+msgid "Export List"
+msgstr ""
 
 #. module: sd_hr
 #: model:ir.ui.menu,name:sd_hr.hr_configuration
@@ -130,6 +191,9 @@ msgid "Family Status"
 msgstr "خانواده"
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__father_name
 msgid "Father Name"
 msgstr "نام پدر"
@@ -140,9 +204,21 @@ msgid "Function"
 msgstr "تابع"
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Gender"
+msgstr ""
+
+#. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
 msgid "General Info"
 msgstr "اطلاعات عمومی"
+
+#. module: sd_hr
+#: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
+msgid "Generate"
+msgstr ""
 
 #. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
@@ -158,6 +234,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_panel__id
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__id
 msgid "ID"
+msgstr ""
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Identification Id"
 msgstr ""
 
 #. module: sd_hr
@@ -188,6 +271,13 @@ msgid "Location"
 msgstr "مکان"
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Marital"
+msgstr ""
+
+#. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__model_id
 #: model_terms:ir.ui.view,arch_db:sd_hr.report_variable_search
 msgid "Model"
@@ -196,6 +286,13 @@ msgstr ""
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__model_res_id
 msgid "Model Res"
+msgstr ""
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Name"
 msgstr ""
 
 #. module: sd_hr
@@ -214,6 +311,16 @@ msgid "Phone"
 msgstr ""
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Place of Birth"
+msgstr ""
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
 msgid "Private Address"
 msgstr "آدرس شخصی"
@@ -225,8 +332,22 @@ msgid "Report Variables"
 msgstr ""
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "SSN ID"
+msgstr ""
+
+#. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.report_variable_search
 msgid "Source"
+msgstr ""
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Start Date"
 msgstr ""
 
 #. module: sd_hr
@@ -261,6 +382,14 @@ msgid "Type"
 msgstr ""
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/models/hr_employee.py:0
+#: code:addons/sd_hr/models/hr_employee.py:0
+#: model:ir.model.fields.selection,name:sd_hr.selection__hr_employee__certificate__under_diploma
+msgid "Under Diploma"
+msgstr "زیر دیپلم"
+
+#. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__value_function
 msgid "Value Function"
 msgstr ""
@@ -286,16 +415,27 @@ msgid "Variable"
 msgstr ""
 
 #. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons-kpe/sd_hr/report/export_list.py:0
+#: code:addons/sd_hr/report/export_list.py:0
+msgid "Work Mobile"
+msgstr ""
+
+#. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
 msgid "ZIP"
 msgstr "کد پستی"
 
 #. module: sd_hr
 #. odoo-javascript
-#: code:addons/custom/addons/sd_hr/static/src/components/qweb_wedget/qweb_widget.xml:0
+#: code:addons/custom/addons-kpe/sd_hr/static/src/components/qweb_wedget/qweb_widget.xml:0
 #: code:addons/sd_hr/static/src/components/qweb_wedget/qweb_widget.xml:0
-#, python-format
 msgid "my_qweb_template"
+msgstr ""
+
+#. module: sd_hr
+#: model:ir.model,name:sd_hr.model_report_sd_hr_export_list
+msgid "report.sd_hr.export_list"
 msgstr ""
 
 #. module: sd_hr

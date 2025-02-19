@@ -4,8 +4,8 @@ from odoo import models, fields, api, _
 class SdHrHrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    certificate = fields.Selection([
-        ('under_diploma', _('Under Diploma')),
+    certificate = fields.Selection(
+        selection_add=[('under_diploma', _('Under Diploma')),
         ('diploma', _('Diploma')),
         ('associate', _('Associate')),
     ])

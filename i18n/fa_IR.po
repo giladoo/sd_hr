@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-18 10:23+0000\n"
-"PO-Revision-Date: 2025-02-18 13:55+0330\n"
+"POT-Creation-Date: 2025-02-19 15:03+0000\n"
+"PO-Revision-Date: 2025-02-19 18:34+0330\n"
 "Last-Translator: Arash Homayounfar <homayounfar@msn.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -35,17 +35,26 @@ msgstr "6 رقم"
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__age
 msgid "Age"
-msgstr "سن"
+msgstr ""
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/models/hr_employee.py:0
+#: code:addons/sd_hr/models/hr_employee.py:0
+#: model:ir.model.fields.selection,name:sd_hr.selection__hr_employee__certificate__associate
+#, python-format
+msgid "Associate"
+msgstr "فوق دیپلم"
 
 #. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.view_employee_form
 msgid "Bank Account"
-msgstr "شماره حساب"
+msgstr "حساب بانکی"
 
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__bank_account_no
 msgid "Bank Account No"
-msgstr "شماره حساب"
+msgstr ""
 
 #. module: sd_hr
 #. odoo-python
@@ -67,7 +76,7 @@ msgstr "شماره حساب"
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__bank_card_no
 msgid "Bank Card No"
-msgstr "شماره کارت بانکی"
+msgstr ""
 
 #. module: sd_hr
 #. odoo-python
@@ -116,6 +125,11 @@ msgid "Birth Day"
 msgstr "تاریخ تولد"
 
 #. module: sd_hr
+#: model:ir.model.fields,field_description:sd_hr.field_hr_employee__certificate
+msgid "Certificate Level"
+msgstr ""
+
+#. module: sd_hr
 #. odoo-python
 #: code:addons/custom/addons/sd_hr/report/export_list.py:0
 #: code:addons/sd_hr/report/export_list.py:0
@@ -151,6 +165,15 @@ msgstr ""
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__create_date
 msgid "Created on"
 msgstr ""
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/models/hr_employee.py:0
+#: code:addons/sd_hr/models/hr_employee.py:0
+#: model:ir.model.fields.selection,name:sd_hr.selection__hr_employee__certificate__diploma
+#, python-format
+msgid "Diploma"
+msgstr "دیپلم"
 
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_export__display_name
@@ -426,6 +449,15 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sd_hr.report_variable_search
 msgid "Type"
 msgstr ""
+
+#. module: sd_hr
+#. odoo-python
+#: code:addons/custom/addons/sd_hr/models/hr_employee.py:0
+#: code:addons/sd_hr/models/hr_employee.py:0
+#: model:ir.model.fields.selection,name:sd_hr.selection__hr_employee__certificate__under_diploma
+#, python-format
+msgid "Under Diploma"
+msgstr "زیر دیپلم"
 
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_sd_hr_variables__value_function

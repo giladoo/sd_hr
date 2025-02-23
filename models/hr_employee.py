@@ -5,10 +5,16 @@ class SdHrHrEmployee(models.Model):
     _inherit = 'hr.employee'
 
     certificate = fields.Selection(
-        selection_add=[('under_diploma', _('Under Diploma')),
-        ('diploma', _('Diploma')),
-        ('associate', _('Associate')),
-    ])
+        selection_add=[('under_diploma', 'Under Diploma'),
+        ('diploma', 'Diploma'),
+        ('associate', 'Associate'),
+    ],)
+
+    # certificate = fields.Selection(
+    #     selection_add=[('under_diploma', _('Under Diploma')),
+    #     ('diploma', _('Diploma')),
+    #     ('associate', _('Associate')),
+    # ], translate=True)
 
     father_name = fields.Char(translate=True)
     personal_title = fields.Many2one('res.partner.title')

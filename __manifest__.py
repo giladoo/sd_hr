@@ -3,7 +3,7 @@
     'name': 'SD HR',
     'version': '18.0.1.0.1',
     'category': 'Human Resources',
-    'summary': """ It works as base module for HR extended modules """,
+    'summary': """ It works as base module for HR extended 1 modules """,
     'author': 'Arash Homayounfar',
     'company': 'Giladoo',
     'maintainer': 'Giladoo',

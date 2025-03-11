@@ -15,3 +15,10 @@ class SdHrVariables(models.Model):
                                         default="text", required=True)
     value_text = fields.Text(copy=False)
     value_function = fields.Text(copy=False)
+    value_fonts = fields.Selection([('b_nazanin', 'B Nazanin'),
+                                    ('b_titr', 'B Titr'),
+                                    ('b_zar', 'B Zar'),
+                                    ('b_yagut', 'B Yagut'),
+                                    ('b_yekan', 'B Yekan'),
+                                    ('arial', 'Arial'),
+                                    ], required=True, default='b_nazanin')

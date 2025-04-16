@@ -28,7 +28,7 @@
                 <field name="personal_title" options="{'no_create_edit': True, 'no_open': True}"/>
             </xpath>
             <xpath expr="//notebook/page" position="before">
-                <page string="General Info">
+                <page string="General Info" name="general_info">
                     <group >
                         <group>
                             <separator string="Citizenship" class="ps-2 text-bg-secondary"/>
@@ -67,7 +67,12 @@
                                 <field name="bank_account_shaba"/>
                                 <field name="bank_card_no"/>
 
-
+                            <separator string="Employment Dates" class="ps-2 text-bg-secondary"/>
+                                <field name="contract_type"/>
+                                <field name="employment_start"/>
+                                <field name="contract_start"/>
+                                <field name="contract_end"/>
+                                <field name="employment_end"/>
                         </group>
 <!--                        <group string="Attendance/Point of Sale" name="identification_group">-->
 <!--                            <label for="barcode"/>-->

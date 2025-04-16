@@ -27,6 +27,12 @@ class SdHrHrEmployee(models.Model):
 
     age = fields.Integer(compute='_employee_age_calculation', default=0, store=True)
 
+    contract_type = fields.Many2one('hr.contract.type')
+    employment_start = fields.Date()
+    contract_start = fields.Date()
+    contract_end = fields.Date()
+    employment_end = fields.Date()
+
     @api.depends('birthday')
     # @api.onchange('birthday')
     def _employee_age_calculation(self):

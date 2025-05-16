@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="sd_hr_grading_01" model="sd_hr.grading">
+            <field name="name">Managing Director</field>
+        </record>
+        <record id="sd_hr_grading_02" model="sd_hr.grading">
+            <field name="name">Top Manager</field>
+        </record>
+        <record id="sd_hr_grading_03" model="sd_hr.grading">
+            <field name="name">Manager</field>
+        </record>
+        <record id="sd_hr_grading_04" model="sd_hr.grading">
+            <field name="name">Boss</field>
+        </record>
+        <record id="sd_hr_grading_05" model="sd_hr.grading">
+            <field name="name">Lead</field>
+        </record>
+        <record id="sd_hr_grading_06" model="sd_hr.grading">
+            <field name="name">Supervisor</field>
+        </record>
+        <record id="sd_hr_grading_07" model="sd_hr.grading">
+            <field name="name">Senior Expert</field>
+        </record>
+        <record id="sd_hr_grading_08" model="sd_hr.grading">
+            <field name="name">Expert</field>
+        </record>
+        <record id="sd_hr_grading_09" model="sd_hr.grading">
+            <field name="name">Junior</field>
+        </record>
+        <record id="sd_hr_grading_10" model="sd_hr.grading">
+            <field name="name">employee</field>
+        </record>
+
+    </data>
+</odoo>

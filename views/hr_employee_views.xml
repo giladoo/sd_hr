@@ -69,6 +69,8 @@
                                             name="generate_barcode" invisible="0"/>
 
                                 </div>
+                                <field name="grading"/>
+                                <field name="cost_center"/>
                                 <field name="ssnid"/>
                                 <field name="employee_type"/>
                                 <field name="user_id"/>

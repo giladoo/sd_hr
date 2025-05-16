@@ -6,6 +6,7 @@
             <field name="name">SD HR Employee</field>
             <field name="code">sd_hr.employee.barcode</field>
             <field name="padding">5</field>
+            <field name="implementation">no_gap</field>
             <field name="number_next">1</field>
             <field name="number_next_actual">55000</field>
             <field name="company_id" eval="False"/>

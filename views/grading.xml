@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="grading_list" model="ir.ui.view">
+        <field name="name">Grading</field>
+        <field name="model">sd_hr.grading</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+
+            </list>
+        </field>
+    </record>
+
+    <record id="grading_search" model="ir.ui.view">
+        <field name="name">Grading</field>
+        <field name="model">sd_hr.grading</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+
+            </search>
+        </field>
+    </record>
+
+
+    <!--    TODO: menu can be in technical section of setting menu-->
+    <record id="grading_action" model="ir.actions.act_window">
+        <field name="name">Report Grading</field>
+        <field name="res_model">sd_hr.grading</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem
+            id="grading_menu"
+            name="Grading"
+            parent="hr.menu_human_resources_configuration"
+            action="grading_action"
+            sequence="1"/>
+
+</odoo>

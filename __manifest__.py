@@ -15,6 +15,7 @@
     'data': [
         'security/ir.model.access.csv',
 
+
         # 'wizard/hr_panel_template.xml',
         # 'wizard/hr_panel.xml',
         'views/grading.xml',

@@ -30,3 +30,7 @@ class SdHrHrEmployee(models.Model):
         self.barcode = self.env['ir.sequence'].next_by_code('sd_hr.employee.barcode') or ''
         # print(f"\n self: {self.name} {self.barcode}\n")
 
+class SdHrHrContract(models.Model):
+    _inherit = 'hr.contract'
+
+    barcode = fields.Char(related='employee_id.barcode')

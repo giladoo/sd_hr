@@ -20,6 +20,7 @@
         # 'wizard/hr_panel.xml',
         'views/grading.xml',
         'views/cost_center.xml',
+        'views/hr_contract_views.xml',
         'views/hr_employee_views.xml',
         'views/variables_views.xml',
         'views/views.xml',

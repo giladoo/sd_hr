@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="hr_contract_view_search_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.search</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="barcode"/>
+                </xpath>
+            </field>
+        </record>
+</odoo>

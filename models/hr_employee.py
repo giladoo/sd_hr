@@ -41,3 +41,4 @@ class SdHrHrContract(models.Model):
     _inherit = 'hr.contract'
 
     barcode = fields.Char(related='employee_id.barcode')
+    work_location_id = fields.Many2one(related='employee_id.work_location_id')

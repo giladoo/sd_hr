@@ -30,6 +30,13 @@ class SdHrHrEmployee(models.Model):
         self.barcode = self.env['ir.sequence'].next_by_code('sd_hr.employee.barcode') or ''
         # print(f"\n self: {self.name} {self.barcode}\n")
 
+    # @api.depends('acc_number')
+    # @api.depends_context('uid')
+    # def _compute_user_has_group_validate_bank_account(self):
+    #     user_has_group_validate_bank_account = self.env.user.has_group('account.group_validate_bank_account')
+    #     for bank in self:
+    #         bank.user_has_group_validate_bank_account = user_has_group_validate_bank_account
+
 class SdHrHrContract(models.Model):
     _inherit = 'hr.contract'
 

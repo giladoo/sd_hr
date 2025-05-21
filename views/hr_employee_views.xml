@@ -105,12 +105,23 @@
         </field>
     </record>
 
+        <record id="view_employee_tree_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.list</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="barcode"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="view_employee_filter_inherit" model="ir.ui.view">
             <field name="name">hr.employee.search</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_filter"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="after">
+                <xpath expr="//field[@name='name']" position="before">
                     <field name="barcode"/>
                 </xpath>
             </field>

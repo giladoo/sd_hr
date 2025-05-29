@@ -37,7 +37,7 @@ class SdHrExport(models.Model):
     _description = 'sd_hr.export'
 
     def generate_and_download(self, model_name=None, res_ids=None, variable_no=None, output_type='pdf' ):
-        # print(f"\n >>>> generate_and_download:\n model_name:{model_name}\nres_ids: {res_ids}\nvariable_no: {variable_no}")
+        # logging.info(f"\n >>>> generate_and_download:\n model_name:{model_name}\nres_ids: {res_ids}\nvariable_no: {variable_no}")
         output_ext = '.pdf'
         if model_name and len(res_ids) > 0:
             records = self.env[model_name].sudo().browse(res_ids)
@@ -60,7 +60,7 @@ class SdHrExport(models.Model):
         # else:
         #     records = []
 
-        # print(f"\n records:\n {self.env.context}\n {records} {self}")
+        # logging.info(f"\n records:\n {self.env.context}\n {records} {self}")
         attachment_model = self.env['ir.attachment']
         if len(records) > 1:
             zip_buffer = io.BytesIO()
@@ -68,7 +68,6 @@ class SdHrExport(models.Model):
             with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
                 for rec in records:
                     doc_content = self.regenerate_template(rec, variable_no, output_type)  # Your function to create `.docx` content
-                    print(f"doc_content:{doc_content[:10]}")
                     zip_file.writestr(f"{rec.employee_id.work_location_id.name if rec.employee_id.work_location_id else 'Other'}/{(rec.name).replace('/', '-')} [{rec.employee_id.barcode}] [{rec.employee_id.name}]{output_ext}", doc_content)
                     # TODO: if name contains "/", it creates a folder based of str befor it
                     # zip_file.writestr(f"[{rec.name}][{rec.employee_id.name}].docx", doc_content)
@@ -78,7 +77,7 @@ class SdHrExport(models.Model):
             today = datetime.datetime.now(pytz.timezone(self.env.context.get('tz', 'GMT')))
 
             # zip_buffer
-            # print(zip_buffer)
+            # logging.info(zip_buffer)
             attach_id = attachment_model.create({
                 'res_model': self._name,
                 'res_field': 'output_file',
@@ -88,7 +87,7 @@ class SdHrExport(models.Model):
                 'type': 'binary',
             })
             download_url = '/web/content/%s' % attach_id.id
-            print(f"\n >>>>>>>> download_url ZIP: {download_url}")
+            # logging.info(f"\n >>>>>>>> download_url ZIP: {download_url}")
 
             return { 'type': 'ir.actions.act_url',
                      'url': download_url,
@@ -102,7 +101,7 @@ class SdHrExport(models.Model):
                                                  ('res_id', '=', record.id),
                                                  ('res_field', '=', 'output_file'),
                                                  ])
-            logging.warning(f">>>>>>>>>  attach_id {attach_id}")
+            # logging.warning(f">>>>>>>>>  attach_id {attach_id}")
             # return
             if  len(attach_id) > 1:
                 for att in attach_id:
@@ -115,9 +114,9 @@ class SdHrExport(models.Model):
                     'name': f"{(record.name).replace('/', '-')} [{record.employee_id.barcode}] [{record.employee_id.name}]{output_ext}",
 
                 })
-                logging.warning(f">>>>>>>>> is attach_id")
+                # logging.warning(f">>>>>>>>> is attach_id")
             else:
-                logging.warning(f">>>>>>>>> is NOT attach_id")
+                # logging.warning(f">>>>>>>>> is NOT attach_id")
                 attach_id = attachment_model.create({
                     'res_model': record._name,
                     'res_field': doc_content,
@@ -129,7 +128,7 @@ class SdHrExport(models.Model):
                 })
 
             download_url = '/web/content/%s?download=1' % attach_id.id
-            print(f"\n >>>>>>>> download_url DOCX: {download_url}")
+            # logging.info(f"\n >>>>>>>> download_url DOCX: {download_url}")
             return { 'type': 'ir.actions.act_url',
                      'url': download_url,
                      'target': 'self',
@@ -144,7 +143,7 @@ class SdHrExport(models.Model):
         :return:
         '''
         # records = self.env[model_name].browse(res_ids)
-        # print(f">>>> regenerate_template \n record:{record} \n variable_no:{variable_no}")
+        # logging.info(f">>>> regenerate_template \n record:{record} \n variable_no:{variable_no}")
         if variable_no:
             doc_template = self.env['sd_hr.doc_template'].search([('variable_no', '=', variable_no)])
             if doc_template and doc_template.template_file:
@@ -173,7 +172,7 @@ class SdHrExport(models.Model):
         # if hr_contract_model:
         if True:
             variables = self.env['sd_hr.variables'].sudo().search([('variable_no', '=', variable_no),])
-            # print(f"\n>>>>>>>>>>>>>>>variables:{variables}")
+            # logging.info(f"\n>>>>>>>>>>>>>>>variables:{variables}")
             if variables:
                 variables_dict = dict({rec.variable: (rec.value_text, self.get_select(rec, 'value_fonts')) if rec.value_source == 'text' else (rec.value_function, self.get_select(rec, 'value_fonts')) for rec in variables})
                 value_function_list = list([rec.variable for rec in variables if rec.value_source == 'function'])
@@ -236,7 +235,7 @@ class SdHrExport(models.Model):
                 filename = str(uuid.uuid4())
                 filename_pdf = filename + '.pdf'
                 filename_docx = filename + '.docx'
-                print(f"\n {filename_pdf} {filename_docx}")
+                logging.info(f"\n {filename_pdf} {filename_docx}")
                 with open(filename_docx, "wb") as f:
                     f.write(output_stream.getvalue())
                 self.convert_docx_to_pdf(filename_docx)
@@ -247,7 +246,7 @@ class SdHrExport(models.Model):
                     os.remove(filename_docx)
                 output_file = pdf_data_b if output_type == 'zip_pdf' else pdf_data
             except Exception as e:
-                print(f"[ERROR] {e}")
+                logging.error(f"[ERROR] {e}")
         elif output_type == 'docx':
             output_file = docx_output_file
         elif output_type == 'zip_docx':
@@ -263,7 +262,7 @@ class SdHrExport(models.Model):
         self.regenerate_template()
 
 #         download_url = f'/web/hrcontracts/download/?id={self.id}'
-#         print(f"""
+#         logging.info(f"""
 #         self._name: {self._name}
 #         self._origin.id: {self._origin.id}
 #     download_url: {download_url}
@@ -408,7 +407,7 @@ class SdHrExport(models.Model):
                 paragraph.add_run(parts[1])
 
     def write(self, vals):
-        # print(f"\n  >>>   vals: {vals} \n >>>  res: \n")
+        # logging.info(f"\n  >>>   vals: {vals} \n >>>  res: \n")
         if vals.get('contract_type_id', False):
             raise ValidationError(_("Contract Type cannot be updated as contract number is based on it."))
         return super().write(vals)
@@ -416,7 +415,7 @@ class SdHrExport(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            # print(f"\n >>>>> vals: {vals}\n")
+            # logging.info(f"\n >>>>> vals: {vals}\n")
             if not vals.get('name') or vals['name'] == _('New'):
                 if not vals.get('contract_type_id'):
                     raise ValidationError(_("Please select a 'Contract Type'"))

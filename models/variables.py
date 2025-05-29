@@ -5,7 +5,7 @@ class SdHrVariables(models.Model):
     _description = "Keep odoo variables"
     _rec_name = "variable"
 
-
+    variable_no = fields.Char(required=True)
     model_id = fields.Many2one('ir.model', required=True, ondelete="cascade")
     model_res_id = fields.Integer( required=True,)
     variable = fields.Char( copy=False)
@@ -21,4 +21,12 @@ class SdHrVariables(models.Model):
                                     ('b_yagut', 'B Yagut'),
                                     ('b_yekan', 'B Yekan'),
                                     ('arial', 'Arial'),
+                                    ('time_new_roman', 'Times New Roman'),
+                                    ("Lato", "Lato"),
+                                    ("Roboto", "Roboto"),
+                                    ("Open_Sans", "Open Sans"),
+                                    ("Montserrat", "Montserrat"),
+                                    ("Oswald", "Oswald"),
+                                    ("Raleway", "Raleway"),
+                                    ('Tajawal', 'Tajawal')
                                     ], required=True, default='b_nazanin')

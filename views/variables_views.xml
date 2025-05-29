@@ -9,6 +9,7 @@
                 <sheet>
                     <group>
                         <group>
+                            <field name="variable_no" help="sd_hr.doc_template uses this as an index"/>
                             <field name="model_id"/>
                             <field name="model_res_id"/>
 
@@ -38,6 +39,7 @@
         <field name="model">sd_hr.variables</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="variable_no"/>
                 <field name="variable"/>
                 <field name="model_id"/>
                 <field name="model_res_id"/>

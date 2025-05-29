@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'SD HR',
-    'version': '17.0.1.0.1',
+    'version': '17.0.1.0.2',
     'category': 'Human Resources',
     'summary': """ It works as base module for HR extended modules """,
     'author': 'Arash Homayounfar',
@@ -17,11 +17,13 @@
 
         # 'wizard/hr_panel_template.xml',
         # 'wizard/hr_panel.xml',
+        'views/doc_template.xml',
         'views/hr_employee_views.xml',
         'views/variables_views.xml',
         'views/views.xml',
         'report/export_list.xml',
         'data/barcode_sequence.xml',
+        'data/variable_sequence.xml',
     ],
     'assets':{
         'web.assets_backend':[

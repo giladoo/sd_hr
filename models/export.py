@@ -37,7 +37,7 @@ class SdHrExport(models.Model):
     _name = 'sd_hr.export'
     _description = 'sd_hr.export'
 
-    def generate_and_download(self, model_name=None, res_ids=None, variable_no=None, output_type='pdf' ):
+    def generate_and_download(self, model_name=None, res_ids=None, variable_no=None, output_type='pdf', file_prefix='DL', file_name=['name'] ):
         # logging.info(f"\n >>>> generate_and_download:\n model_name:{model_name}\nres_ids: {res_ids}\nvariable_no: {variable_no}")
         output_ext = '.pdf'
         if model_name and len(res_ids) > 0:
@@ -68,8 +68,13 @@ class SdHrExport(models.Model):
 
             with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
                 for rec in records:
+
+
+                    # print(f"\n f_name: {f_name}")
+                    # f_name = rec[file_name] if rec._fields[file_name] else rec.id
+
                     doc_content = self.regenerate_template(rec, variable_no, output_type)  # Your function to create `.docx` content
-                    zip_file.writestr(f"{rec.employee_id.work_location_id.name if rec.employee_id.work_location_id else 'Other'}/{(rec.name).replace('/', '-')} [{rec.employee_id.barcode}] [{rec.employee_id.name}]{output_ext}", doc_content)
+                    zip_file.writestr(f"{rec.employee_id.work_location_id.name if rec.employee_id.work_location_id else 'Other'}/{self.file_name_generator(rec, file_prefix, file_name, output_ext)}", doc_content)
                     # TODO: if name contains "/", it creates a folder based of str befor it
                     # zip_file.writestr(f"[{rec.name}][{rec.employee_id.name}].docx", doc_content)
 
@@ -112,7 +117,7 @@ class SdHrExport(models.Model):
             if attach_id:
                 attach_id.write({
                     'datas': doc_content,
-                    'name': f"{(record.name).replace('/', '-')} [{record.employee_id.barcode}] [{record.employee_id.name}]{output_ext}",
+                    'name': self.file_name_generator(record, file_prefix, file_name, output_ext),
 
                 })
                 # logging.warning(f">>>>>>>>> is attach_id")
@@ -124,7 +129,7 @@ class SdHrExport(models.Model):
                     'res_id': record.id,
                     'datas': doc_content,
                     # 'name': 'aaaaa.docx',
-                    'name': f"{(record.name).replace('/', '-')} [{record.employee_id.barcode}] [{record.employee_id.name}]{output_ext}",
+                    'name': self.file_name_generator(record, file_prefix, file_name, output_ext),
                     'type': 'binary',
                 })
 
@@ -135,6 +140,9 @@ class SdHrExport(models.Model):
                      'target': 'self',
                      }
 
+    def file_name_generator(self, rec, file_prefix='File', file_name='name', output_ext='.pdf'):
+        file_name_list = list([f"[{rec[r]}]" for r in file_name if r in rec._fields])
+        return f"{file_prefix}_{'_'.join(file_name_list)}{output_ext}"
 
     def regenerate_template(self, record, variable_no=None, output_type='pdf'):
 

@@ -24,6 +24,7 @@ import zipfile
 import io
 import subprocess
 import uuid
+import tempfile
 
 J_DATE_FORMAT = "%Y/%m/%d"
 B_NAZANIN = 'B Nazanin'
@@ -232,13 +233,22 @@ class SdHrExport(models.Model):
         output_file = ''
         if output_type in ['pdf', 'zip_pdf']:
             try:
+                temp_dir = os.path.join(tempfile.gettempdir(), "my_odoo_temp")
+                if not os.path.exists(temp_dir):
+                    os.makedirs(temp_dir, mode=0o777)
+
                 filename = str(uuid.uuid4())
-                filename_pdf = filename + '.pdf'
-                filename_docx = filename + '.docx'
-                logging.info(f"\n {filename_pdf} {filename_docx}")
+                filename_pdf = os.path.join(temp_dir, filename + '.pdf')
+                filename_docx = os.path.join(temp_dir, filename + '.docx')
+
+                logging.info(f"\n ongoing:  {filename_docx} --> {filename_pdf}")
                 with open(filename_docx, "wb") as f:
                     f.write(output_stream.getvalue())
-                self.convert_docx_to_pdf(filename_docx)
+                logging.info(f"\n created:  {filename_docx}")
+
+                self.convert_docx_to_pdf(filename_docx, temp_dir)
+                logging.info(f"\n created:  {filename_docx}")
+
                 with open(filename_pdf, "rb") as f:
                     pdf_data_b = f.read()
                     pdf_data =  base64.b64encode(pdf_data_b)
@@ -426,8 +436,8 @@ class SdHrExport(models.Model):
                 vals['name'] = f"{contract_type.code}{year}/{contract_no}"
         return super().create(vals_list)
 
-    def convert_docx_to_pdf(self, docx_path):
-        subprocess.run(["libreoffice", "--headless", "--convert-to", "pdf", docx_path])
+    def convert_docx_to_pdf(self, docx_path, temp_dir):
+        subprocess.run(["libreoffice", "--headless", "--convert-to", "pdf", docx_path, '--outdir', temp_dir])
 
     def get_select(self, rec, field_name):
         field_name = dict(rec._fields[field_name]._description_selection(self.env)).get(rec[field_name])

@@ -147,7 +147,7 @@ class SdHrExport(models.Model):
         # print(f">>>> regenerate_template \n record:{record} \n variable_no:{variable_no}")
         if variable_no:
             doc_template = self.env['sd_hr.doc_template'].search([('variable_no', '=', variable_no)])
-            if doc_template:
+            if doc_template and doc_template.template_file:
                 template_file = doc_template.template_file
             else:
                 raise ValidationError(f'There is no template file for variable_no:{variable_no}')

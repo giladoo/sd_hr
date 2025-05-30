@@ -133,7 +133,8 @@ class SdHrExport(models.Model):
                     'type': 'binary',
                 })
 
-            download_url = '/web/content/%s?download=1' % attach_id.id
+            # download_url = '/web/content/%s?download=1' % attach_id.id
+            download_url = '/web/content/%s' % attach_id.id
             # logging.info(f"\n >>>>>>>> download_url DOCX: {download_url}")
             return { 'type': 'ir.actions.act_url',
                      'url': download_url,

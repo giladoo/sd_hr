@@ -37,12 +37,12 @@ class SdHrExport(models.Model):
     _name = 'sd_hr.export'
     _description = 'sd_hr.export'
 
-    def generate_and_download(self, model_name=None, res_ids=None, variable_no=None, output_type='pdf', file_prefix='DL', file_name=['name'] ):
+    def generate_and_download(self, model_name=None, res_ids=None, variable_no=None, output_type='pdf', file_prefix='DL', file_name=['name'], attach_docs=False ):
         # logging.info(f"\n >>>> generate_and_download:\n model_name:{model_name}\nres_ids: {res_ids}\nvariable_no: {variable_no}")
         output_ext = '.pdf'
         if model_name and len(res_ids) > 0:
             records = self.env[model_name].sudo().browse(res_ids)
-            if len(records) > 1:
+            if len(records) > 1 or attach_docs:
                 if output_type == 'docx':
                     output_type = 'zip_docx'
                     output_ext = '.docx'
@@ -63,24 +63,25 @@ class SdHrExport(models.Model):
 
         # logging.info(f"\n records:\n {self.env.context}\n {records} {self}")
         attachment_model = self.env['ir.attachment']
-        if len(records) > 1:
+        hr_documents = self.env['sd_hr_documents.attachments']
+        if len(records) > 1 or attach_docs:
             zip_buffer = io.BytesIO()
+            today = datetime.datetime.now(pytz.timezone(self.env.context.get('tz', 'GMT')))
 
             with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
                 for rec in records:
-
-
-                    # print(f"\n f_name: {f_name}")
-                    # f_name = rec[file_name] if rec._fields[file_name] else rec.id
-
-                    doc_content = self.regenerate_template(rec, variable_no, output_type)  # Your function to create `.docx` content
-                    zip_file.writestr(f"{rec.employee_id.work_location_id.name if rec.employee_id.work_location_id else 'Other'}/{self.file_name_generator(rec, file_prefix, file_name, output_ext)}", doc_content)
+                    zip_folder = f"[{rec.employee_id.name}]_[{rec.employee_id.job_title}]" if attach_docs else f"IPAC_Resume_{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}"
+                    doc_content = self.regenerate_template(rec, variable_no, output_type)
+                    zip_file.writestr(f"{zip_folder}/{self.file_name_generator(rec, file_prefix, file_name, output_ext)}", doc_content)
                     # TODO: if name contains "/", it creates a folder based of str befor it
-                    # zip_file.writestr(f"[{rec.name}][{rec.employee_id.name}].docx", doc_content)
+                    if attach_docs:
+                        documents = hr_documents.search([('employee_id', '=', rec.employee_id.id), ('resume_document', '=', True)])
+                        for document in documents:
+                            for att in document.attachments:
+                                zip_file.writestr(f"{zip_folder}/{att.name}", base64.b64decode(att.datas))
 
             zip_buffer.seek(0)
             zip_buffer = base64.b64encode(zip_buffer.getvalue()).decode('utf-8')
-            today = datetime.datetime.now(pytz.timezone(self.env.context.get('tz', 'GMT')))
 
             # zip_buffer
             # logging.info(zip_buffer)
@@ -132,9 +133,9 @@ class SdHrExport(models.Model):
                     'name': self.file_name_generator(record, file_prefix, file_name, output_ext),
                     'type': 'binary',
                 })
-
-            # download_url = '/web/content/%s?download=1' % attach_id.id
-            download_url = '/web/content/%s' % attach_id.id
+            # Note: If not download=1, it opens the pdf file instead of download.
+            download_url = '/web/content/%s?download=1' % attach_id.id
+            # download_url = '/web/content/%s' % attach_id.id
             # logging.info(f"\n >>>>>>>> download_url DOCX: {download_url}")
             return { 'type': 'ir.actions.act_url',
                      'url': download_url,

@@ -77,7 +77,7 @@ class SdHrExport(models.Model):
                     else:
                         zip_dir_name = 'Other'
 
-                    zip_folder = zip_dir_name if attach_docs else f"IPAC_Resume_{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}"
+                    zip_folder = zip_dir_name if attach_docs or len(records) == 1  else f"IPAC_Resume_{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}"
                     doc_content = self.regenerate_template(rec, variable_no, output_type)
                     zip_file.writestr(f"{zip_folder}/{self.file_name_generator(rec, file_prefix, file_name, output_ext)}", doc_content)
                     # TODO: if name contains "/", it creates a folder based of str befor it
@@ -97,7 +97,7 @@ class SdHrExport(models.Model):
                 'res_field': 'output_file',
                 'res_id': self.id,
                 'datas': zip_buffer,
-                'name': f"Contracts_{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}",
+                'name': zip_dir_name if len(records) == 1  else  f"Contracts_{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}",
                 'type': 'binary',
             })
             download_url = '/web/content/%s' % attach_id.id

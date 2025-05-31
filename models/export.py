@@ -71,8 +71,8 @@ class SdHrExport(models.Model):
             with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
                 for rec in records:
                     if rec.employee_id:
-                        employee_name = (rec.employee_id.name).replace('/', '_')
-                        employee_title = (rec.employee_id.job_title).replace('/', '_') if rec.employee_id.job_title else 'Title'
+                        employee_name = (rec.employee_id.with_context(lang='en_US').name_cv).replace('/', '_')
+                        employee_title = (rec.employee_id.with_context(lang='en_US').job_title).replace('/', '_') if rec.employee_id.job_title else 'Title'
                         zip_dir_name = f"[{employee_name}]_[{employee_title}]"
                     else:
                         zip_dir_name = 'Other'

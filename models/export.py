@@ -70,7 +70,14 @@ class SdHrExport(models.Model):
 
             with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
                 for rec in records:
-                    zip_folder = f"[{rec.employee_id.name}]_[{rec.employee_id.job_title}]" if attach_docs else f"IPAC_Resume_{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}"
+                    if rec.employee_id:
+                        employee_name = (rec.employee_id.name).replace('/', '_')
+                        employee_title = (rec.employee_id.job_title).replace('/', '_') if rec.employee_id.job_title else 'Title'
+                        zip_dir_name = f"[{employee_name}]_[{employee_title}]"
+                    else:
+                        zip_dir_name = 'Other'
+
+                    zip_folder = zip_dir_name if attach_docs else f"IPAC_Resume_{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}"
                     doc_content = self.regenerate_template(rec, variable_no, output_type)
                     zip_file.writestr(f"{zip_folder}/{self.file_name_generator(rec, file_prefix, file_name, output_ext)}", doc_content)
                     # TODO: if name contains "/", it creates a folder based of str befor it
@@ -190,8 +197,8 @@ class SdHrExport(models.Model):
 
         # Load the .docx file from the binary field
 
-        template_data = base64.b64decode(template_file)
-        template = Document(BytesIO(template_data))
+        template_file_b = base64.b64decode(template_file)
+        template = Document(BytesIO(template_file_b))
 
         for paragraph in template.paragraphs:
             for run in paragraph.runs:
@@ -292,7 +299,7 @@ class SdHrExport(models.Model):
                                              ('res_id', '=', self.id),
                                              ('res_field', '=', 'output_file'),
                                              ])
-        logging.warning(f">>>>>>>>>  attach_id {attach_id}")
+        # logging.warning(f">>>>>>>>>  attach_id {attach_id}")
         if  len(attach_id) > 1:
             for rec in attach_id:
                 rec.unlink()
@@ -304,9 +311,9 @@ class SdHrExport(models.Model):
                 'name': self.output_file_name,
 
             })
-            logging.warning(f">>>>>>>>> is attach_id")
+            # logging.warning(f">>>>>>>>> is attach_id")
         else:
-            logging.warning(f">>>>>>>>> is NOT attach_id")
+            # logging.warning(f">>>>>>>>> is NOT attach_id")
             attach_id = attachment_model.create({
                 'res_model': self._name,
                 'res_field': 'output_file',

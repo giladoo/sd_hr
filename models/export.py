@@ -84,8 +84,10 @@ class SdHrExport(models.Model):
                     if attach_docs:
                         documents = hr_documents.search([('employee_id', '=', rec.employee_id.id), ('resume_document', '=', True)])
                         for document in documents:
-                            for att in document.attachments:
-                                zip_file.writestr(f"{zip_folder}/{att.name}", base64.b64decode(att.datas))
+                            for index, att in enumerate(document.attachments):
+                                print(f"document type:{document.document_type} index: {index} att: {att}")
+                                # zip_file.writestr(f"{zip_folder}/{att.name}", base64.b64decode(att.datas))
+                                zip_file.writestr(f"{zip_folder}/{document.document_type.name}_({index}).{att.name.split('.')[-1]}", base64.b64decode(att.datas))
 
             zip_buffer.seek(0)
             zip_buffer = base64.b64encode(zip_buffer.getvalue()).decode('utf-8')

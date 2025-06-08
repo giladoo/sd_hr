@@ -57,7 +57,11 @@
                                             </div>
                                     <field name="private_email" string="Email" />
                                     <field name="private_phone" string="Phone"  />
-
+                            <separator string="Bank Account" class="ps-2 text-bg-secondary"/>
+                                <field name="bank_name"/>
+                                <field name="bank_account_no"/>
+                                <field name="bank_account_shaba"/>
+                                <field name="bank_card_no"/>
 
                             </group>
                             <group>

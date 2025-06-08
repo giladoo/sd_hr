@@ -16,6 +16,11 @@ class SdHrHrEmployee(models.Model):
     #     ('associate', _('Associate')),
     # ], translate=True)
 
+    bank_name = fields.Char()
+    bank_account_no = fields.Char()
+    bank_account_shaba = fields.Char()
+    bank_card_no = fields.Char()
+
     father_name = fields.Char(translate=True)
     personal_title = fields.Many2one('res.partner.title')
     birth_cert_no = fields.Char()

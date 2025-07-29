@@ -42,6 +42,26 @@ class SdHrHrEmployee(models.Model):
     #     for bank in self:
     #         bank.user_has_group_validate_bank_account = user_has_group_validate_bank_account
 
+class SdHrHrEmployeePublic(models.Model):
+    _inherit = 'hr.employee.public'
+
+    bank_name = fields.Char()
+    bank_account_no = fields.Char()
+    bank_account_shaba = fields.Char()
+    bank_card_no = fields.Char()
+
+    father_name = fields.Char(translate=True)
+    personal_title = fields.Many2one('res.partner.title')
+    birth_cert_no = fields.Char()
+    birth_cert_s_1 = fields.Char()
+    birth_cert_s_2 = fields.Char()
+    birth_cert_s_3 = fields.Char()
+
+    grading = fields.Many2one('sd_hr.grading')
+    cost_center = fields.Many2one('sd_hr.cost_center')
+
+
+
 class SdHrHrContract(models.Model):
     _inherit = 'hr.contract'
 

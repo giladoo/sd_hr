@@ -102,7 +102,7 @@ class PartnerXlsx(models.AbstractModel):
                     else:
                         value = ''
                 elif rec_data and isinstance(rec_data, (date, datetime)):
-                    # ic(rec_data)
+                    ic(rec_data)
                     value = jdatejs(rec_data)
                 elif rec in ['gender', 'marital', 'certificate' ]:
                     value = dict(employee._fields[rec]._description_selection(self.env)).get(employee[rec])

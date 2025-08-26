@@ -78,6 +78,7 @@
                                 <field name="ssnid"/>
                                 <field name="employee_type"/>
                                 <field name="user_id"/>
+                                <field name="address_id"/>
                                 <field name="work_location_id"/>
 
                                 <separator class="bg-300" string="Education"/>

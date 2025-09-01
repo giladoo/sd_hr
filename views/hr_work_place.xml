@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="work_place_list" model="ir.ui.view">
+        <field name="name">work_place</field>
+        <field name="model">hr.work.place</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="location_id" />
+
+            </list>
+        </field>
+    </record>
+
+    <record id="work_place_search" model="ir.ui.view">
+        <field name="name">work_place</field>
+        <field name="model">hr.work.place</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+
+            </search>
+        </field>
+    </record>
+
+
+    <!--    TODO: menu can be in technical section of setting menu-->
+    <record id="work_place_action" model="ir.actions.act_window">
+        <field name="name">Report work_place</field>
+        <field name="res_model">hr.work.place</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem
+            id="work_place_menu"
+            name="work_place"
+            parent="hr.menu_human_resources_configuration"
+            action="work_place_action"
+            sequence="1"/>
+
+</odoo>

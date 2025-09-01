@@ -29,6 +29,7 @@ class SdHrHrEmployee(models.Model):
     birth_cert_s_3 = fields.Char()
 
     grading = fields.Many2one('sd_hr.grading')
+    work_place_id = fields.Many2one('hr.work.place')
     cost_center = fields.Many2one('sd_hr.cost_center')
 
     def generate_barcode(self):

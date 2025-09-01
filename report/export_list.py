@@ -70,6 +70,7 @@ EMPLOYEE_FIELDS = ['barcode',
 
 class PartnerXlsx(models.AbstractModel):
     _name = 'report.sd_hr.export_list'
+    _description = "sd_hr_holidays.mission_detail"
     _inherit = 'report.report_xlsx.abstract'
 
     def generate_xlsx_report(self, workbook, data, employees):

@@ -6,6 +6,7 @@ from odoo.exceptions import ValidationError
 
 class SdHrPanel(models.TransientModel):
     _name = 'sd_hr.panel'
+    _description = "sd_hr.panel"
     _rec_name = 'employee_id'
 
     employee_id = fields.Many2one('hr.employee', default=lambda self: self.env.context.get('default_employee_id', False))

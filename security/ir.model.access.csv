@@ -1,5 +1,7 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_sd_hr_panel_manager,sd_hr.panel,model_sd_hr_panel,hr.group_hr_manager,1,1,1,1
+access_sd_hr_doc_template_group_user,sd_hr.doc_template,model_sd_hr_doc_template,base.group_user,1,0,0,0
+access_sd_hr_doc_template_manager,sd_hr.doc_template,model_sd_hr_doc_template,hr.group_hr_manager,1,1,1,1
 access_sd_hr_variables_manager,sd_hr.variables,model_sd_hr_variables,base.group_system,1,1,1,1
 access_sd_hr_grading_manager,sd_hr.grading,model_sd_hr_grading,hr.group_hr_manager,1,1,1,1
 access_hr_work_place_manager,hr.work.place,model_hr_work_place,hr.group_hr_manager,1,1,1,1

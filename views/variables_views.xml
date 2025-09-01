@@ -9,6 +9,7 @@
                 <sheet>
                     <group>
                         <group>
+                            <field name="variable_no" help="sd_hr.doc_template uses this as an index"/>
                             <field name="model_id"/>
                             <field name="model_res_id"/>
 
@@ -21,9 +22,11 @@
                     <separator/>
 
                     <group>
+                        <field name="value_fonts" class="o_force_ltr note-editable odoo-editor-editable"/>
                         <field name="variable" class="o_force_ltr note-editable odoo-editor-editable"/>
                         <field name="value_text" invisible="value_source == 'function'"/>
-                        <field name="value_function" invisible="value_source == 'text'" class="o_force_ltr"/>
+                        <field name="value_function" invisible="value_source == 'text'" class="o_force_ltr"
+                               widget="code" options="{'mode': 'python'}"/>
 
                     </group>
 
@@ -37,6 +40,7 @@
         <field name="model">sd_hr.variables</field>
         <field name="arch" type="xml">
             <list>
+                <field name="variable_no"/>
                 <field name="variable"/>
                 <field name="model_id"/>
                 <field name="model_res_id"/>

@@ -33,6 +33,31 @@ class SdHrHrEmployee(models.Model):
     contract_end = fields.Date()
     employment_end = fields.Date()
 
+    tamin_experience = fields.Integer(help="Month")
+    tamin_experiences = fields.Char(compute="_tamin_experiences")
+
+    no_tamin_experience = fields.Integer(help="Month")
+    no_tamin_experiences = fields.Char(compute="_tamin_experiences")
+
+    @api.onchange('tamin_experience', 'no_tamin_experience', )
+    def _tamin_experiences(self):
+        year_name = _("Years")
+        month_name = _("Month")
+        print(self.env.lang ,year_name, month_name)
+        for rec in self:
+            year = rec.tamin_experience // 12
+            year = f"\u200F{year} {year_name}" if year else ""
+            month = rec.tamin_experience % 12
+            month = f"\u200F{month} {month_name}" if month else ""
+            rec.tamin_experiences = f"{year}  {month}"
+
+            year = rec.no_tamin_experience // 12
+            year = f"\u200F{year} {year_name}" if year else ""
+            month = rec.no_tamin_experience % 12
+            month = f"\u200F{month} {month_name}" if month else ""
+            rec.no_tamin_experiences = f"\u200F{year}  {month}"
+
+
     @api.depends('birthday')
     # @api.onchange('birthday')
     def _employee_age_calculation(self):
@@ -48,8 +73,17 @@ class SdHrHrEmployee(models.Model):
         self.barcode = self.env['ir.sequence'].next_by_code('sd_hr.employee.barcode') or ''
         # print(f"\n self: {self.name} {self.barcode}\n")
 
+
+
 class SdHrHrContract(models.Model):
     _inherit = 'hr.contract'
 
     barcode = fields.Char(related='employee_id.barcode')
-    work_location_id = fields.Many2one(related='employee_id.work_location_id')
+    # TODO: odoo 18 searchpanel works with related
+    # work_location_id = fields.Many2one(related='employee_id.work_location_id', store=True)
+    work_location_id = fields.Many2one('hr.work.location', compute='_hr_work_location')
+
+    @api.depends('employee_id')
+    def _hr_work_location(self):
+        for rec in self:
+            rec.work_location_id = rec.employee_id.work_location_id.id

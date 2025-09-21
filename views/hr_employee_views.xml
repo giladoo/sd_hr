@@ -1,26 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-
-<!--        <record id="sd_hr_employee_export_list" model="ir.actions.server">-->
-<!--            <field name="name">Export List</field>-->
-<!--            <field name="model_id" ref="model_sd_hr_export"/>-->
-<!--            <field name="binding_model_id" ref="hr.model_hr_employee"/>-->
-<!--&lt;!&ndash;            <field name="binding_view_types">list</field>&ndash;&gt;-->
-<!--&lt;!&ndash;            <field name="groups_id" eval="[(4, ref('base.group_erp_manager'))]"/>&ndash;&gt;-->
-<!--            <field name="state">code</field>-->
-<!--            <field name="code">-->
-<!--                action = model.export_list()-->
-<!--            </field>-->
-<!--        </record>-->
-
     <record id="view_employee_form" model="ir.ui.view">
         <field name="name">hr.employee.view.form.inherit.employee.relatives.expiry</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-
-
             <xpath expr="//field[@name='identification_id']" position="after">
                 <field name="father_name"/>
             </xpath>
@@ -68,7 +53,17 @@
                                 <field name="bank_card_no"/>
 
                             <separator string="Employment Dates" class="ps-2 text-bg-secondary"/>
-                                <field name="contract_type"/>
+                            <label for="tamin_experience"  string="With Tamin"/>
+                                <div class="o_row">
+                                    <field name="tamin_experience"/>
+                                    <field name="tamin_experiences"/>
+                                  </div>
+                            <label for="no_tamin_experience" string="Without Tamin"/>
+                                <div class="o_row">
+                                    <field name="no_tamin_experience"/>
+                                    <field name="no_tamin_experiences"/>
+                                  </div>
+
                                 <field name="employment_start"/>
                                 <field name="contract_start"/>
                                 <field name="contract_end"/>
@@ -111,14 +106,9 @@
                         </group>
 
                     </group>
-
                 </page>
-
             </xpath>
-
         </field>
     </record>
-
-
 
 </odoo>

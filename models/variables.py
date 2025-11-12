@@ -12,7 +12,7 @@ class SdHrVariables(models.Model):
     variable = fields.Char( copy=False)
     value_source = fields.Selection([('text', 'Text'), ('function', 'Function'),],
                                         default='function', required=True)
-    value_type = fields.Selection([('text', 'Text'), ('number', 'Number'), ('html', 'HTML'),],
+    value_type = fields.Selection([('text', 'Text'), ('number', 'Number'), ('html', 'HTML'), ('image', 'Image'),],
                                         default="text", required=True)
     value_text = fields.Text(copy=False)
     value_function = fields.Text(copy=False)

@@ -8,7 +8,8 @@
             <list editable="bottom">
                 <field name="variable_no" readonly="1"/>
                 <field name="name"/>
-                <field name="template_file"/>
+                <field name="filename" column_invisible="1"/>
+                <field name="template_file"  widget="binary" filename="filename" />
 
             </list>
         </field>

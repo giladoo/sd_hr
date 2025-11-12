@@ -12,6 +12,9 @@
     'auto_install': False,
     'application': False,
     'depends': ['hr', 'sd_hr_relatives', 'sd_projects'],
+	'external_dependencies': {
+    	'python': ['python-docx',]
+    },
     'data': [
         'security/ir.model.access.csv',
 

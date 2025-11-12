@@ -12,7 +12,8 @@ from jdatetimext import j_start, j_start_end_js, jdatejs
 from docx import Document
 from docx.shared import Pt, RGBColor
 from docx.oxml.ns import qn
-from docx.shared import Pt
+from docx.shared import Pt, Inches
+
 from io import BytesIO
 import base64
 import os
@@ -86,7 +87,7 @@ class SdHrExport(models.Model):
                         zip_dir_name = 'Other'
 
                     zip_folder = zip_dir_name if attach_docs or len(
-                        records) == 1 else f"IPAC_Resume_{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}"
+                        records) == 1 else f"File_{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}"
                     doc_content = self.regenerate_template(rec, variable_no, output_type)
                     zip_file.writestr(
                         f"{zip_folder}/{self.file_name_generator(rec, file_prefix, file_name, output_ext)}",
@@ -206,16 +207,28 @@ class SdHrExport(models.Model):
         # hr_contract_model = self.env['ir.model'].sudo().search([('model', '=', 'hr.contract')])
         # if hr_contract_model:
         if True:
-            variables = self.env['sd_hr.variables'].sudo().search([('variable_no', '=', variable_no), ])
+            variables = self.env['sd_hr.variables'].sudo().search([('variable_no', '=', variable_no), ('variable', '!=', False) ])
             # logging.info(f"\n>>>>>>>>>>>>>>>variables:{variables}")
             if variables:
-                variables_dict = dict({rec.variable: (
-                rec.value_text, self.get_select(rec, 'value_fonts')) if rec.value_source == 'text' else (
-                rec.value_function, self.get_select(rec, 'value_fonts')) for rec in variables})
+                variables_dict = dict({rec.variable:
+                    (
+                        rec.value_text,
+                        self.get_select(rec, 'value_fonts'),
+                        self.get_select(rec, 'value_type'),
+                     )
+                    if rec.value_source == 'text'
+                    else (
+                        rec.value_function,
+                        self.get_select(rec, 'value_fonts'),
+                        self.get_select(rec, 'value_type'),
+                    )
+                                       for rec in variables})
+
                 value_function_list = list([rec.variable for rec in variables if rec.value_source == 'function'])
 
-        # Load the .docx file from the binary field
+                print(f"\n>>>>>>>>>>>>>>\n {variables_dict} \n")
 
+        # Load the .docx file from the binary field
         template_file_b = base64.b64decode(template_file)
         template = Document(BytesIO(template_file_b))
 
@@ -224,7 +237,7 @@ class SdHrExport(models.Model):
                 for variable, new_value in variables_dict.items():
                     if variable in run.text:
                         self.replace_run(record, paragraph, run, variable, value_function_list, numeral_variables,
-                                         html_variables, new_value[0], new_value[1])
+                                         html_variables, new_value[0], new_value[1], new_value[2])
 
         for table in template.tables:
             for row in table.rows:
@@ -234,7 +247,7 @@ class SdHrExport(models.Model):
                         for variable, new_value in variables_dict.items():
                             if variable in run.text:
                                 self.replace_run(record, table, run, variable, value_function_list, numeral_variables,
-                                                 html_variables, new_value[0], new_value[1])
+                                                 html_variables, new_value[0], new_value[1], new_value[2])
 
         for doc_sections in template.sections:
             doc_sections_list = [doc_sections.header,
@@ -249,7 +262,7 @@ class SdHrExport(models.Model):
                             if variable in run.text:
                                 self.replace_run(record, paragraph, run, variable, value_function_list,
                                                  numeral_variables,
-                                                 html_variables, new_value[0], new_value[1])
+                                                 html_variables, new_value[0], new_value[1], new_value[2])
 
                 for table in doc_section.tables:
                     for row in table.rows:
@@ -260,7 +273,7 @@ class SdHrExport(models.Model):
                                     if variable in run.text:
                                         self.replace_run(record, table, run, variable, value_function_list,
                                                          numeral_variables,
-                                                         html_variables, new_value[0], new_value[1])
+                                                         html_variables, new_value[0], new_value[1], new_value[2])
 
         # Save the modified file into a binary field
         output_stream = BytesIO()
@@ -354,10 +367,22 @@ class SdHrExport(models.Model):
         run.font.size = Pt(12)  # Set font size as needed
 
     def replace_run(self, record, paragraph, run, variable, value_function_list, numeral_variables, html_variables,
-                    new_value, font_name=B_NAZANIN):
+                    new_value, font_name=B_NAZANIN, value_type='Text'):
         try:
             if variable in value_function_list:
-                run.text = run.text.replace(variable, str(eval(new_value) or ''))
+                if value_type == 'Text':
+                    run.text = run.text.replace(variable, str(eval(new_value) or ''))
+                elif value_type == 'Image':
+                    print(f"\n Image: {new_value}\n")
+                    # print(f"\n {str(eval(new_value))}\n")
+                    # image_stream = BytesIO(eval(new_value))
+                    # print(f"\n {image_stream}\n")
+                    image = BytesIO(base64.b64decode(eval(new_value)))
+                    run.text = ''
+
+
+                    run.add_picture(image, width=Inches(2))
+
             else:
                 run.text = run.text.replace(variable, str(new_value) or '')
 
@@ -487,6 +512,7 @@ class SdHrDocTemplate(models.Model):
 
     variable_no = fields.Char(default=lambda self: _('New'))
     name = fields.Char(required=True)
+    filename = fields.Char()
     template_file = fields.Binary(string="Template File", required=True, attachment=True)
 
     @api.model_create_multi

@@ -26,7 +26,7 @@
             <xpath expr="//notebook/page" position="before">
                 <page string="General Info">
                     <div id="o_work_employee_container" class="d-lg-flex">
-                        <div id="o_work_employee_main" class="flex-grow-1 pe-3">
+                        <div id="lpo." class="flex-grow-1 pe-3">
                             <group >
                             <group>
                                 <separator class="bg-300" string="Citizenship"/>

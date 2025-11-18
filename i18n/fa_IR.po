@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-21 13:40+0000\n"
-"PO-Revision-Date: 2025-09-21 17:14+0330\n"
+"POT-Creation-Date: 2025-11-18 05:13+0000\n"
+"PO-Revision-Date: 2025-11-18 09:00+0330\n"
 "Last-Translator: Arash Homayounfar <homayounfar@msn.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -477,12 +477,12 @@ msgstr ""
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__no_tamin_experience
 msgid "No Tamin Experience"
-msgstr ""
+msgstr "بدون تامین اجتماعی"
 
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__no_tamin_experiences
 msgid "No Tamin Experiences"
-msgstr ""
+msgstr "بدون تامین اجتماعی (سال/ماه)"
 
 #. module: sd_hr
 #: model:ir.model.fields.selection,name:sd_hr.selection__sd_hr_variables__value_type__number
@@ -589,12 +589,12 @@ msgstr ""
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__tamin_experience
 msgid "Tamin Experience"
-msgstr ""
+msgstr "سابقه تامین اجتماعی"
 
 #. module: sd_hr
 #: model:ir.model.fields,field_description:sd_hr.field_hr_employee__tamin_experiences
 msgid "Tamin Experiences"
-msgstr ""
+msgstr "سابقه تامین اجتماعی (سال/ماه)"
 
 #. module: sd_hr
 #: model_terms:ir.ui.view,arch_db:sd_hr.report_variable_search

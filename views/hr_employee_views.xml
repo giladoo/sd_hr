@@ -86,6 +86,7 @@
                                 <button string="Generate" class="btn btn-link" type="object" name="generate_barcode" invisible="barcode"/>
 <!--                                <button name="%(hr.hr_employee_print_badge)d" string="Print Badge" class="btn btn-link" type="action" invisible="not barcode"/>-->
                             </div>
+                            <field name="accounting_code"/>
                             <field name="ssnid"/>
                             <field name="employee_type"/>
                             <field name="user_id"/>

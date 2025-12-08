@@ -6,6 +6,12 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
+                            <xpath expr="//header" position="inside">
+                    <button name="download_images"
+                        string="Images"
+                        type="object"
+                        groups="base.group_system"/>
+                </xpath>
             <xpath expr="//notebook/page[@name='public']" position="attributes">
                 <attribute name="invisible">0</attribute>
             </xpath>
@@ -117,8 +123,19 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_tree"/>
             <field name="arch" type="xml">
+<!--                <xpath expr="//list" position="inside">-->
+
+<!--&lt;!&ndash;                <xpath expr="//header" position="inside">&ndash;&gt;-->
+<!--                    <header>-->
+<!--                        <button name="download_images"-->
+<!--                                string="Images"-->
+<!--                                type="object"-->
+<!--                        />-->
+
+<!--                    </header>-->
+<!--                </xpath>-->
                 <xpath expr="//field[@name='name']" position="before">
-                    <field name="barcode"/>
+                    <field name="barcode" groups="hr.group_hr_user"/>
                 </xpath>
             </field>
         </record>
@@ -133,6 +150,17 @@
                 </xpath>
             </field>
         </record>
+    <record model="ir.actions.server" id="hr_download_images">
+        <field name="name">Download Images</field>
+        <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_model_id" ref="hr.model_hr_employee" />
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.download_images()
+            </field>
 
+    </record>
 
 </odoo>

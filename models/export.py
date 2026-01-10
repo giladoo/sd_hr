@@ -115,7 +115,7 @@ class SdHrExport(models.Model):
                 'res_id': self.id,
                 'datas': zip_buffer,
                 'name': zip_dir_name if len(
-                    records) == 1 else f"Contracts_{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}",
+                    records) == 1 else f".3{jdatejs(today, '%Y%m%d')}_{today.strftime('%H%M%S')}",
                 'type': 'binary',
             })
             download_url = '/web/content/%s' % attach_id.id

@@ -6,6 +6,7 @@ import base64
 import os
 from PIL import Image
 import logging
+from odoo.osv import expression
 
 class SdHrHrEmployee(models.Model):
     _inherit = 'hr.employee'

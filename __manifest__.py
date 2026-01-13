@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'SD HR',
     'version': '18.0.1.0.2',
@@ -21,13 +20,13 @@
 
         # 'wizard/hr_panel_template.xml',
         # 'wizard/hr_panel.xml',
+        'views/views.xml',
         'views/grading.xml',
         'views/cost_center.xml',
         'views/hr_work_place.xml',
         'views/hr_employee_views.xml',
         'views/doc_template.xml',
         'views/variables_views.xml',
-        'views/views.xml',
         'report/export_list.xml',
         'data/barcode_sequence.xml',
         'data/data_grading.xml',
@@ -41,3 +40,4 @@
 
     'license': 'LGPL-3',
 }
+# -*- coding: utf-8 -*-

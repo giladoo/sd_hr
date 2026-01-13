@@ -37,6 +37,6 @@
             name="Grading"
             parent="sd_hr_menu_config_employee"
             action="grading_action"
-            sequence="1"/>
+            sequence="5"/>
 
 </odoo>

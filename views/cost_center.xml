@@ -37,6 +37,6 @@
             name="Cost Center"
             parent="sd_hr_menu_config_employee"
             action="cost_center_action"
-            sequence="1"/>
+            sequence="6"/>
 
 </odoo>

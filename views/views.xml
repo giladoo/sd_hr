@@ -5,6 +5,6 @@
             id="sd_hr_menu_config_employee"
             name="SD HR"
             parent="hr.menu_config_employee"
-            sequence="7"   />
+            sequence="100"   />
 
 </odoo>

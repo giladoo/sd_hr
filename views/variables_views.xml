@@ -80,8 +80,9 @@
     <menuitem
             id="report_variable_menu"
             name="Report Variables"
-            parent="base.menu_custom"
+            parent="sd_hr_menu_config_employee"
             action="report_variables"
+            groups="base.group_system"
             sequence="1"/>
 
 </odoo>

@@ -27,7 +27,7 @@
     <menuitem
             id="doc_template_menu"
             name="Doc Templates"
-            parent="hr.menu_hr_employee_payroll"
+            parent="sd_hr_menu_config_employee"
             action="doc_template_action"
             sequence="1"/>
 

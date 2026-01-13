@@ -36,8 +36,9 @@
     <menuitem
             id="work_place_menu"
             name="work_place"
-            parent="hr.menu_human_resources_configuration"
+            parent="hr.menu_config_employee"
             action="work_place_action"
-            sequence="1"/>
+            sequence="6"
+            groups="hr.group_hr_user"/>
 
 </odoo>

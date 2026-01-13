@@ -35,7 +35,7 @@
     <menuitem
             id="cost_center_menu"
             name="Cost Center"
-            parent="hr.menu_human_resources_configuration"
+            parent="sd_hr_menu_config_employee"
             action="cost_center_action"
             sequence="1"/>
 

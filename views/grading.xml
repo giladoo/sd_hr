@@ -35,7 +35,7 @@
     <menuitem
             id="grading_menu"
             name="Grading"
-            parent="hr.menu_human_resources_configuration"
+            parent="sd_hr_menu_config_employee"
             action="grading_action"
             sequence="1"/>
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'SD HR',
-    'version': '18.0.1.0.1',
+    'version': '18.0.1.0.2',
     'category': 'Human Resources',
     'summary': """ It works as base module for HR extended 1 modules """,
     'author': 'Arash Homayounfar',
@@ -11,7 +11,7 @@
     'installable': True,
     'auto_install': False,
     'application': False,
-    'depends': ['hr', 'sd_hr_relatives', 'sd_projects'],
+    'depends': ['hr',],
 	'external_dependencies': {
     	'python': ['python-docx',]
     },

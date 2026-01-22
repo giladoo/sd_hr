@@ -7,14 +7,16 @@ import os
 from PIL import Image
 import logging
 from odoo.osv import expression
+import json
 
 class SdHrHrEmployee(models.Model):
     _inherit = 'hr.employee'
 
     certificate = fields.Selection(
-        selection_add=[('under_diploma', 'Under Diploma'),
-        ('diploma', 'Diploma'),
-        ('associate', 'Associate'),
+        selection_add=[
+            ('under_diploma', 'Under Diploma'),
+            ('diploma', 'Diploma'),
+            ('associate', 'Associate'),
     ],)
 
     # certificate = fields.Selection(
@@ -38,6 +40,7 @@ class SdHrHrEmployee(models.Model):
     grading = fields.Many2one('sd_hr.grading')
     work_place_id = fields.Many2one('hr.work.place')
     cost_center = fields.Many2one('sd_hr.cost_center')
+
 
     def generate_barcode(self):
         self.barcode = self.env['ir.sequence'].next_by_code('sd_hr.employee.barcode') or ''

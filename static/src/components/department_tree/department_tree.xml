@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template xml:space="preserve">
+    <t t-name="sd_hr.department_tree_template" owl="1">
+        <div class="  my-4 ms-5 d-none d-sm-block" >
+            <div class=" btn btn-outline-primary ms-2  py-2 fa fa-refresh"  t-on-click="this.onRefresh"><span class="mx-1">Refresh</span></div>
+            <div class=" btn btn-outline-primary ms-2 py-2 fa fa-plus-square-o" t-on-click="this.onExpand"> <span class="mx-1">Expand</span></div>
+            <div class=" btn btn-outline-primary ms-2 py-2 fa fa-minus-square-o" t-on-click="this.onCollapse"> <span class="mx-1">Collapse</span></div>
+
+        </div>
+        <div class="  my-4 ms-5 d-block d-sm-none" >
+            <div class=" btn btn-outline-primary ms-2  py-2 fa fa-refresh"   t-on-click="this.onRefresh"><span class="mx-1"></span></div>
+            <div class=" btn btn-outline-primary ms-2 py-2 fa fa-plus-square-o" t-on-click="this.onExpand"><span class="mx-1"></span></div>
+            <div class=" btn btn-outline-primary ms-2 py-2 fa fa-minus-square-o" t-on-click="this.onCollapse"><span class="mx-1"></span></div>
+
+        </div>
+        <div class="container  pb-5">
+            <div class="" id="tree_element" t-ref="tree_element"></div>
+
+        </div>
+    </t>
+</template>

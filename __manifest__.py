@@ -1,6 +1,6 @@
 {
     'name': 'SD HR',
-    'version': '18.0.1.0.2',
+    'version': '18.0.1.0.3',
     'category': 'Human Resources',
     'summary': """ It works as base module for HR extended 1 modules """,
     'author': 'Arash Homayounfar',

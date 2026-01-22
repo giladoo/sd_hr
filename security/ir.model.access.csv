@@ -6,4 +6,5 @@ access_sd_hr_grading_manager,sd_hr.grading,model_sd_hr_grading,hr.group_hr_manag
 access_hr_work_place_manager,hr.work.place,model_hr_work_place,hr.group_hr_manager,1,1,1,1
 access_hr_work_place_user,hr.work.place,model_hr_work_place,base.group_user,1,0,0,0
 access_sd_hr_cost_center_manager,sd_hr.cost_center,model_sd_hr_cost_center,hr.group_hr_manager,1,1,1,1
+access_sd_hr_export_manager,sd_hr.export,model_sd_hr_export,hr.group_hr_manager,1,1,1,1
 

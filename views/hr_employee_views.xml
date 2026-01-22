@@ -6,7 +6,7 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-                            <xpath expr="//header" position="inside">
+            <xpath expr="//header" position="inside">
                     <button name="download_images"
                         string="Images"
                         type="object"
@@ -73,7 +73,7 @@
                             <group>
                                 <separator class="bg-300" string="HR Settings"/>
                                 <lable for="barcode"/>
-                                <div class="o_row">
+                                <div class="o_row" groups="hr.group_hr_manager">
                                     <field name="barcode"/>
                                     <button string="Generate" class="btn btn-link" type="object"
                                             name="generate_barcode" invisible="barcode"
@@ -150,6 +150,7 @@
                 </xpath>
             </field>
         </record>
+
     <record model="ir.actions.server" id="hr_download_images">
         <field name="name">Download Images</field>
         <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
@@ -163,4 +164,17 @@ if records:
 
     </record>
 
+    <record id="department_tree" model="ir.actions.client">
+        <field name="name">Department Tree</field>
+        <field name="res_model">hr.department</field>
+        <field name="tag">sd_hr.department_tree</field>
+    </record>
+
+    <menuitem
+       id="department_tree_menu"
+       name="Department Tree"
+       parent="hr.menu_hr_root"
+       groups="base.group_system"
+       action="department_tree"
+       sequence="99"/>
 </odoo>

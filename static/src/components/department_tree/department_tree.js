@@ -86,7 +86,8 @@ export class SdHrDepartmentTree extends Component {
             },
                     {
                         onClose: (e) => {
-                            this.onRefresh();
+                            // Comment: if refresh, you lost the last track of work. if not you need to refresh manually
+//                            this.onRefresh();
                         },
                     })
 

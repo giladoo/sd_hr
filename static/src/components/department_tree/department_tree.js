@@ -66,10 +66,17 @@ export class SdHrDepartmentTree extends Component {
                 domain: domain,
                 context: context,
             }
-        if (["hr.department", "hr.job", "hr.employee"].includes(node.model) && viewType == 'form'){
-
+        if (viewType == "list,form"){
+            actionData.view_mode = 'list,form'
+            let views = viewType.split(',')
+            console.log('viewType', views)
+            actionData.views = []
+            views.forEach(r => actionData.views.push([false, r]))
+            console.log('viewType', actionData.views)
         }
-        else if (node.model == 'hr.contract'){
+        if (["hr.department", "hr.job", "hr.employee"].includes(node.model)){
+
+        } else if (node.model == 'hr.contract'){
             actionData = {
                 type: "ir.actions.act_window",
                 name: "",
@@ -116,6 +123,15 @@ export class SdHrDepartmentTree extends Component {
                                 newNode = {...node}
                                 newNode.id = 0
                                 this._openNode(newNode, 'form', [], {'default_parent_id': node.id})
+                             }
+                           },
+                            {
+                             text: _t('Employees'),
+                             onClick: (node) => {
+                                newNode = {...node}
+                                newNode.id = 0
+                                newNode.model = "hr.employee"
+                                this._openNode(newNode, 'list,form', [], {'default_parent_id': node.id})
                              }
                            },
                             {

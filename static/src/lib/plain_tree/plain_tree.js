@@ -303,7 +303,9 @@ class PlainTree {
 
         const label = document.createElement('span');
         label.classList.add('plaintree-label');
-
+        if (node.nodeClass){
+            node.nodeClass.forEach(r => label.classList.add(r));
+        }
         const text = document.createTextNode(node.text);
         label.append(text);
         li.append(label);

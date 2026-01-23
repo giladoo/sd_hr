@@ -34,7 +34,8 @@
     ],
     'assets':{
         'web.assets_backend':[
-          'sd_hr/static/src/components/**/*',
+            'sd_hr/static/src/components/**/*',
+            'sd_hr/static/src/lib/plain_tree/plain_tree.css',
         ],
     },
 

@@ -65,24 +65,15 @@ class SdHrDepartments(models.Model):
         return tuple((rec.id for rec in records if rec.parent_id == record))
 
     def get_departments(self):
+        is_fa = True if self.env.context.get('lang', '') == 'fa_IR' else False
         def parent(rec):
             if rec['parent_id']:
                 rec['parent_id'] = rec['parent_id'][0]
             return rec
 
-        departments = self.search_read([], ['id', 'name', 'parent_id', 'child_ids', ],order='name')
+        departments = self.search_read([], ['id', 'name', 'parent_id', 'child_ids', 'manager_id', ],order='name')
         departments = list([parent(rec) for rec in departments])
         top_chart_ids = list([rec['id'] for rec in departments if not rec['parent_id']])
-
-        char_list = list([{
-                            'id': rec['id'],
-                            'text': rec['name'],
-                            'children': rec['child_ids'],
-                            'model': 'hr.department',
-                           } for rec in departments
-                          ])
-        print(f".............len(char_list): {len(char_list)}")
-
         jobs = self.env['hr.job'].search_read([], ['name', 'department_id'])
         jobs_grouped = dict(tools.groupby(jobs, key=lambda a: a['department_id']))
 
@@ -90,6 +81,18 @@ class SdHrDepartments(models.Model):
 
         employee_dep_grouped = dict(tools.groupby(employees, key=lambda a: a['department_id']))
         employee_job_grouped = dict(tools.groupby(employees, key=lambda a: a['job_id']))
+        char_list = list([{
+                            'id': rec['id'],
+                            'text': f"\u200F{rec['name']} (\u200F{rec['manager_id'][1] if rec['manager_id'] else ''})" if is_fa
+                            else f"{rec['name']} ({rec['manager_id'][1] if rec['manager_id'] else ''})",
+                            'children': rec['child_ids'],
+                            'model': 'hr.department',
+                             'nodeClass': ['text-primary', 'border', 'border-primary', 'px-3', 'rounded', ],
+                           } for rec in departments
+                          ])
+        print(f".............len(char_list): {len(char_list)}")
+
+
         # ic(employee_job_grouped)
 
 
@@ -129,6 +132,7 @@ class SdHrDepartments(models.Model):
                                     'id': dep_job['id'],
                                     'text': dep_job['name'],
                                     'children': job_employee_list,
+                                    'nodeClass': ['text-primary', 'border', 'border-warning', 'px-3', 'rounded', ],
                                     'model': 'hr.job',
                                 }
                                 nc[0]['children'].append( dep_job_data)

@@ -123,6 +123,7 @@ class SdHrDepartments(models.Model):
                                     for job_employee in job_employees[0]:
                                         job_employee_data = {
                                             'id': job_employee['id'],
+                                            'department_id': c_id,
                                             'text': job_employee['name'],
                                             'children': [],
                                             'model': 'hr.employee',
@@ -131,6 +132,7 @@ class SdHrDepartments(models.Model):
                                 dep_job_data = {
                                     'id': dep_job['id'],
                                     'text': dep_job['name'],
+                                    'department_id': c_id,
                                     'children': job_employee_list,
                                     'nodeClass': ['text-primary', 'border', 'border-warning', 'px-3', 'rounded', ],
                                     'model': 'hr.job',
@@ -146,6 +148,7 @@ class SdHrDepartments(models.Model):
                                 dep_employee_data = {
                                     'id': dep_employee['id'],
                                     'text': dep_employee['name'],
+                                    'department_id': d['id'],
                                     'children': [],
                                     'model': 'hr.employee',
                                 }

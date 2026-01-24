@@ -27,11 +27,16 @@ class SdHrDepartments(models.Model):
             #     'nodeClass': ['text-primary', 'border', 'border-primary', 'px-3', 'rounded', ],
             # }
             children = children_map.get(node_id, [])
-            node_child = [r.get(node_id) for r in job_list if r.get(node_id, False)] if job_list else []
-            node['children'] = node_child
+            node['children'] = [r.get(node_id) for r in job_list if r.get(node_id, False)] if job_list else []
 
             # todo: emp_list
-            node['children'] += emp_list[node_id] if emp_list else []
+
+            node_child = [r.get(node_id) for r in emp_list if r.get(node_id)] if emp_list else []
+            # print('+++++++++++++++++++++++++++++++++++++++++++')
+            # ic( node_id, node_child)
+
+            node['children'] += node_child[0] if node_child else []
+
 
             if children:
                 node['children'] += [build_node(child_id) for child_id in children]
@@ -81,7 +86,7 @@ class SdHrDepartments(models.Model):
                 job_list.append({
                     job.department_id.id: {
                         'text': job.name,
-                        'department_id': job.department_id.id,
+                        'department_id': job.department_id.id or 'False',
                         'model': 'hr.job',
                         'id': job.id,
                         'children': job_children,
@@ -91,6 +96,9 @@ class SdHrDepartments(models.Model):
             })
 
         dep_parents = dict({rec.id: rec.parent_id.id for rec in departments})
+        dep_parents['False'] = False
+        # ic(dep_parents)
+
         dep_list = dict({rec.id: {
                         'text': f"\u200F{rec.name} ({rec.manager_id.name or ''})" if is_fa else f"{rec.name} ({rec.manager_id.name or ''})",
                         'id': rec.id,
@@ -98,13 +106,26 @@ class SdHrDepartments(models.Model):
                         'nodeClass': ['text-primary', 'border', 'border-primary', 'px-3', 'rounded', ],                                    }
                                    for rec in departments
                                    })
-        # print(f">>>>>>>>\n {jobs}")
-        # for dep_id, dep_data in dep_list.items():
-        #     jl = jobs.filtered(lambda rec: rec.department_id.id == dep_id)
-        #     print('>>>>>>', dep_id, jl)
+        dep_list['False'] = {'text': _('Department is not set'), 'id':'False'}
+        # ic(dep_list)
 
-        emp_no_job = employees.filtered(lambda rec: not rec.job_id)
-        data_pc = self._build_plain_tree(dep_parents, dep_list, job_list)
+
+
+        emp_no_job = employees.filtered(lambda rec: not rec.job_id).grouped('department_id')
+        dep_children = []
+        emp_no_job_list = []
+        for dep, emps in emp_no_job.items():
+            print(f"{dep.id}: {len(emps)}")
+            dep_children = [{
+                'text': emp.name,
+                'model': 'hr.employee',
+                'id': emp.id,
+
+            } for emp in emps]
+            emp_no_job_list.append({dep.id or 'False': dep_children})
+        # ic(emp_no_job_list)
+
+        data_pc = self._build_plain_tree(dep_parents, dep_list, job_list, emp_no_job_list)
 
         return json.dumps(data_pc)
 
@@ -162,8 +183,8 @@ class SdHrDepartments(models.Model):
                                 # TODO: some employees cannot be excepted from department while are in job list
                                 job_employees = list([v for k, v in employee_job_grouped.items() if k and k[0] == dep_job['id']])
                                 job_employees_ids += list([e['id'] for e in job_employees[0]]) if job_employees else []
-                                ic(job_employees)
-                                ic(job_employees_ids)
+                                # ic(job_employees)
+                                # ic(job_employees_ids)
                                 if job_employees:
                                     for job_employee in job_employees[0]:
                                         job_employee_data = {
@@ -186,7 +207,7 @@ class SdHrDepartments(models.Model):
                         dep_employees = list(
                             [v for k, v in employee_dep_grouped.items()
                              if k and k[0] == nc[0]['id'] and v[0]['id'] not in job_employees_ids])
-                        ic(dep_employees)
+                        # ic(dep_employees)
 
                         if dep_employees:
                             for dep_employee in dep_employees[0]:

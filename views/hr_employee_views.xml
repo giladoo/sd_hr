@@ -200,7 +200,7 @@ if records:
        id="department_tree_menu"
        name="Department Tree"
        parent="hr.menu_hr_root"
-       groups="base.group_system"
+       groups="hr.group_hr_manager"
        action="department_tree"
        sequence="99"/>
 </odoo>

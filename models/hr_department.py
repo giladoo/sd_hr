@@ -8,8 +8,7 @@ from icecream import ic
 class SdHrDepartments(models.Model):
     _inherit = "hr.department"
 
-    def _build_plain_tree(self, data, departments):
-        is_fa = True if self.env.context.get('lang', '') == 'fa_IR' else False
+    def _build_plain_tree(self, data, dep_list, job_list=[], emp_list=[]):
 
         # Step 1: Build reverse mapping (parent → list of children)
         children_map = defaultdict(list)
@@ -19,15 +18,23 @@ class SdHrDepartments(models.Model):
 
         # Step 2: Recursive function to build tree nodes
         def build_node(node_id):
-            doc = departments[node_id]
-            node = {
-                'text': f"\u200E{doc['code']} - \u200F{doc['name']}" if is_fa else f"{doc['code']} - {doc['name']}",
-                'id': node_id,
-                'type': doc['type'],
-            }
+            doc = dep_list[node_id]
+            node = doc
+            # node = {
+            #     'text': f"\u200F{doc['name']}" if is_fa else f"{doc['name']}",
+            #     'id': node_id,
+            #     'model': 'hr.department',
+            #     'nodeClass': ['text-primary', 'border', 'border-primary', 'px-3', 'rounded', ],
+            # }
             children = children_map.get(node_id, [])
+            node_child = [r.get(node_id) for r in job_list if r.get(node_id, False)] if job_list else []
+            node['children'] = node_child
+
+            # todo: emp_list
+            node['children'] += emp_list[node_id] if emp_list else []
+
             if children:
-                node['children'] = [build_node(child_id) for child_id in children]
+                node['children'] += [build_node(child_id) for child_id in children]
             return node
 
         # Step 3: Build tree from root nodes
@@ -38,25 +45,6 @@ class SdHrDepartments(models.Model):
 
         return tree
 
-    def _build_hierarchy(self, data):
-
-        # Step 1: Build reverse mapping (parent → list of children)
-        children_map = defaultdict(list)
-        for child, parent in data.items():
-            if parent is not False:
-                children_map[parent].append(child)
-
-        # Step 2: Recursive function to build nested dict
-        def build_tree(node):
-            return {child: build_tree(child) for child in children_map.get(node, [])}
-
-        # Step 3: Build final structure from root nodes
-        result = {}
-        for node, parent in data.items():
-            if parent is False:
-                result[node] = build_tree(node)
-
-        return result
 
     def find_child(self, records, record):
         return tuple((rec.id for rec in records if rec.parent_id == record))
@@ -65,6 +53,63 @@ class SdHrDepartments(models.Model):
         return tuple((rec.id for rec in records if rec.parent_id == record))
 
     def get_departments(self):
+        # 1 create employees data as employees
+        # 2 create jobs data as jobs
+        # 3 create departments data as departments
+        # 4 link employees as job child jobs_list
+        # 5 create list of employees without job position as emp_no_jobs
+        # 6 link jobs_list to departments
+        # 7 link emp_no_jobs to departments
+        #      employees.filtered(lambda rec: not rec.job_id and rec.department_id.id == dep.id)
+        is_fa = True if self.env.context.get('lang', '') == 'fa_IR' else False
+
+        employees = self.env['hr.employee'].search([],order='name')
+        jobs = self.env['hr.job'].search([],order='name')
+        departments = self.search([],order='name')
+
+        job_list = []
+        for job in jobs:
+            emp_jobs = employees.filtered(lambda rec: rec.job_id.id == job.id)
+            # print(f">>>>>emp_jobs: {emp_jobs}")
+            job_children = [{
+                'text': emp.name,
+                'model': 'hr.employee',
+                'id': emp.id,
+            } for emp in emp_jobs]
+
+            if job.department_id:
+                job_list.append({
+                    job.department_id.id: {
+                        'text': job.name,
+                        'department_id': job.department_id.id,
+                        'model': 'hr.job',
+                        'id': job.id,
+                        'children': job_children,
+                        'nodeClass': ['text-primary', 'border', 'border-warning', 'px-3', 'rounded', ],
+
+                    }
+            })
+
+        dep_parents = dict({rec.id: rec.parent_id.id for rec in departments})
+        dep_list = dict({rec.id: {
+                        'text': f"\u200F{rec.name} ({rec.manager_id.name or ''})" if is_fa else f"{rec.name} ({rec.manager_id.name or ''})",
+                        'id': rec.id,
+                        'model': 'hr.department',
+                        'nodeClass': ['text-primary', 'border', 'border-primary', 'px-3', 'rounded', ],                                    }
+                                   for rec in departments
+                                   })
+        # print(f">>>>>>>>\n {jobs}")
+        # for dep_id, dep_data in dep_list.items():
+        #     jl = jobs.filtered(lambda rec: rec.department_id.id == dep_id)
+        #     print('>>>>>>', dep_id, jl)
+
+        emp_no_job = employees.filtered(lambda rec: not rec.job_id)
+        data_pc = self._build_plain_tree(dep_parents, dep_list, job_list)
+
+        return json.dumps(data_pc)
+
+
+    def get_departments1(self):
         is_fa = True if self.env.context.get('lang', '') == 'fa_IR' else False
         def parent(rec):
             if rec['parent_id']:

@@ -72,6 +72,9 @@ export class SdHrDepartmentTree extends Component {
             console.log('viewType', views)
             actionData.views = []
             views.forEach(r => actionData.views.push([false, r]))
+            actionData.views =  [[false, 'list'],]
+//            actionData.action_xml_id =  "sd_hr."
+            actionData.xml_id =  "sd_hr.employee_add_to_list_action"
             console.log('viewType', actionData.views)
         }
         if (["hr.department", "hr.job", "hr.employee"].includes(node.model)){
@@ -131,7 +134,12 @@ export class SdHrDepartmentTree extends Component {
                                 newNode = {...node}
                                 newNode.id = 0
                                 newNode.model = "hr.employee"
-                                this._openNode(newNode, 'list,form', [], {'default_parent_id': node.id})
+                                this._openNode(newNode, 'list,form', [],
+                                 {create: false,
+                                 default_department_id: node.department_id,
+                                 node_model: node.model,
+                                 node_id: node.id,
+                                 })
                              }
                            },
                             {
@@ -154,8 +162,12 @@ export class SdHrDepartmentTree extends Component {
                             {
                              text: _t('New Job Position'),
                              onClick: (node) => {
-                                console.log('node', node)
+                                newNode = {...node}
+                                newNode.id = 0
+                                newNode.model = "hr.job"
+                                this._openNode(newNode, 'form', [], {'default_department_id': node.id})
                              }
+
                            },
                             {
                              text: _t('Contract List'),

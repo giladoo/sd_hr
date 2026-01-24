@@ -12,6 +12,9 @@
                         type="object"
                         groups="base.group_system"/>
                 </xpath>
+            <xpath expr="//field[@name='job_id']" position="attributes">
+                <attribute name="domain">[('department_id', '!=', False), ('department_id', '=', department_id )]</attribute>
+            </xpath>
             <xpath expr="//notebook/page[@name='public']" position="attributes">
                 <attribute name="invisible">0</attribute>
             </xpath>
@@ -162,6 +165,29 @@ if records:
     action = records.download_images()
             </field>
 
+    </record>
+
+    <record id="employee_add_to_list" model="ir.ui.view">
+        <field name="name">Employee Add</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <list>
+                <header>
+                    <button name="sd_hr_add_to_list" string="Add it" class="btn btn-primary" type="object"></button>
+                </header>
+                <field name="name"/>
+                <field name="department_id"/>
+            </list>
+
+        </field>
+
+    </record>
+
+    <record id="employee_add_to_list_action" model="ir.actions.act_window">
+        <field name="name">Employee Tree</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">list</field>
+<!--        <field name="view_id" ref="sd_hr_employee_add_to_list"></field>-->
     </record>
 
     <record id="department_tree" model="ir.actions.client">

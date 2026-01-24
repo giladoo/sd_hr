@@ -6,8 +6,12 @@ import base64
 import os
 from PIL import Image
 import logging
+
+from odoo.exceptions import ValidationError
 from odoo.osv import expression
 import json
+from icecream import ic
+
 
 class SdHrHrEmployee(models.Model):
     _inherit = 'hr.employee'
@@ -41,6 +45,24 @@ class SdHrHrEmployee(models.Model):
     work_place_id = fields.Many2one('hr.work.place')
     cost_center = fields.Many2one('sd_hr.cost_center')
 
+    # The job must be set as this department's job
+    @api.onchange('department_id')
+    def department_id_changed(self):
+        for rec in self:
+            rec.job_id = False
+
+
+    def sd_hr_add_to_list(self):
+        ic(self.env.context)
+        rec_field = "department_id"
+        context = self.env.context
+        node_model = context.get('node_model', False)
+        if node_model == "hr.job":
+            rec_field = 'job_id'
+        node_id = context.get('node_id', False)
+        records = self.browse(context.get('active_ids', []))
+        for rec in records:
+            rec.write({rec_field: node_id})
 
     def generate_barcode(self):
         self.barcode = self.env['ir.sequence'].next_by_code('sd_hr.employee.barcode') or ''

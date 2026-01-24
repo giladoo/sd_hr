@@ -77,7 +77,7 @@ class SdHrDepartments(models.Model):
                         'text': f"\u200F{rec.name} ({rec.manager_id.name or ''})" if is_fa else f"{rec.name} ({rec.manager_id.name or ''})",
                         'id': rec.id,
                         'model': 'hr.department',
-                        'nodeClass': ['text-primary', 'border', 'border-primary', 'px-3', 'rounded', ],                                    }
+                        'nodeClass': ['text-primary', 'border', 'border-primary', 'px-3', 'rounded', 'text-light', 'bg-600' ],                                    }
                                    for rec in departments
                                    })
         dep_list['False'] = {'text': _('Department is not set'), 'id':'False'}

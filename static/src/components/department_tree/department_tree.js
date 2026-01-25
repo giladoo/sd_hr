@@ -46,7 +46,7 @@ export class SdHrDepartmentTree extends Component {
         this.onRefresh = this.onRefresh.bind(this)
         this.onExpand = this.onExpand.bind(this)
         this.onCollapse = this.onCollapse.bind(this)
-        this.onFind = this.onFind.bind(this)
+        this.onFindNext = this.onFindNext.bind(this)
         this.loadPlainTree = this.loadPlainTree.bind(this)
     }
     async _getData(){

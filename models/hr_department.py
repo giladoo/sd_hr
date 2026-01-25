@@ -53,7 +53,7 @@ class SdHrDepartments(models.Model):
             job_children = [{
                 'text': emp.name,
                 'model': 'hr.employee',
-                'id': emp.id,
+                'id': f"dep_{emp.id}",
             } for emp in emp_jobs]
 
             # 5 link jobs_list to departments
@@ -63,9 +63,9 @@ class SdHrDepartments(models.Model):
                         'text': job.name,
                         'department_id': department_id,
                         'model': 'hr.job',
-                        'id': job.id,
+                        'id': f"dep_{job.id}",
                         'children': job_children,
-                        'nodeClass': ['text-primary', 'border', 'border-warning', 'px-3', 'rounded', ],
+                        'nodeClass': ['text-primary', 'bg-warning-light', 'px-3', 'rounded', ],
                         }
                 })
         # 6 create departments parent dict
@@ -75,12 +75,13 @@ class SdHrDepartments(models.Model):
         # 7 create departments data list
         dep_list = dict({rec.id: {
                         'text': f"\u200F{rec.name} ({rec.manager_id.name or ''})" if is_fa else f"{rec.name} ({rec.manager_id.name or ''})",
-                        'id': rec.id,
+                        'id': f"dep_{rec.id}",
                         'model': 'hr.department',
-                        'nodeClass': ['text-primary', 'border', 'border-primary', 'px-3', 'rounded', 'text-light', 'bg-600' ],                                    }
+                        'nodeClass': ['text-primary', 'px-3', 'rounded',  'bg-500' ],                                    }
                                    for rec in departments
                                    })
         dep_list['False'] = {'text': _('Department is not set'), 'id':'False'}
+        ic(dep_list)
 
         # 8 create list of employees without job position as emp_no_jobs
         emp_no_job = employees.filtered(lambda rec: not rec.job_id).grouped('department_id')
@@ -92,14 +93,14 @@ class SdHrDepartments(models.Model):
             dep_children = [{
                 'text': emp.name,
                 'model': 'hr.employee',
-                'id': emp.id,
+                'id': f"emp_{emp.id}",
 
             } for emp in emps]
             emp_no_job_list.append({dep.id or 'False': dep_children})
 
         # 10 build plain tree data
         plain_tree = self._build_plain_tree(dep_parents, dep_list, job_list, emp_no_job_list)
-
+        ic(plain_tree)
         return json.dumps(plain_tree)
 
 

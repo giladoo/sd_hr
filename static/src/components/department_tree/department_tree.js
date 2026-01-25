@@ -45,7 +45,6 @@ export class SdHrDepartmentTree extends Component {
         this.onExpand = this.onExpand.bind(this)
         this.onCollapse = this.onCollapse.bind(this)
         this.loadPlainTree = this.loadPlainTree.bind(this)
-        this._onFormClose = this._onFormClose.bind(this)
     }
     async _getData(){
         let getDepartments = await this.orm.call('hr.department', 'get_departments', [false])
@@ -53,8 +52,12 @@ export class SdHrDepartmentTree extends Component {
         return getDepartments
 
     }
+    nodeId(node){
+        return node.id ? Number(node.id.split('_')[1]) : 0
+    }
     _openNode(node, viewType="form", domain=[], context={}){
-        console.log('node:', node)
+        node.id = this.nodeId(node)
+        console.log("_openNode", context)
         let actionData = {
                 type: "ir.actions.act_window",
                 name: "",
@@ -101,12 +104,8 @@ export class SdHrDepartmentTree extends Component {
 //                            this.onRefresh();
                         },
                     })
+    }
 
-    }
-    _onFormClose(res_id){
-//        console.log('_onFormClose', res_id, this)
-//        this.tree.onExpand();
-    }
     async onRefresh(e){
         let data = await this._getData()
         this.tree_element.el.innerHTML = ''
@@ -114,18 +113,27 @@ export class SdHrDepartmentTree extends Component {
 
     }
     loadPlainTree(data){
+        console.log('data:', data)
         let newNode = {}
         this.tree = new PlainTree('#tree_element', {
             data,
             depth: 2,
             onRendered: null ,
-               contextMenu: [
+            contextMenu: [
+                            {
+                             text: _t('Expand'),
+                             onClick: (node) => {
+                                this.tree.expand([node])
+                             }
+                           },
                             {
                              text: _t('New Department'),
                              onClick: (node) => {
-                                newNode = {...node}
-                                newNode.id = 0
-                                this._openNode(newNode, 'form', [], {'default_parent_id': node.id})
+                                if(node.model == 'hr.department'){
+                                    newNode = {...node}
+                                    newNode.id = 0
+                                    this._openNode(newNode, 'form', [], {'default_parent_id': this.nodeId(node)})
+                                }
                              }
                            },
                             {
@@ -147,15 +155,10 @@ export class SdHrDepartmentTree extends Component {
                              onClick: (node) => {
                                 console.log('New Employee', node)
                                 newNode = {...node}
-                                if (node.model == 'hr.department'){
+                                if (node.model == 'hr.job'){
                                     newNode.id = 0
                                     newNode.model = "hr.employee"
-                                    this._openNode(newNode, 'form', [], {'default_department_id': node.id})
-                                    }
-                                   else if (node.model == 'hr.job'){
-                                    newNode.id = 0
-                                    newNode.model = "hr.employee"
-                                    this._openNode(newNode, 'form', [], {'default_job_id': node.id, 'default_department_id': node.department_id})
+                                    this._openNode(newNode, 'form', [], { 'default_department_id': node.department_id, 'default_job_id': this.nodeId(node),})
                                   }
                                   }
                            },
@@ -176,7 +179,7 @@ export class SdHrDepartmentTree extends Component {
                                 if (node.model == 'hr.employee'){
                                     newNode = {...node}
                                     newNode.model = 'hr.contract'
-                                    this._openNode(newNode, 'list', [['employee_id', '=', newNode.id]])
+                                    this._openNode(newNode, 'list', [['employee_id', '=', Number(newNode.id.split('_')[1])]])
                                 }
                              }
                            },
@@ -189,8 +192,6 @@ export class SdHrDepartmentTree extends Component {
 //        this.tree.collapse()
     }
     onExpand(){
-        console.log('tree', this.tree)
-//        this.tree['#options']['depth'] = 3
         this.tree.expand()
     }
     onCollapse(){

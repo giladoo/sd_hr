@@ -53,6 +53,7 @@ class SdHrDepartments(models.Model):
             job_children = [{
                 'text': emp.name,
                 'model': 'hr.employee',
+                'contextMenu': 'contextMenuEmployee',
                 'id': f"dep_{emp.id}",
             } for emp in emp_jobs]
 
@@ -66,6 +67,7 @@ class SdHrDepartments(models.Model):
                         'id': f"dep_{job.id}",
                         'children': job_children,
                         'nodeClass': ['text-primary', 'bg-warning-light', 'px-3', 'rounded', ],
+                        'contextMenu': 'contextMenuJob',
                         }
                 })
         # 6 create departments parent dict
@@ -77,11 +79,12 @@ class SdHrDepartments(models.Model):
                         'text': f"\u200F{rec.name} ({rec.manager_id.name or ''})" if is_fa else f"{rec.name} ({rec.manager_id.name or ''})",
                         'id': f"dep_{rec.id}",
                         'model': 'hr.department',
+                        'contextMenu': 'contextMenuDepartment',
                         'nodeClass': ['text-primary', 'px-3', 'rounded',  'bg-500' ],                                    }
                                    for rec in departments
                                    })
         dep_list['False'] = {'text': _('Department is not set'), 'id':'False'}
-        ic(dep_list)
+        # ic(dep_list)
 
         # 8 create list of employees without job position as emp_no_jobs
         emp_no_job = employees.filtered(lambda rec: not rec.job_id).grouped('department_id')
@@ -89,10 +92,11 @@ class SdHrDepartments(models.Model):
         emp_no_job_list = []
         # 9 link emp_no_jobs to departments
         for dep, emps in emp_no_job.items():
-            print(f"{dep.id}: {len(emps)}")
+            # print(f"{dep.id}: {len(emps)}")
             dep_children = [{
                 'text': emp.name,
                 'model': 'hr.employee',
+                'contextMenu': 'contextMenuEmployee',
                 'id': f"emp_{emp.id}",
 
             } for emp in emps]
@@ -100,7 +104,7 @@ class SdHrDepartments(models.Model):
 
         # 10 build plain tree data
         plain_tree = self._build_plain_tree(dep_parents, dep_list, job_list, emp_no_job_list)
-        ic(plain_tree)
+        # ic(plain_tree)
         return json.dumps(plain_tree)
 
 

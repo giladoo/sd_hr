@@ -54,22 +54,27 @@ class SdHrHrEmployee(models.Model):
 
     def sd_hr_add_to_list(self):
         ic(self.env.context)
-        rec_field = "department_id"
         context = self.env.context
         node_model = context.get('node_model', False)
         if node_model == "hr.job":
-            rec_field = 'job_id'
-        node_id = context.get('node_id', False)
-        records = self.browse(context.get('active_ids', []))
-        for rec in records:
-            rec.write({rec_field: node_id})
+            node_id = context.get('node_id', False)
+            job_record = self.env['hr.job'].browse(node_id) if isinstance(node_id, int) else 0
+            if job_record:
+                department_id = job_record.department_id
+                if department_id:
+                    records = self.browse(context.get('active_ids', []))
+                    for rec in records:
+                        print(f"##########     department_id:{department_id}  job_id: {node_id}")
+                        rec.write({'department_id': department_id.id,  })
+                        rec.write({'job_id': node_id, })
+
 
     def generate_barcode(self):
         self.barcode = self.env['ir.sequence'].next_by_code('sd_hr.employee.barcode') or ''
         # print(f"\n self: {self.name} {self.barcode}\n")
 
     def download_images(self):
-        print(f"\ndownload_images: \n {self.env.context}")
+        # print(f"\ndownload_images: \n {self.env.context}")
         active_ids = self.env.context.get('active_ids', [])
         employees = self.browse(active_ids) if len(active_ids) > 0 else self
         attachment_model = self.env['ir.attachment']

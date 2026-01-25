@@ -17,6 +17,7 @@ import { loadJS } from "@web/core/assets";
 export class SdHrDepartmentTree extends Component {
     static template = "sd_hr.department_tree_template"
     setup(){
+        console.log('session:', session)
 
         let self = this;
         this.orm = useService('orm')
@@ -29,7 +30,7 @@ export class SdHrDepartmentTree extends Component {
             labelTags: [],
         })
         onWillStart(async () => {
-            const plainTree = '/sd_hr/static/src/lib/plain_tree/plain_tree.js'
+            const plainTree = '/sd_hr/static/src/lib/plain_tree/plain_tree.g002.js'
             await loadJS(plainTree)
         });
         onMounted(async () => {
@@ -49,84 +50,164 @@ export class SdHrDepartmentTree extends Component {
         this.onFindNext = this.onFindNext.bind(this)
         this.loadPlainTree = this.loadPlainTree.bind(this)
     }
-    async _getData(){
-        let getDepartments = await this.orm.call('hr.department', 'get_departments', [false])
-        getDepartments = JSON.parse(getDepartments)
-        return getDepartments
-
-    }
-    nodeId(node){
-        return node.id ? Number(node.id.split('_')[1]) : 0
-    }
-    _openNode(node, viewType="form", domain=[], context={}){
-        node.id = this.nodeId(node)
-        console.log("_openNode", context)
-        let actionData = {
-                type: "ir.actions.act_window",
-                name: "",
-                res_model: node.model,
-                view_mode: viewType,
-                views: [[false, viewType],],
-                target: "new",
-                res_id: node.id,
-                domain: domain,
-                context: context,
-            }
-        if (viewType == "list,form"){
-            actionData.view_mode = 'list,form'
-            let views = viewType.split(',')
-            console.log('viewType', views)
-            actionData.views = []
-            views.forEach(r => actionData.views.push([false, r]))
-            actionData.views =  [[false, 'list'],]
-//            actionData.action_xml_id =  "sd_hr."
-            actionData.xml_id =  "sd_hr.employee_add_to_list_action"
-            console.log('viewType', actionData.views)
-        }
-        if (["hr.department", "hr.job", "hr.employee"].includes(node.model)){
-
-        } else if (node.model == 'hr.contract'){
-            actionData = {
-                type: "ir.actions.act_window",
-                name: "",
-                res_model: 'hr.contract',
-                view_mode: viewType,
-                views: [[false, viewType],],
-                target: "new",
-                domain: domain,
-                context: context,
-            }
-        } else{
-            return
-        }
-        this.actionService.doAction(
-                     actionData,
-                    {
-                        onClose: (e) => {
-                            // Comment: if refresh, you lost the last track of work. if not you need to refresh manually
-                            this.onRefresh();
-                        },
-                    })
-    }
-
-    async onRefresh(e){
-        let data = await this._getData()
-        this.tree_element.el.innerHTML = ''
-        this.loadPlainTree(data)
-
-    }
     loadPlainTree(data){
-        console.log('data:', data)
         let newNode = {}
         this.tree = new PlainTree('#tree_element', {
             data,
             depth: 10,
             onRendered: null ,
-            contextMenu: [
-                            {
-                             text: _t('Expand'),
+            contextMenuArray: {
+            'contextMenuDepartment':[
+                                        {
+                             text: _t('New Department'),
                              onClick: (node) => {
-                                this.tree.expand([node])
+                                if(node.model == 'hr.department'){
+                                    newNode = {...node}
+                                    newNode.id = 0
+                                    this._openNode(newNode, 'form', [], {'default_parent_id': this.nodeId(node)})
+                                }
+                             }
+                           },
+                           {
+                             text: _t('New Job position'),
+                             onClick: (node) => {
+                                if(node.model == 'hr.department'){
+                                    newNode = {...node}
+                                    newNode.id = 0
+                                    newNode.model = "hr.job"
+                                    this._openNode(newNode, 'form', [], {'default_department_id': this.nodeId(node)})
+                                }
+                             }
+                           },
+                              {
+                                text: _t('jobs'),
+                                 onClick: (node) => {
+                                    if (node.model == 'hr.department'){
+                                        newNode = {...node}
+                                        newNode.model = 'hr.job'
+                                        this._openNode(newNode,
+                                                        'list',
+                                                        [['department_id', '=', this.nodeId(node)]])
+                                    }
+                                 }
+                               },
+                             ],
+            'contextMenuJob':[
+                            {
+                             text: _t('Add Employee'),
+                             onClick: (node) => {
+                                if(node.model == 'hr.job'){
+                                    newNode = {...node}
+                                    newNode.id = 0
+                                    newNode.model = "hr.employee"
+                                    this._openNode(newNode,
+                                                    'list,form',
+                                                    [['job_id', '!=', this.nodeId(node)]],
+                                     {create: false,
+                                     default_department_id: node.department_id,
+                                     node_model: node.model,
+                                     node_id: this.nodeId(node),
+                                 })
+                                }
+                             }
+                           },
+                              {
+                                text: _t('Employee List'),
+                                 onClick: (node) => {
+                                    if (node.model == 'hr.job'){
+                                        newNode = {...node}
+                                        newNode.model = 'hr.employee'
+                                        this._openNode(newNode,
+                                                        'list',
+                                                        [['job_id', '=', this.nodeId(node)]])
+                                    }
+                                 }
+                               },
+                                                           {
+                             text: _t('New Employee'),
+                             onClick: (node) => {
+                                if (node.model == 'hr.job'){
+                                    newNode = {...node}
+                                    newNode.id = 0
+                                    newNode.model = "hr.employee"
+                                    this._openNode(newNode,
+                                                    'form',
+                                                    [],
+                                                    { 'default_department_id': node.department_id,
+                                                    'default_job_id': this.nodeId(node),})
+                                  }
+                                  }
+                           },
+                             ],
+
+            'contextMenuEmployee':[
+
+                              {
+                                 text: _t('Contracts'),
+                                 onClick: (node) => {
+                                    if (node.model == 'hr.employee'){
+                                        newNode = {...node}
+                                        newNode.model = 'hr.contract'
+                                        newNode.id = 0
+                                        this._openNode(newNode,
+                                                        'list,form',
+                                                        [['employee_id', '=', this.nodeId(node)]],
+                                                        {'default_employee_id': this.nodeId(node)},
+                                                        'current',
+                                                        'Contracts')
+                                    }
+                                 },
+                               },
+                              {
+                                 text: _t('Documents'),
+                                 onClick: (node) => {
+                                    if (node.model == 'hr.employee'){
+                                        newNode = {...node}
+                                        newNode.model = 'sd_hr_documents.attachments'
+                                        newNode.id = 0
+                                        this._openNode(newNode,
+                                                        'list,form',
+                                                        [['employee_id', '=', this.nodeId(node)]],
+                                                        {'default_employee_id': this.nodeId(node)},
+                                                        'current', 'Documents')
+                                    }
+                                 },
+                               },
+                              {
+                                 text: _t('Relatives'),
+                                 onClick: (node) => {
+                                    if (node.model == 'hr.employee'){
+                                        newNode = {...node}
+                                        newNode.model = 'sd_hr_relatives.members'
+                                        newNode.id = 0
+                                        this._openNode(newNode,
+                                                        'list,form',
+                                                        [['employee_id', '=', this.nodeId(node)]],
+                                                        {'default_employee_id': this.nodeId(node)},
+                                                        'current',
+                                                        'Relatives')
+                                    }
+                                 },
+                               },
+
+                             ],
+            },
+            contextMenu: [
+
+                            {
+                             text: _t('All Employees'),
+                             onClick: (node) => {
+                                if(node.model == 'hr.job'){
+                                    newNode = {...node}
+                                    newNode.id = 0
+                                    newNode.model = "hr.employee"
+                                    this._openNode(newNode, 'list,form', [],
+                                     {create: false,
+                                     default_department_id: node.department_id,
+                                     node_model: node.model,
+                                     node_id: this.nodeId(node),
+                                 })
+                                }
                              }
                            },
                             {
@@ -140,23 +221,9 @@ export class SdHrDepartmentTree extends Component {
                              }
                            },
                             {
-                             text: _t('Employees'),
-                             onClick: (node) => {
-                                newNode = {...node}
-                                newNode.id = 0
-                                newNode.model = "hr.employee"
-                                this._openNode(newNode, 'list,form', [],
-                                 {create: false,
-                                 default_department_id: node.department_id,
-                                 node_model: node.model,
-                                 node_id: node.id,
-                                 })
-                             }
-                           },
-                            {
                              text: _t('New Employee'),
                              onClick: (node) => {
-                                console.log('New Employee', node)
+//                                console.log('New Employee', node)
                                 newNode = {...node}
                                 if (node.model == 'hr.job'){
                                     newNode.id = 0
@@ -193,7 +260,8 @@ export class SdHrDepartmentTree extends Component {
                                     this._openNode(newNode, 'list', [['department_id', '=', Number(newNode.id.split('_')[1])]])
                                 }
                              }
-                           },                            {
+                           },
+                           {
                              text: _t('Employee List'),
                              onClick: (node) => {
                                 if (node.model == 'hr.job'){
@@ -205,11 +273,65 @@ export class SdHrDepartmentTree extends Component {
                            },
                            ],
             onNodeClick: (node) => {
-                console.log('onNodeClick:', node)
+//                console.log('onNodeClick:', node)
                 this._openNode(node)
             },
         });
 //        this.tree.collapse()
+    }
+    async _getData(){
+        let getDepartments = await this.orm.call('hr.department', 'get_departments', [false])
+        getDepartments = JSON.parse(getDepartments)
+        return getDepartments
+
+    }
+    nodeId(node){
+        return node.id ? Number(node.id.split('_')[1]) : 0
+    }
+    _openNode(node, viewType="form", domain=[], context={}, target="new", name="name"){
+        node.id = this.nodeId(node)
+        let views = viewType.split(',')
+        let newViews = []
+        views.forEach(r => newViews.push([false, r]))
+//        console.log('context', context)
+        let actionData = {
+                type: "ir.actions.act_window",
+                name: name,
+                res_model: node.model,
+                view_mode: viewType,
+                views: newViews,
+                target: target,
+                res_id: node.id,
+                domain: domain,
+                context: context,
+            }
+
+//            actionData.view_mode = 'list,form'
+//            let views = viewType.split(',')
+//            let newViews = []
+//            actionData.views = []
+//            views.forEach(r => newViews.push([false, r]))
+//            actionData.views =  [[false, 'list'],]
+////            actionData.action_xml_id =  "sd_hr."
+//            actionData.xml_id =  "sd_hr.employee_add_to_list_action"
+//            console.log('viewType',viewType, views, newViews)
+
+
+        this.actionService.doAction(
+                     actionData,
+                    {
+                        onClose: (e) => {
+                            // Comment: if refresh, you lost the last track of work. if not you need to refresh manually
+                            this.onRefresh();
+                        },
+                    })
+    }
+
+    async onRefresh(e){
+        let data = await this._getData()
+        this.tree_element.el.innerHTML = ''
+        this.loadPlainTree(data)
+
     }
     onExpand(){
         this.tree.expand()
@@ -221,8 +343,9 @@ export class SdHrDepartmentTree extends Component {
         let searchValue = e.target.value
         const allLabels = document.querySelectorAll('span.plaintree-label')
         if( e.keyCode == 13){
-            this.state.search = ['']
-            e.target.value = ''
+            this.onFindNext()
+//            this.state.search = ['']
+//            e.target.value = ''
         } else{
             this.state.search = searchValue.toLowerCase()
             allLabels.forEach(l => l.classList.contains('text-danger') ? l.classList.remove('text-danger') : false)
@@ -236,6 +359,8 @@ export class SdHrDepartmentTree extends Component {
         }
     }
     onFindNext(e){
+        if (!this.state.labelTags.length) return
+
         const firstLabel = this.state.labelTags.shift()
         firstLabel.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
         this.state.labelTags.push(firstLabel)

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <template xml:space="preserve">
     <t t-name="sd_hr.department_tree_template" owl="1">
-        <div class="  my-2 ms-5 py-2 d-none d-sm-block sticky-top bg-white-75" >
+        <div class="my-2 ms-5 py-2 d-none d-sm-block sticky-top bg-white-75" >
             <div class=" btn btn-outline-primary ms-2  py-2 fa fa-refresh"  t-on-click="this.onRefresh"><span class="mx-1">Refresh</span></div>
             <div class=" btn btn-outline-primary ms-2 py-2 fa fa-plus-square-o" t-on-click="this.onExpand"> <span class="mx-1">Expand</span></div>
             <div class=" btn btn-outline-primary ms-2 py-2 fa fa-minus-square-o" t-on-click="this.onCollapse"> <span class="mx-1">Collapse</span></div>
-            <div class="col-2 ms-2 py-2 fa " t-on-keyup="this._onSearch"> <input type="text"/></div>
-            <div class=" btn btn-outline-primary ms-2 py-2 fa" t-on-click="this.onFindNext"> <span class="mx-1">Find next</span></div>
+            <div class="col-2 ms-2 py-2 fa " t-on-keyup="this._onSearch"> <input class="form-control border-primary-subtle" type="text"/></div>
+<!--            <div class=" btn btn-outline-primary ms-2 py-2 fa" t-on-click="this.onFindNext"> <span class="mx-1">Find next</span></div>-->
 
         </div>
         <div class="  my-4 ms-5 d-block d-sm-none" >
@@ -18,7 +18,8 @@
         <div class="container  pb-5">
             <div class="" id="tree_element" t-ref="tree_element"></div>
 
+            <div class="my-5"></div>
+            <div class="my-5"></div>
         </div>
-        <div id="findme" class="findme" >FIND ME</div>
     </t>
 </template>

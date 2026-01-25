@@ -25,6 +25,8 @@ export class SdHrDepartmentTree extends Component {
 
         this.state = useState({
             departments: [],
+            search: [],
+            labelTags: [],
         })
         onWillStart(async () => {
             const plainTree = '/sd_hr/static/src/lib/plain_tree/plain_tree.js'
@@ -44,6 +46,7 @@ export class SdHrDepartmentTree extends Component {
         this.onRefresh = this.onRefresh.bind(this)
         this.onExpand = this.onExpand.bind(this)
         this.onCollapse = this.onCollapse.bind(this)
+        this.onFind = this.onFind.bind(this)
         this.loadPlainTree = this.loadPlainTree.bind(this)
     }
     async _getData(){
@@ -175,11 +178,28 @@ export class SdHrDepartmentTree extends Component {
                             {
                              text: _t('Contract List'),
                              onClick: (node) => {
-                                console.log('node', node)
                                 if (node.model == 'hr.employee'){
                                     newNode = {...node}
                                     newNode.model = 'hr.contract'
                                     this._openNode(newNode, 'list', [['employee_id', '=', Number(newNode.id.split('_')[1])]])
+                                }
+                             }
+                           },                            {
+                             text: _t('Jobs List'),
+                             onClick: (node) => {
+                                if (node.model == 'hr.department'){
+                                    newNode = {...node}
+                                    newNode.model = 'hr.job'
+                                    this._openNode(newNode, 'list', [['department_id', '=', Number(newNode.id.split('_')[1])]])
+                                }
+                             }
+                           },                            {
+                             text: _t('Employee List'),
+                             onClick: (node) => {
+                                if (node.model == 'hr.job'){
+                                    newNode = {...node}
+                                    newNode.model = 'hr.employee'
+                                    this._openNode(newNode, 'list', [['job_id', '=', Number(newNode.id.split('_')[1])]])
                                 }
                              }
                            },
@@ -196,6 +216,30 @@ export class SdHrDepartmentTree extends Component {
     }
     onCollapse(){
         this.tree.collapse()
+    }
+    _onSearch(e){
+        let searchValue = e.target.value
+        const allLabels = document.querySelectorAll('span.plaintree-label')
+        if( e.keyCode == 13){
+            this.state.search = ['']
+            e.target.value = ''
+        } else{
+            this.state.search = searchValue.toLowerCase()
+            allLabels.forEach(l => l.classList.contains('text-danger') ? l.classList.remove('text-danger') : false)
+            this.state.labelTags = []
+            allLabels.forEach(l => {
+                if (searchValue && l.innerText.includes(searchValue)){
+                    this.state.labelTags.push(l)
+                    l.classList.add('text-danger')
+                }
+            })
+        }
+    }
+    onFindNext(e){
+        const firstLabel = this.state.labelTags.shift()
+        firstLabel.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
+        this.state.labelTags.push(firstLabel)
+
     }
 }
 

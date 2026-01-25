@@ -101,7 +101,7 @@ export class SdHrDepartmentTree extends Component {
                     {
                         onClose: (e) => {
                             // Comment: if refresh, you lost the last track of work. if not you need to refresh manually
-//                            this.onRefresh();
+                            this.onRefresh();
                         },
                     })
     }
@@ -117,7 +117,7 @@ export class SdHrDepartmentTree extends Component {
         let newNode = {}
         this.tree = new PlainTree('#tree_element', {
             data,
-            depth: 2,
+            depth: 10,
             onRendered: null ,
             contextMenu: [
                             {
@@ -168,7 +168,7 @@ export class SdHrDepartmentTree extends Component {
                                 newNode = {...node}
                                 newNode.id = 0
                                 newNode.model = "hr.job"
-                                this._openNode(newNode, 'form', [], {'default_department_id': node.id})
+                                this._openNode(newNode, 'form', [], {'default_department_id': this.nodeId(node)})
                              }
 
                            },

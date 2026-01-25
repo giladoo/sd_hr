@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <template xml:space="preserve">
     <t t-name="sd_hr.department_tree_template" owl="1">
-        <div class="  my-4 ms-5 d-none d-sm-block" >
+        <div class="  my-2 ms-5 py-2 d-none d-sm-block sticky-top bg-white-75" >
             <div class=" btn btn-outline-primary ms-2  py-2 fa fa-refresh"  t-on-click="this.onRefresh"><span class="mx-1">Refresh</span></div>
             <div class=" btn btn-outline-primary ms-2 py-2 fa fa-plus-square-o" t-on-click="this.onExpand"> <span class="mx-1">Expand</span></div>
             <div class=" btn btn-outline-primary ms-2 py-2 fa fa-minus-square-o" t-on-click="this.onCollapse"> <span class="mx-1">Collapse</span></div>

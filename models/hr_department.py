@@ -80,7 +80,7 @@ class SdHrDepartments(models.Model):
                         'id': f"dep_{rec.id}",
                         'model': 'hr.department',
                         'contextMenu': 'contextMenuDepartment',
-                        'nodeClass': ['text-primary', 'px-3', 'rounded',  'bg-500' ],                                    }
+                        'nodeClass': ['text-primary', 'px-3', 'rounded',  'bg-400' ],                                    }
                                    for rec in departments
                                    })
         dep_list['False'] = {'text': _('Department is not set'), 'id':'False'}

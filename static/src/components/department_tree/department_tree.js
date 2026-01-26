@@ -17,8 +17,6 @@ import { loadJS } from "@web/core/assets";
 export class SdHrDepartmentTree extends Component {
     static template = "sd_hr.department_tree_template"
     setup(){
-        console.log('session:', session)
-
         let self = this;
         this.orm = useService('orm')
         this.actionService = useService("action")
@@ -289,7 +287,9 @@ export class SdHrDepartmentTree extends Component {
         return node.id ? Number(node.id.split('_')[1]) : 0
     }
     _openNode(node, viewType="form", domain=[], context={}, target="new", name="name"){
+        console.log('_openNode', node )
         node.id = this.nodeId(node)
+
         let views = viewType.split(',')
         let newViews = []
         views.forEach(r => newViews.push([false, r]))

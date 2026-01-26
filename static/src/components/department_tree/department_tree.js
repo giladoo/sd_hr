@@ -49,6 +49,7 @@ export class SdHrDepartmentTree extends Component {
         this.loadPlainTree = this.loadPlainTree.bind(this)
     }
     loadPlainTree(data){
+        console.log('data:', data)
         let newNode = {}
         this.tree = new PlainTree('#tree_element', {
             data,

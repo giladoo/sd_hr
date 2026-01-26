@@ -60,6 +60,7 @@ export class SdHrDepartmentTree extends Component {
                                         {
                              text: _t('New Department'),
                              onClick: (node) => {
+                                console.log('New Department', node)
                                 if(node.model == 'hr.department'){
                                     newNode = {...node}
                                     newNode.id = 0
@@ -70,6 +71,7 @@ export class SdHrDepartmentTree extends Component {
                            {
                              text: _t('New Job position'),
                              onClick: (node) => {
+                             console.log('New Job position', node)
                                 if(node.model == 'hr.department'){
                                     newNode = {...node}
                                     newNode.id = 0
@@ -81,6 +83,7 @@ export class SdHrDepartmentTree extends Component {
                               {
                                 text: _t('jobs'),
                                  onClick: (node) => {
+                                 console.log('New Job position', node)
                                     if (node.model == 'hr.department'){
                                         newNode = {...node}
                                         newNode.model = 'hr.job'
@@ -191,86 +194,86 @@ export class SdHrDepartmentTree extends Component {
 
                              ],
             },
-            contextMenu: [
-
-                            {
-                             text: _t('All Employees'),
-                             onClick: (node) => {
-                                if(node.model == 'hr.job'){
-                                    newNode = {...node}
-                                    newNode.id = 0
-                                    newNode.model = "hr.employee"
-                                    this._openNode(newNode, 'list,form', [],
-                                     {create: false,
-                                     default_department_id: node.department_id,
-                                     node_model: node.model,
-                                     node_id: this.nodeId(node),
-                                 })
-                                }
-                             }
-                           },
-                            {
-                             text: _t('New Department'),
-                             onClick: (node) => {
-                                if(node.model == 'hr.department'){
-                                    newNode = {...node}
-                                    newNode.id = 0
-                                    this._openNode(newNode, 'form', [], {'default_parent_id': this.nodeId(node)})
-                                }
-                             }
-                           },
-                            {
-                             text: _t('New Employee'),
-                             onClick: (node) => {
-//                                console.log('New Employee', node)
-                                newNode = {...node}
-                                if (node.model == 'hr.job'){
-                                    newNode.id = 0
-                                    newNode.model = "hr.employee"
-                                    this._openNode(newNode, 'form', [], { 'default_department_id': node.department_id, 'default_job_id': this.nodeId(node),})
-                                  }
-                                  }
-                           },
-                            {
-                             text: _t('New Job Position'),
-                             onClick: (node) => {
-                                newNode = {...node}
-                                newNode.id = 0
-                                newNode.model = "hr.job"
-                                this._openNode(newNode, 'form', [], {'default_department_id': this.nodeId(node)})
-                             }
-
-                           },
-                            {
-                             text: _t('Contract List'),
-                             onClick: (node) => {
-                                if (node.model == 'hr.employee'){
-                                    newNode = {...node}
-                                    newNode.model = 'hr.contract'
-                                    this._openNode(newNode, 'list', [['employee_id', '=', Number(newNode.id.split('_')[1])]])
-                                }
-                             }
-                           },                            {
-                             text: _t('Jobs List'),
-                             onClick: (node) => {
-                                if (node.model == 'hr.department'){
-                                    newNode = {...node}
-                                    newNode.model = 'hr.job'
-                                    this._openNode(newNode, 'list', [['department_id', '=', Number(newNode.id.split('_')[1])]])
-                                }
-                             }
-                           },
-                           {
-                             text: _t('Employee List'),
-                             onClick: (node) => {
-                                if (node.model == 'hr.job'){
-                                    newNode = {...node}
-                                    newNode.model = 'hr.employee'
-                                    this._openNode(newNode, 'list', [['job_id', '=', Number(newNode.id.split('_')[1])]])
-                                }
-                             }
-                           },
-                           ],
+//            contextMenu: [
+//
+//                            {
+//                             text: _t('All Employees'),
+//                             onClick: (node) => {
+//                                if(node.model == 'hr.job'){
+//                                    newNode = {...node}
+//                                    newNode.id = 0
+//                                    newNode.model = "hr.employee"
+//                                    this._openNode(newNode, 'list,form', [],
+//                                     {create: false,
+//                                     default_department_id: node.department_id,
+//                                     node_model: node.model,
+//                                     node_id: this.nodeId(node),
+//                                 })
+//                                }
+//                             }
+//                           },
+//                            {
+//                             text: _t('New Department'),
+//                             onClick: (node) => {
+//                                if(node.model == 'hr.department'){
+//                                    newNode = {...node}
+//                                    newNode.id = 0
+//                                    this._openNode(newNode, 'form', [], {'default_parent_id': this.nodeId(node)})
+//                                }
+//                             }
+//                           },
+//                            {
+//                             text: _t('New Employee'),
+//                             onClick: (node) => {
+////                                console.log('New Employee', node)
+//                                newNode = {...node}
+//                                if (node.model == 'hr.job'){
+//                                    newNode.id = 0
+//                                    newNode.model = "hr.employee"
+//                                    this._openNode(newNode, 'form', [], { 'default_department_id': node.department_id, 'default_job_id': this.nodeId(node),})
+//                                  }
+//                                  }
+//                           },
+//                            {
+//                             text: _t('New Job Position'),
+//                             onClick: (node) => {
+//                                newNode = {...node}
+//                                newNode.id = 0
+//                                newNode.model = "hr.job"
+//                                this._openNode(newNode, 'form', [], {'default_department_id': this.nodeId(node)})
+//                             }
+//
+//                           },
+//                            {
+//                             text: _t('Contract List'),
+//                             onClick: (node) => {
+//                                if (node.model == 'hr.employee'){
+//                                    newNode = {...node}
+//                                    newNode.model = 'hr.contract'
+//                                    this._openNode(newNode, 'list', [['employee_id', '=', Number(newNode.id.split('_')[1])]])
+//                                }
+//                             }
+//                           },                            {
+//                             text: _t('Jobs List'),
+//                             onClick: (node) => {
+//                                if (node.model == 'hr.department'){
+//                                    newNode = {...node}
+//                                    newNode.model = 'hr.job'
+//                                    this._openNode(newNode, 'list', [['department_id', '=', Number(newNode.id.split('_')[1])]])
+//                                }
+//                             }
+//                           },
+//                           {
+//                             text: _t('Employee List'),
+//                             onClick: (node) => {
+//                                if (node.model == 'hr.job'){
+//                                    newNode = {...node}
+//                                    newNode.model = 'hr.employee'
+//                                    this._openNode(newNode, 'list', [['job_id', '=', Number(newNode.id.split('_')[1])]])
+//                                }
+//                             }
+//                           },
+//                           ],
             onNodeClick: (node) => {
 //                console.log('onNodeClick:', node)
                 this._openNode(node)

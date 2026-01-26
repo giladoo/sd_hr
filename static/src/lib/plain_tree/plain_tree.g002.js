@@ -178,6 +178,7 @@ class PlainTree {
     #bindEvents($root) {
         $root.addEventListener('click', e => {
             const { target } = e;
+            console.log('bindEvents:', target)
             if (target.nodeName === 'SPAN' &&
                 target.classList.contains('plaintree-switcher')) {
                 this.#onSwitcherClick(target.parentNode);

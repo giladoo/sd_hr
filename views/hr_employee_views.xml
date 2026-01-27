@@ -167,6 +167,19 @@ if records:
 
     </record>
 
+    <record model="ir.actions.server" id="hr_fix_job_departments">
+        <field name="name">Fix job departments</field>
+        <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_model_id" ref="hr.model_hr_employee" />
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.fix_job_departments()
+            </field>
+
+    </record>
+
     <record id="employee_add_to_list" model="ir.ui.view">
         <field name="name">Employee Add</field>
         <field name="model">hr.employee</field>

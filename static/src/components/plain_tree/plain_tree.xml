@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template xml:space="preserve">
+    <t t-name="sd_hr.plain_tree_template" owl="1">
+        <div class="container  pb-5">
+            <div class="sd_tree_element" t-ref="sd_tree_element">Tree</div>
+        </div>
+    </t>
+</template>

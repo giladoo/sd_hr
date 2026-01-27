@@ -15,8 +15,9 @@
             <div class=" btn btn-outline-primary ms-2 py-2 fa fa-minus-square-o" t-on-click="this.onCollapse"><span class="mx-1"></span></div>
 
         </div>
+        <SdPlainTree options="this.state.options"/>
         <div class="container  pb-5">
-            <div class="" id="tree_element" t-ref="tree_element"></div>
+<!--            <div class="" id="tree_element" t-ref="tree_element"></div>-->
 
             <div class="my-5"></div>
             <div class="my-5"></div>

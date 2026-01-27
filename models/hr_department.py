@@ -41,6 +41,7 @@ class SdHrDepartments(models.Model):
 
         # 1 create employees data as employees
         employees = self.env['hr.employee'].search([],order='sequence')
+
         # 2 create jobs data as jobs
         jobs = self.env['hr.job'].search([],order='sequence')
         # 3 create departments data as departments

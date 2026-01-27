@@ -51,6 +51,20 @@ class SdHrHrEmployee(models.Model):
         for rec in self:
             rec.job_id = False
 
+    def fix_job_departments(self):
+        active_ids = self.env.context.get('active_ids', [])
+        employees = self.browse(active_ids) if len(active_ids) > 0 else self
+        # employees = self.env['hr.employee'].search([], order='sequence')
+
+        # 2 create jobs data as jobs
+        jobs = self.env['hr.job'].search([], order='sequence')
+        # 3 create departments data as departments
+        departments = self.search([], order='name')
+
+        for employee in employees:
+            if employee.department_id and employee.job_id and employee.job_id.department_id != employee.department_id:
+                self.env['hr.job'].browse(employee.job_id.id).write({'department_id': employee.department_id.id})
+
 
     def sd_hr_add_to_list(self):
         ic(self.env.context)

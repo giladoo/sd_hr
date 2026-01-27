@@ -55,145 +55,145 @@ export class SdHrDepartmentTree extends Component {
             data,
             depth: 10,
             onRendered: null ,
-//            contextMenuArray: {
-//            'contextMenuDepartment':[
-//                                        {
-//                             text: _t('New Department'),
-//                             onClick: (node) => {
-//                                console.log('New Department', node)
-//                                if(node.model == 'hr.department'){
-//                                    newNode = {...node}
-//                                    newNode.id = 0
-//                                    this._openNode(newNode, 'form', [], {'default_parent_id': this.nodeId(node)})
-//                                }
-//                             }
-//                           },
-//                           {
-//                             text: _t('New Job position'),
-//                             onClick: (node) => {
-//                             console.log('New Job position', node)
-//                                if(node.model == 'hr.department'){
-//                                    newNode = {...node}
-//                                    newNode.id = 0
-//                                    newNode.model = "hr.job"
-//                                    this._openNode(newNode, 'form', [], {'default_department_id': this.nodeId(node)})
-//                                }
-//                             }
-//                           },
-//                              {
-//                                text: _t('jobs'),
-//                                 onClick: (node) => {
-//                                 console.log('New Job position', node)
-//                                    if (node.model == 'hr.department'){
-//                                        newNode = {...node}
-//                                        newNode.model = 'hr.job'
-//                                        this._openNode(newNode,
-//                                                        'list',
-//                                                        [['department_id', '=', this.nodeId(node)]])
-//                                    }
-//                                 }
-//                               },
-//                             ],
-//            'contextMenuJob':[
-//                            {
-//                             text: _t('Add Employee'),
-//                             onClick: (node) => {
-//                                if(node.model == 'hr.job'){
-//                                    newNode = {...node}
-//                                    newNode.id = 0
-//                                    newNode.model = "hr.employee"
-//                                    this._openNode(newNode,
-//                                                    'list,form',
-//                                                    [['job_id', '!=', this.nodeId(node)]],
-//                                     {create: false,
-//                                     default_department_id: node.department_id,
-//                                     node_model: node.model,
-//                                     node_id: this.nodeId(node),
-//                                 })
-//                                }
-//                             }
-//                           },
-//                              {
-//                                text: _t('Employee List'),
-//                                 onClick: (node) => {
-//                                    if (node.model == 'hr.job'){
-//                                        newNode = {...node}
-//                                        newNode.model = 'hr.employee'
-//                                        this._openNode(newNode,
-//                                                        'list',
-//                                                        [['job_id', '=', this.nodeId(node)]])
-//                                    }
-//                                 }
-//                               },
-//                                                           {
-//                             text: _t('New Employee'),
-//                             onClick: (node) => {
-//                                if (node.model == 'hr.job'){
-//                                    newNode = {...node}
-//                                    newNode.id = 0
-//                                    newNode.model = "hr.employee"
-//                                    this._openNode(newNode,
-//                                                    'form',
-//                                                    [],
-//                                                    { 'default_department_id': node.department_id,
-//                                                    'default_job_id': this.nodeId(node),})
-//                                  }
-//                                  }
-//                           },
-//                             ],
-//
-//            'contextMenuEmployee':[
-//
-//                              {
-//                                 text: _t('Contracts'),
-//                                 onClick: (node) => {
-//                                    if (node.model == 'hr.employee'){
-//                                        newNode = {...node}
-//                                        newNode.model = 'hr.contract'
-//                                        newNode.id = 0
-//                                        this._openNode(newNode,
-//                                                        'list,form',
-//                                                        [['employee_id', '=', this.nodeId(node)]],
-//                                                        {'default_employee_id': this.nodeId(node)},
-//                                                        'current',
-//                                                        'Contracts')
-//                                    }
-//                                 },
-//                               },
-//                              {
-//                                 text: _t('Documents'),
-//                                 onClick: (node) => {
-//                                    if (node.model == 'hr.employee'){
-//                                        newNode = {...node}
-//                                        newNode.model = 'sd_hr_documents.attachments'
-//                                        newNode.id = 0
-//                                        this._openNode(newNode,
-//                                                        'list,form',
-//                                                        [['employee_id', '=', this.nodeId(node)]],
-//                                                        {'default_employee_id': this.nodeId(node)},
-//                                                        'current', 'Documents')
-//                                    }
-//                                 },
-//                               },
-//                              {
-//                                 text: _t('Relatives'),
-//                                 onClick: (node) => {
-//                                    if (node.model == 'hr.employee'){
-//                                        newNode = {...node}
-//                                        newNode.model = 'sd_hr_relatives.members'
-//                                        newNode.id = 0
-//                                        this._openNode(newNode,
-//                                                        'list,form',
-//                                                        [['employee_id', '=', this.nodeId(node)]],
-//                                                        {'default_employee_id': this.nodeId(node)},
-//                                                        'current',
-//                                                        'Relatives')
-//                                    }
-//                                 },
-//                               },
-//
-//                             ],
-//            },
+            contextMenuArray: {
+            'contextMenuDepartment':[
+                                        {
+                             text: _t('New Department'),
+                             onClick: (node) => {
+                                console.log('New Department', node)
+                                if(node.model == 'hr.department'){
+                                    newNode = {...node}
+                                    newNode.id = 0
+                                    this._openNode(newNode, 'form', [], {'default_parent_id': this.nodeId(node)})
+                                }
+                             }
+                           },
+                           {
+                             text: _t('New Job position'),
+                             onClick: (node) => {
+                             console.log('New Job position', node)
+                                if(node.model == 'hr.department'){
+                                    newNode = {...node}
+                                    newNode.id = 0
+                                    newNode.model = "hr.job"
+                                    this._openNode(newNode, 'form', [], {'default_department_id': this.nodeId(node)})
+                                }
+                             }
+                           },
+                              {
+                                text: _t('jobs'),
+                                 onClick: (node) => {
+                                 console.log('New Job position', node)
+                                    if (node.model == 'hr.department'){
+                                        newNode = {...node}
+                                        newNode.model = 'hr.job'
+                                        this._openNode(newNode,
+                                                        'list',
+                                                        [['department_id', '=', this.nodeId(node)]])
+                                    }
+                                 }
+                               },
+                             ],
+            'contextMenuJob':[
+                            {
+                             text: _t('Add Employee'),
+                             onClick: (node) => {
+                                if(node.model == 'hr.job'){
+                                    newNode = {...node}
+                                    newNode.id = 0
+                                    newNode.model = "hr.employee"
+                                    this._openNode(newNode,
+                                                    'list,form',
+                                                    [['job_id', '!=', this.nodeId(node)]],
+                                     {create: false,
+                                     default_department_id: node.department_id,
+                                     node_model: node.model,
+                                     node_id: this.nodeId(node),
+                                 })
+                                }
+                             }
+                           },
+                              {
+                                text: _t('Employee List'),
+                                 onClick: (node) => {
+                                    if (node.model == 'hr.job'){
+                                        newNode = {...node}
+                                        newNode.model = 'hr.employee'
+                                        this._openNode(newNode,
+                                                        'list',
+                                                        [['job_id', '=', this.nodeId(node)]])
+                                    }
+                                 }
+                               },
+                                                           {
+                             text: _t('New Employee'),
+                             onClick: (node) => {
+                                if (node.model == 'hr.job'){
+                                    newNode = {...node}
+                                    newNode.id = 0
+                                    newNode.model = "hr.employee"
+                                    this._openNode(newNode,
+                                                    'form',
+                                                    [],
+                                                    { 'default_department_id': node.department_id,
+                                                    'default_job_id': this.nodeId(node),})
+                                  }
+                                  }
+                           },
+                             ],
+
+            'contextMenuEmployee':[
+
+                              {
+                                 text: _t('Contracts'),
+                                 onClick: (node) => {
+                                    if (node.model == 'hr.employee'){
+                                        newNode = {...node}
+                                        newNode.model = 'hr.contract'
+                                        newNode.id = 0
+                                        this._openNode(newNode,
+                                                        'list,form',
+                                                        [['employee_id', '=', this.nodeId(node)]],
+                                                        {'default_employee_id': this.nodeId(node)},
+                                                        'current',
+                                                        'Contracts')
+                                    }
+                                 },
+                               },
+                              {
+                                 text: _t('Documents'),
+                                 onClick: (node) => {
+                                    if (node.model == 'hr.employee'){
+                                        newNode = {...node}
+                                        newNode.model = 'sd_hr_documents.attachments'
+                                        newNode.id = 0
+                                        this._openNode(newNode,
+                                                        'list,form',
+                                                        [['employee_id', '=', this.nodeId(node)]],
+                                                        {'default_employee_id': this.nodeId(node)},
+                                                        'current', 'Documents')
+                                    }
+                                 },
+                               },
+                              {
+                                 text: _t('Relatives'),
+                                 onClick: (node) => {
+                                    if (node.model == 'hr.employee'){
+                                        newNode = {...node}
+                                        newNode.model = 'sd_hr_relatives.members'
+                                        newNode.id = 0
+                                        this._openNode(newNode,
+                                                        'list,form',
+                                                        [['employee_id', '=', this.nodeId(node)]],
+                                                        {'default_employee_id': this.nodeId(node)},
+                                                        'current',
+                                                        'Relatives')
+                                    }
+                                 },
+                               },
+
+                             ],
+            },
 //            contextMenu: [
 //
 //                            {

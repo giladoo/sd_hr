@@ -55,7 +55,7 @@ class SdHrDepartments(models.Model):
                 'text': emp.name,
                 'model': 'hr.employee',
                 'contextMenu': 'contextMenuEmployee',
-                'id': f"dep_{emp.id}",
+                'id': f"emp_{emp.id}",
             } for emp in emp_jobs]
 
             # 5 link jobs_list to departments
@@ -65,7 +65,7 @@ class SdHrDepartments(models.Model):
                         'text': job.name,
                         'department_id': department_id,
                         'model': 'hr.job',
-                        'id': f"dep_{job.id}",
+                        'id': f"job_{job.id}",
                         'children': job_children,
                         'nodeClass': ['text-primary', 'bg-warning-light', 'px-3', 'rounded', ],
                         'contextMenu': 'contextMenuJob',

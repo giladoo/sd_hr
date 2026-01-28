@@ -23,8 +23,6 @@ export class SdHrDepartmentTree extends Component {
         this.orm = useService('orm')
         this.actionService = useService("action")
         this.tree_element = useRef('tree_element')
-        this.tree = SdPlainTree
-        console.log(this.tree)
 
         this.state = useState({
             options:{
@@ -40,18 +38,14 @@ export class SdHrDepartmentTree extends Component {
             labelTags: [],
         })
         onWillStart(async () => {
-//            const plainTree = '/sd_hr/static/src/lib/plain_tree/plain_tree.g002.js'
-//            await loadJS(plainTree)
+
             this.state.options.data = await this._getData()
-            console.log('data', this.state.options.data)
             this.state.options.contextMenuArray = this._getContextMenuArray()
-//            let data = this.state.options.data
         });
         onMounted(async () => {
             let oActionManager = document.querySelector('.o_action_manager')
             oActionManager && (oActionManager.style.overflowY = 'auto')
-//            let data = await this._getData()
-//            this.loadPlainTree(data)
+
         });
         onWillUnmount(()=>{
             let oActionManager = document.querySelector('.o_action_manager')
@@ -447,11 +441,9 @@ export class SdHrDepartmentTree extends Component {
 
     }
     nodeId(node){
-        console.log('nodeId:', node)
         return node.id ? Number(node.id.split('_')[1]) : 0
     }
     _openNode(node, viewType="form", domain=[], context={}, target="new", name="name"){
-        console.log('_openNode', node )
         let newNode = {...node}
         newNode.id = this.nodeId(newNode)
 
@@ -487,7 +479,7 @@ export class SdHrDepartmentTree extends Component {
                     {
                         onClose: (e) => {
                             // Comment: if refresh, you lost the last track of work. if not you need to refresh manually
-                            this.onRefresh();
+//                            this.onRefresh();
                         },
                     })
     }
@@ -523,14 +515,19 @@ export class SdHrDepartmentTree extends Component {
                     l.classList.add('text-danger')
                 }
             })
+            this.onFindNext(1)
         }
     }
     onFindNext(e){
         if (!this.state.labelTags.length) return
+        if (e == 1){
+            this.state.labelTags[0].scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
+        } else {
+            const firstLabel = this.state.labelTags.shift()
+            firstLabel.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
+            this.state.labelTags.push(firstLabel)
+        }
 
-        const firstLabel = this.state.labelTags.shift()
-        firstLabel.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
-        this.state.labelTags.push(firstLabel)
 
     }
 }

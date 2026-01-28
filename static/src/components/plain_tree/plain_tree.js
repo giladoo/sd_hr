@@ -27,7 +27,6 @@ export class SdPlainTree extends Component {
 
     this.containerRef = useRef("sd_tree_element")
     this.options = Object.assign(this.options, this.props.options);
-    console.log('SdPlainTree', this.containerRef, this.container)
 
 
         onMounted(async () => {
@@ -43,7 +42,6 @@ export class SdPlainTree extends Component {
     /** Expand the tree (expand the node when the parameter is specified, otherwise expand the root) */
     expand(node) {
         node = node || this.options.data;
-//        console.log('expand:', node)
         if (node instanceof Array) {
             node.forEach(n => this.expand(n));
             return;
@@ -175,7 +173,6 @@ export class SdPlainTree extends Component {
     bindEvents(rootEl) {
         rootEl.addEventListener('click', e => {
             const { target } = e;
-            console.log('bindEvents:', target, target.parentNode.nodeId)
             if (target.nodeName === 'SPAN' &&
                 target.classList.contains('plaintree-switcher')) {
                 this.onSwitcherClick(target.parentNode);
@@ -246,7 +243,6 @@ export class SdPlainTree extends Component {
     }
 
     onNodeClick(id) {
-        console.log('onNodeClick', id)
         this.selectNode(id);
         if (this.options.onNodeClick) {
             this.options.onNodeClick.call(this, this.nodeData[id]);
@@ -299,21 +295,6 @@ export class SdPlainTree extends Component {
         this.selectedElement.classList.add('plaintree-selected');
     }
 
-    createContextMenuOld() {
-        const { contextMenu } = this.options;
-        if (!contextMenu || !contextMenu.length) return;
-
-        this.$contextMenu = document.createElement('div');
-        this.$contextMenu.className = 'plaintree-context-menu';
-        this.containerRef.el.append(this.$contextMenu);
-
-        for (const item of contextMenu) {
-            const option = document.createElement('div');
-            option.textContent = item.text;
-            option.addEventListener('click', () => item.onClick(this.selectedNode));
-            this.$contextMenu.append(option);
-        }
-    }
     // Giladoo
     createContextMenu() {
         const { contextMenu, contextMenuArray } = this.options;
@@ -378,7 +359,7 @@ export class SdPlainTree extends Component {
         li.append(icon);
 
         const label = document.createElement('span');
-        label.classList.add('plaintree-label');
+        label.classList.add('plaintree-label', );
         if (node.nodeClass){
             node.nodeClass.forEach(r => label.classList.add(r));
         }

@@ -452,7 +452,8 @@ export class SdHrDepartmentTree extends Component {
     }
     _openNode(node, viewType="form", domain=[], context={}, target="new", name="name"){
         console.log('_openNode', node )
-        node.id = this.nodeId(node)
+        let newNode = {...node}
+        newNode.id = this.nodeId(newNode)
 
         let views = viewType.split(',')
         let newViews = []
@@ -461,11 +462,11 @@ export class SdHrDepartmentTree extends Component {
         let actionData = {
                 type: "ir.actions.act_window",
                 name: name,
-                res_model: node.model,
+                res_model: newNode.model,
                 view_mode: viewType,
                 views: newViews,
                 target: target,
-                res_id: node.id,
+                res_id: newNode.id,
                 domain: domain,
                 context: context,
             }

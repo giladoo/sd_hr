@@ -20,15 +20,19 @@ export class SdHrDepartmentTree extends Component {
     static components = { SdPlainTree }
     setup(){
         let self = this;
+        this.childApi = null;
         this.orm = useService('orm')
         this.actionService = useService("action")
-        this.tree_element = useRef('tree_element')
-
+        this.onChildApi = (api) => {
+                    this.childApi = api;
+                };
+        const DEPTH = 10
         this.state = useState({
+            depth: DEPTH,
             options:{
                 data: [],
                 contextMenuArray: {},
-                depth: 10,
+                depth: DEPTH,
                 onNodeClick: (node) => {
                                            this._openNode(node)
                                        },
@@ -479,24 +483,33 @@ export class SdHrDepartmentTree extends Component {
                     {
                         onClose: (e) => {
                             // Comment: if refresh, you lost the last track of work. if not you need to refresh manually
-//                            this.onRefresh();
+                            this.onRefresh();
                         },
                     })
     }
 
     async onRefresh(e){
-        let data = await this._getData()
-//        this.tree_element.el.innerHTML = ''
-//        console.log('tree:', this.tree)
-//        this.tree.render(data)
-//        this.loadPlainTree(data)
+        this.state.options.data = await this._getData()
+        this.state.options.depth = this.state.depth
 
+        if(this.state.options.data){
+            this.childApi.updateTree(this.state.options)
+        }
     }
     onExpand(){
-        this.tree.expand()
+        this.state.depth = this.state.depth < 15 ? this.state.depth + 1 : 15
+        console.log(this.state.depth)
+        this.state.options.depth = this.state.depth
+        this.childApi.updateTree(this.state.options)
+//        this.childApi.expand()
     }
     onCollapse(){
-        this.tree.collapse()
+        this.state.depth = this.state.depth > 0 ? this.state.depth - 1 : 0
+        console.log(this.state.depth)
+        this.state.options.depth = this.state.depth
+        this.childApi.updateTree(this.state.options)
+
+//        this.childApi.collapse()
     }
     _onSearch(e){
         let searchValue = e.target.value

@@ -2,7 +2,7 @@
 <template xml:space="preserve">
     <t t-name="sd_hr.plain_tree_template" owl="1">
         <div class="container  pb-5">
-            <div class="sd_tree_element" t-ref="sd_tree_element">Tree</div>
+            <div class="sd_tree_element" t-ref="sd_plain_tree_element_ref">Tree</div>
         </div>
     </t>
 </template>

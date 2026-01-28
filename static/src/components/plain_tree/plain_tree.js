@@ -8,9 +8,9 @@ export class SdPlainTree extends Component {
     static template = "sd_hr.plain_tree_template";
     static props = {
         options: Object,
+        onApi: Function,
     };
     setup(){
-        this.container;             // The container of the tree
         this.selectedNode;          // The selected node data
         this.selectedElement;       // The selected node element
         this.nodeData = {};         // Node data mapping { id: data }
@@ -25,20 +25,31 @@ export class SdPlainTree extends Component {
                 onNodeClick: null   // The callback event when the node is clicked
             }
 
-    this.containerRef = useRef("sd_tree_element")
-    this.options = Object.assign(this.options, this.props.options);
-
-
+        this.containerRef = useRef("sd_plain_tree_element_ref")
+//        this.options = Object.assign(this.options, this.props.options);
         onMounted(async () => {
-            this.container = document.querySelector('.sd_tree_element')
-            this.createContextMenu();
-            this.renderTree();
+            this.updateTree(this.props.options)
 
         });
-         this.expand = this.expand.bind(this)
+        if (this.props.onApi) {
+            this.props.onApi({
+                expand: () => this.expand(),
+                collapse: () => this.collapse(),
+                updateNode: () => this.updateNode(),
+                updateTree: options => this.updateTree(options),
+            });
+        }
+        this.expand = this.expand.bind(this)
 
     }
-    
+    updateTree(options){
+        console.log('options:', options)
+        this.options = Object.assign(this.options, options);
+        this.containerRef.el.innerHTML = ''
+        this.createContextMenu();
+        this.renderTree();
+    }
+
     /** Expand the tree (expand the node when the parameter is specified, otherwise expand the root) */
     expand(node) {
         node = node || this.options.data;

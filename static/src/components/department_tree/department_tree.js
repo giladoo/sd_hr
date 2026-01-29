@@ -26,15 +26,17 @@ export class SdHrDepartmentTree extends Component {
         this.onChildApi = (api) => {
                     this.childApi = api;
                 };
-        const DEPTH = 10
+        const DEPTH = 1
         this.state = useState({
             depth: DEPTH,
+            selectedNode: null,
             options:{
                 data: [],
                 contextMenuArray: {},
                 depth: DEPTH,
                 onNodeClick: (node) => {
                                            this._openNode(node)
+                                           this.state.selectedNode = node
                                        },
             },
             departments: [],
@@ -42,7 +44,6 @@ export class SdHrDepartmentTree extends Component {
             labelTags: [],
         })
         onWillStart(async () => {
-
             this.state.options.data = await this._getData()
             this.state.options.contextMenuArray = this._getContextMenuArray()
         });
@@ -440,9 +441,7 @@ export class SdHrDepartmentTree extends Component {
     async _getData(){
         let getDepartments = await this.orm.call('hr.department', 'get_departments', [false])
         getDepartments = JSON.parse(getDepartments)
-//        SdPlainTree.tree_data = getDepartments
         return getDepartments
-
     }
     nodeId(node){
         return node.id ? Number(node.id.split('_')[1]) : 0
@@ -487,60 +486,59 @@ export class SdHrDepartmentTree extends Component {
                         },
                     })
     }
-
     async onRefresh(e){
         this.state.options.data = await this._getData()
         this.state.options.depth = this.state.depth
-
-        if(this.state.options.data){
-            this.childApi.updateTree(this.state.options)
-        }
+        this.state.options.data ? this.childApi.updateTree(this.state.options) : false
+        this.state.selectedNode ? this.childApi.selectNode(this.state.selectedNode.id) : false
     }
     onExpand(){
         this.state.depth = this.state.depth < 15 ? this.state.depth + 1 : 15
-        console.log(this.state.depth)
         this.state.options.depth = this.state.depth
-        this.childApi.updateTree(this.state.options)
-//        this.childApi.expand()
+        this.childApi.expandDepth(this.state.depth)
+        console.log(this.state.depth)
     }
     onCollapse(){
         this.state.depth = this.state.depth > 0 ? this.state.depth - 1 : 0
-        console.log(this.state.depth)
         this.state.options.depth = this.state.depth
-        this.childApi.updateTree(this.state.options)
-
-//        this.childApi.collapse()
+        this.childApi.collapseDepth(this.state.depth)
+        console.log(this.state.depth)
     }
     _onSearch(e){
         let searchValue = e.target.value
         const allLabels = document.querySelectorAll('span.plaintree-label')
+//        console.log('_onSearch', allLabels)
+
         if( e.keyCode == 13){
             this.onFindNext()
 //            this.state.search = ['']
 //            e.target.value = ''
         } else{
             this.state.search = searchValue.toLowerCase()
-            allLabels.forEach(l => l.classList.contains('text-danger') ? l.classList.remove('text-danger') : false)
+            allLabels.forEach(l => l.classList.contains('plaintree-searched') ? l.classList.remove('plaintree-searched') : false)
             this.state.labelTags = []
             allLabels.forEach(l => {
                 if (searchValue && l.innerText.includes(searchValue)){
                     this.state.labelTags.push(l)
-                    l.classList.add('text-danger')
+                    l.classList.add('plaintree-searched')
                 }
             })
             this.onFindNext(1)
         }
     }
+
     onFindNext(e){
         if (!this.state.labelTags.length) return
-        if (e == 1){
-            this.state.labelTags[0].scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
-        } else {
-            const firstLabel = this.state.labelTags.shift()
-            firstLabel.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" })
-            this.state.labelTags.push(firstLabel)
-        }
-
+        let firstLabel = null
+        firstLabel = this.state.labelTags.shift()
+        this.childApi.selectNode(firstLabel.labelNodeId)
+        this.childApi.expandUp(firstLabel.labelNodeId)
+            .then(() => {
+                setTimeout(() => {
+//                    firstLabel.scrollIntoView({ behavior: "smooth", block: "center", })
+                }, 200)
+            })
+        this.state.labelTags.push(firstLabel)
 
     }
 }

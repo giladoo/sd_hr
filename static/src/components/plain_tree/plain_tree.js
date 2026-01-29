@@ -11,6 +11,9 @@ export class SdPlainTree extends Component {
         onApi: Function,
     };
     setup(){
+        this.state = useState({
+            switcherElements: []
+        })
         this.selectedNode;          // The selected node data
         this.selectedElement;       // The selected node element
         this.nodeData = {};         // Node data mapping { id: data }
@@ -22,7 +25,8 @@ export class SdPlainTree extends Component {
                 contextMenuNames: [],    // Context menu Array config { 'type': [{ text, onClick }]}
                 depth: 0,           // The default expansion depth of the tree
                 onRendered: null,   // The callback event after the tree is rendered
-                onNodeClick: null   // The callback event when the node is clicked
+                onNodeClick: null,   // The callback event when the node is clicked
+                onSelectedNode: null,
             }
 
         this.containerRef = useRef("sd_plain_tree_element_ref")
@@ -34,22 +38,81 @@ export class SdPlainTree extends Component {
         if (this.props.onApi) {
             this.props.onApi({
                 expand: () => this.expand(),
+                expandDepth: depth => this.expandDepth(depth),
+                collapseDepth: depth => this.collapseDepth(depth),
+                expandUp: node => this.expandUp(node),
                 collapse: () => this.collapse(),
                 updateNode: () => this.updateNode(),
+                selectNode: (node_id, scroll) => this.selectNode(node_id, scroll=true),
                 updateTree: options => this.updateTree(options),
             });
         }
         this.expand = this.expand.bind(this)
 
     }
-    updateTree(options){
-        console.log('options:', options)
+    async updateTree(options){
+//        console.log('up:',this.nodeElements)
         this.options = Object.assign(this.options, options);
         this.containerRef.el.innerHTML = ''
         this.createContextMenu();
         this.renderTree();
-    }
+        if (this.selectedNode){
+//            console.log('updateTree:', this.selectedNode)
+            this.selectNode(this.selectedNode.id)
+//            await this.collapse()
+            await this.expandUp(this.selectedNode)
+//            this.expand(this.selectedNode);
 
+        }
+    }
+    async expandUp1(node){
+    // todo: like expandDepth
+
+    }
+    async expandUp(node){
+        if (typeof node == 'string'){
+            node = this.nodeData[node]
+        }
+        const nodeEl = this.nodeElements[node.id];
+        let parentElNode = nodeEl.parentNode
+        if (parentElNode.classList.contains('plaintree-collapsed')) {
+            const switcher = parentElNode.querySelector('.plaintree-switcher');
+            switcher && switcher.click();
+        } else if (parentElNode.classList.contains('plaintree-group')){
+            parentElNode = nodeEl.parentNode.parentNode
+            const switcher = parentElNode.querySelector('.plaintree-switcher');
+            if (parentElNode.classList.contains('plaintree-collapsed')){
+                switcher && switcher.click();
+            }
+        }
+
+            const parentNode = this.nodeData[node.parent_id]
+        if(!parentElNode.classList.contains('plaintree') && parentNode != undefined){
+           this.expandUp(parentNode)
+        }
+    }
+    expandDepth(depth){
+        this.options.depth = depth
+        const filteredNodes = Object.entries(this.nodeData).filter(node => node[1].depth < this.options.depth)
+        filteredNodes.forEach(node => {
+            const nodeEl = this.nodeElements[node[1].id];
+            if (nodeEl.classList.contains('plaintree-collapsed')) {
+                const switcher = nodeEl.querySelector('.plaintree-switcher');
+                switcher && switcher.click();
+            }
+        })
+    }
+    collapseDepth(depth){
+        this.options.depth = depth
+        const filteredNodes = Object.entries(this.nodeData).filter(node => node[1].depth >= this.options.depth)
+        filteredNodes.forEach(node => {
+            const nodeEl = this.nodeElements[node[1].id];
+            if (!nodeEl.classList.contains('plaintree-collapsed')) {
+                const switcher = nodeEl.querySelector('.plaintree-switcher');
+                switcher && switcher.click();
+            }
+        })
+    }
     /** Expand the tree (expand the node when the parameter is specified, otherwise expand the root) */
     expand(node) {
         node = node || this.options.data;
@@ -97,10 +160,10 @@ export class SdPlainTree extends Component {
         if (!parent.children) parent.children = [];
         parent.children.push(node);
 
-        const $parent = this.nodeElements[parentId];
+        const parentEl = this.nodeElements[parentId];
         if (parent.children.length > 1) {
             // If a child node already exists, add the new node to the subtree container
-            const groupEl = $parent.querySelector('.plaintree-group');
+            const groupEl = parentEl.querySelector('.plaintree-group');
             const nodeEl = this.createNodeElement(node);
             groupEl.append(nodeEl);
             // Cache new node data and elements
@@ -151,6 +214,7 @@ export class SdPlainTree extends Component {
 
     /** Render the tree structure */
     renderTree() {
+
         const rootEl = this.createRootElement();
         this.bindEvents(rootEl);
         rootEl.append(this.buildTree(this.options.data, 0));
@@ -159,6 +223,7 @@ export class SdPlainTree extends Component {
         if (this.options.onRendered) {
             this.options.onRendered.call(this, this, this.options.data);
         }
+
     }
 
     /** Build a tree based on the data */
@@ -210,7 +275,7 @@ export class SdPlainTree extends Component {
                                 target.classList.contains('plaintree-label') &&
                                 target.parentNode.contextMenu === contextMenu[0]
                             ) {
-                                this.selectNode(target.parentNode.nodeId);
+                                this.selectNode(target.parentNode.nodeId, false);
                                 this[`$${contextMenu[0]}`].style.left = `${e.pageX}px`;
                                 this[`$${contextMenu[0]}`].style.top = `${e.pageY}px`;
                                 this[`$${contextMenu[0]}`].style.display = 'block';
@@ -237,7 +302,7 @@ export class SdPlainTree extends Component {
                     !this.options.contextMenuNames.includes(target.parentNode.contextMenu)
                 ) {
 
-                    this.selectNode(target.parentNode.nodeId);
+                    this.selectNode(target.parentNode.nodeId, false);
                     this.$contextMenu.style.left = `${e.pageX}px`;
                     this.$contextMenu.style.top = `${e.pageY}px`;
                     this.$contextMenu.style.display = 'block';
@@ -254,17 +319,18 @@ export class SdPlainTree extends Component {
     }
 
     onNodeClick(id) {
-        this.selectNode(id);
+        this.selectNode(id, false);
         if (this.options.onNodeClick) {
             this.options.onNodeClick.call(this, this.nodeData[id]);
         }
     }
-
+// TODO: you need to keep expanded record to reopen then while rendering
     onSwitcherClick(nodeEl) {
         const el = nodeEl.lastChild;
         const height = el.scrollHeight;
 
         if (nodeEl.classList.contains('plaintree-collapsed')) {
+//            this.state.switcherElements.push(nodeEl)
             this.animate(150, {
                 enter() {
                     el.style.height = 0;
@@ -281,6 +347,8 @@ export class SdPlainTree extends Component {
                 }
             });
         } else {
+//            this.state.switcherElements = this.state.switcherElements.filter( sel => sel !== nodeEl)
+
             this.animate(150, {
                 enter() {
                     el.style.height = `${height}px`;
@@ -299,11 +367,14 @@ export class SdPlainTree extends Component {
         }
     }
 
-    selectNode(id) {
+    selectNode(id, scroll=true) {
         this.selectedNode = this.nodeData[id];
+        this.options.selectedNode = this.nodeData[id];
         this.selectedElement && this.selectedElement.classList.remove('plaintree-selected');
         this.selectedElement = this.nodeElements[id];
         this.selectedElement.classList.add('plaintree-selected');
+        scroll ?  setTimeout(() => this.selectedElement.scrollIntoView({ behavior: "smooth", block: "center", }) , 200)
+         : false
     }
 
     // Giladoo
@@ -371,6 +442,7 @@ export class SdPlainTree extends Component {
 
         const label = document.createElement('span');
         label.classList.add('plaintree-label', );
+        label.labelNodeId = node.id
         if (node.nodeClass){
             node.nodeClass.forEach(r => label.classList.add(r));
         }

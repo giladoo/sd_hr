@@ -22,6 +22,8 @@
         # 'wizard/hr_panel.xml',
         'views/views.xml',
         'views/grading.xml',
+        'views/plan_version.xml',
+        'views/job_plan.xml',
         'views/cost_center.xml',
         'views/hr_work_place.xml',
         'views/hr_employee_views.xml',

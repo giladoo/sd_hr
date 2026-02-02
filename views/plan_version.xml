@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="plan_version_list" model="ir.ui.view">
+        <field name="name">plan_version</field>
+        <field name="model">sd_hr.plan_version</field>
+        <field name="arch" type="xml">
+            <list editable="top">
+                <field name="name" />
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="state" widget="badge"
+                       decoration-muted="state == 'draft'"
+                       decoration-success="state == 'ongoing'"
+                       decoration-warning="state == 'expired'" />
+                <button name="generate_job_plans" string="Generate" type="object"
+                    class="btn btn-success" />
+
+            </list>
+        </field>
+    </record>
+
+    <record id="plan_version_search" model="ir.ui.view">
+        <field name="name">plan_version</field>
+        <field name="model">sd_hr.plan_version</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+
+            </search>
+        </field>
+    </record>
+
+
+    <!--    TODO: menu can be in technical section of setting menu-->
+    <record id="plan_version_action" model="ir.actions.act_window">
+        <field name="name">plan_version</field>
+        <field name="res_model">sd_hr.plan_version</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem
+            id="plan_version_menu"
+            name="Plan Version"
+            parent="hr.menu_config_employee"
+            action="plan_version_action"
+            sequence="6"
+            groups="hr.group_hr_manager"/>
+
+</odoo>

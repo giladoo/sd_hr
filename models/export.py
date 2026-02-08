@@ -216,7 +216,7 @@ class SdHrExport(models.Model):
                         self.get_select(rec, 'value_fonts'),
                         self.get_select(rec, 'value_type'),
                      )
-                    if rec.value_source == 'text'
+                    if rec.value_source == _('text')
                     else (
                         rec.value_function,
                         self.get_select(rec, 'value_fonts'),
@@ -224,7 +224,7 @@ class SdHrExport(models.Model):
                     )
                                        for rec in variables})
 
-                value_function_list = list([rec.variable for rec in variables if rec.value_source == 'function'])
+                value_function_list = list([rec.variable for rec in variables if rec.value_source == _('function')])
 
                 print(f"\n>>>>>>>>>>>>>>\n {variables_dict} \n")
 

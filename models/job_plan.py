@@ -11,12 +11,12 @@ class SdHrPlanVersion(models.Model):
     #   1) add sequence record
     #   2) prepare create function
 
-    start_date = fields.Date()
-    end_date = fields.Date()
+    start_date = fields.Date(tracking=True)
+    end_date = fields.Date( tracking=True)
     state = fields.Selection([('draft', 'Draft'),
                               ('ongoing', 'Ongoing'),
                               ('expired', 'Expired'), ],
-                             requied=True, default='draft')
+                             requied=True, default='draft', tracking=True)
 
 #     TODO: make sure there is only one ongoing version
     @api.onchange('state')
@@ -33,17 +33,22 @@ class SdHrPlanVersion(models.Model):
         #       Then change the version to this version
         #   3) create new job plans if they are not already exist for the date period
         print("!!!!!!!!!!!!!!!! You need to prepare this function!")
+        ongoings = self.search([('state', '=', 'ongoing')])
+        for rec in ongoings:
+            rec.state = 'expired'
+        self.state = 'ongoing'
 
     @api.model_create_multi
     def create(self, vals_list):
-        # for vals in vals_list:
-        #     if vals.get('name', _("New")) == _("New"):
-        #         seq_date = fields.Datetime.context_timestamp(
-        #             self, fields.Datetime.to_datetime(vals['date_order'])
-        #         ) if 'date_order' in vals else None
-        #         vals['name'] = self.env['ir.sequence'].with_company(vals.get('company_id')).next_by_code(
-        #             'sale.order', sequence_date=seq_date) or _("New")
+        for vals in vals_list:
+            print(f"vals:{vals}")
+            if vals.get('name', _('New')) == _('New'):
 
+                name = self.env['ir.sequence'].next_by_code('sd_hr.plan_version')
+                print(f"vals get:{name}")
+
+                vals['name'] = name or _("New")
+        print(f">>>>>>>>>>>>> vals_list: {vals_list}")
         return super().create(vals_list)
 
 

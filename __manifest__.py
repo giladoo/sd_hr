@@ -33,6 +33,7 @@
         'data/barcode_sequence.xml',
         'data/data_grading.xml',
         'data/variable_sequence.xml',
+        'data/job_version_sequence.xml',
     ],
     'assets':{
         'web.assets_backend':[

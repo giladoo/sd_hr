@@ -6,15 +6,17 @@
         <field name="model">sd_hr.plan_version</field>
         <field name="arch" type="xml">
             <list editable="top">
-                <field name="name" />
-                <field name="start_date" />
-                <field name="end_date" />
+                <field name="name" readonly="1" />
+                <field name="start_date" readonly="state != 'draft'" />
+                <field name="end_date" readonly="state != 'draft'" />
                 <field name="state" widget="badge"
                        decoration-muted="state == 'draft'"
                        decoration-success="state == 'ongoing'"
                        decoration-warning="state == 'expired'" />
                 <button name="generate_job_plans" string="Generate" type="object"
                     class="btn btn-success" />
+                <field name="write_uid" />
+                <field name="write_date" />
 
             </list>
         </field>

@@ -40,7 +40,7 @@ class SdHrExport(models.Model):
 
     def generate_and_download(self, model_name=None, res_ids=None, variable_no=None, output_type='pdf',
                               file_prefix='DL', file_name=['name'], attach_docs=False):
-        logging.info(f"\n >>>> generate_and_download:\n model_name:{model_name}\nres_ids: {res_ids}\nvariable_no: {variable_no}")
+        # logging.info(f"\n >>>> generate_and_download:\n model_name:{model_name}\nres_ids: {res_ids}\nvariable_no: {variable_no}")
         output_ext = '.pdf'
         if model_name and len(res_ids) > 0:
             records = self.env[model_name].sudo().browse(res_ids)
@@ -214,19 +214,22 @@ class SdHrExport(models.Model):
                     (
                         rec.value_text,
                         self.get_select(rec, 'value_fonts'),
-                        self.get_select(rec, 'value_type'),
+                        # self.get_select(rec, 'value_type'),
+                        rec.value_type,
                      )
-                    if rec.value_source == _('text')
+                    if rec.value_source == 'text'
                     else (
                         rec.value_function,
                         self.get_select(rec, 'value_fonts'),
-                        self.get_select(rec, 'value_type'),
+                        # self.get_select(rec, 'value_type'),
+                        rec.value_type,
                     )
                                        for rec in variables})
 
-                value_function_list = list([rec.variable for rec in variables if rec.value_source == _('function')])
+                value_function_list = list([rec.variable for rec in variables if rec.value_source == 'function'])
 
-                print(f"\n>>>>>>>>>>>>>>\n {variables_dict} \n")
+                # print(f"\n>>>>>>>>>>>>>> {_('function')}\n {variables_dict} \n {value_function_list} \n ")
+
 
         # Load the .docx file from the binary field
         template_file_b = base64.b64decode(template_file)
@@ -370,10 +373,10 @@ class SdHrExport(models.Model):
                     new_value, font_name=B_NAZANIN, value_type='Text'):
         try:
             if variable in value_function_list:
-                if value_type == 'Text':
+                if value_type == 'text':
                     run.text = run.text.replace(variable, str(eval(new_value) or ''))
-                elif value_type == 'Image':
-                    print(f"\n Image: {new_value}\n")
+                elif value_type == 'image':
+                    # print(f"\n Image: {new_value}\n")
                     # print(f"\n {str(eval(new_value))}\n")
                     # image_stream = BytesIO(eval(new_value))
                     # print(f"\n {image_stream}\n")
@@ -502,6 +505,10 @@ class SdHrExport(models.Model):
         subprocess.run(["libreoffice", "--headless", "--convert-to", "pdf", docx_path, '--outdir', temp_dir])
 
     def get_select(self, rec, field_name):
+        field_name = dict(rec._fields[field_name]._description_selection(self.env)).get(rec[field_name])
+        return field_name
+
+    def get_select_en(self, rec, field_name):
         field_name = dict(rec._fields[field_name]._description_selection(self.env)).get(rec[field_name])
         return field_name
 

@@ -5,5 +5,5 @@ from . import hr_employee
 from . import hr_department
 from . import work_place
 from . import export
-from . import job_plan
+# from . import job_plan
 

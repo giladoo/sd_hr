@@ -22,10 +22,10 @@
         # 'wizard/hr_panel.xml',
         'views/views.xml',
         'views/grading.xml',
-        'views/plan_version.xml',
-        'views/job_plan.xml',
+
         'views/cost_center.xml',
         'views/hr_work_place.xml',
+        'views/hr_job_views.xml',
         'views/hr_employee_views.xml',
         'views/doc_template.xml',
         'views/variables_views.xml',
@@ -33,7 +33,6 @@
         'data/barcode_sequence.xml',
         'data/data_grading.xml',
         'data/variable_sequence.xml',
-        'data/job_version_sequence.xml',
     ],
     'assets':{
         'web.assets_backend':[

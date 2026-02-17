@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_job_form_inherit_sd_hr_job_plan" model="ir.ui.view">
+        <field name="name">hr.job.view.form.inherit.sd_hr.job_plan</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+<!--                <button name="action_post_job"-->
+<!--                        string="Publish on Job Board 2"-->
+<!--                        type="object"-->
+<!--                        class="oe_highlight"-->
+<!--                        invisible="job_post_count"/>-->
+                </xpath>
+        </field>
+    </record>
+</odoo>

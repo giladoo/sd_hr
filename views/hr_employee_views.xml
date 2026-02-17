@@ -154,8 +154,8 @@
             </field>
         </record>
 
-    <record model="ir.actions.server" id="hr_download_images">
-        <field name="name">Download Images</field>
+    <record model="ir.actions.server" id="hr_download_ai06_images">
+        <field name="name">Download AI06 Images</field>
         <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
         <field name="model_id" ref="hr.model_hr_employee"/>
         <field name="binding_model_id" ref="hr.model_hr_employee" />
@@ -164,7 +164,17 @@
 if records:
     action = records.download_images()
             </field>
-
+    </record>
+    <record model="ir.actions.server" id="hr_download_images">
+        <field name="name">Download Images </field>
+        <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_model_id" ref="hr.model_hr_employee" />
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.download_images(False)
+            </field>
     </record>
 
     <record model="ir.actions.server" id="hr_fix_job_departments">

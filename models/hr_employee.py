@@ -87,8 +87,10 @@ class SdHrHrEmployee(models.Model):
         self.barcode = self.env['ir.sequence'].next_by_code('sd_hr.employee.barcode') or ''
         # print(f"\n self: {self.name} {self.barcode}\n")
 
-    def download_images(self):
+    def download_images(self, att_image=True):
         # print(f"\ndownload_images: \n {self.env.context}")
+        # context = self.env.context
+        # att_image = context.get('att_image', False)
         active_ids = self.env.context.get('active_ids', [])
         employees = self.browse(active_ids) if len(active_ids) > 0 else self
         attachment_model = self.env['ir.attachment']
@@ -105,33 +107,34 @@ class SdHrHrEmployee(models.Model):
                 if rec.barcode and img and len(img) > 1000:
                     img = base64.b64decode(img)
                     img = Image.open(io.BytesIO(img))
-
-                    width, height = img.size
-                    pw = int(.19 * width)
-                    ph = int(.1 * height)
-                    box = (pw, ph, width - pw, height - ph)
-                    img = img.crop(box)
-
-
-                    img = img.resize((480, 640))
-
                     if img.mode == "RGBA":
                         img = img.convert("RGB")
+                    width, height = img.size
+                    if att_image:
+                        pw = int(.19 * width)
+                        ph = int(.1 * height)
+                        box = (pw, ph, width - pw, height - ph)
+                        img = img.crop(box)
+                        img = img.resize((480, 640))
 
                     buffer = io.BytesIO()
                     img.save(buffer, format="JPEG", quality=85)
                     img_bytes = buffer.getvalue()
-                    index = 0
-                    print(f"\n>>>>>>>>> {rec.barcode}")
-                    while len(img_bytes) > 48000 and index < 50:
-                        print(len(img_bytes))
-                        buffer = io.BytesIO()
-                        img.save(buffer, format="JPEG", quality=85 - index)
-                        img_bytes = buffer.getvalue()
-                        index += 5
+                    if att_image:
+                        index = 0
+                        while len(img_bytes) > 48000 and index < 50:
+                            print(len(img_bytes))
+                            buffer = io.BytesIO()
+                            img.save(buffer, format="JPEG", quality=85 - index)
+                            img_bytes = buffer.getvalue()
+                            index += 5
 
-                    file_name = rec.barcode.zfill(8)
-                    zip_file.writestr(f"LF{file_name}.jpg", img_bytes)
+                        file_name = f"LF{rec.barcode.zfill(8)}"
+                    else:
+                        file_name = f"{rec.barcode}_[{rec.name}]"
+
+                    zip_file.writestr(f"{file_name}.jpg", img_bytes)
+
 
                     success_file += f"{rec.barcode}  [{width}x{height}]  {rec.name}   \n"
                     success_records += f"{rec.barcode}\n"
